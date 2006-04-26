@@ -1,0 +1,44 @@
+A FAIRE URGEMMENT :
+
+- quels caractères sont autorisés comme noms de bases dans mysql ?
+- Mettre la vue admin sur 3 colonnes au lieu de 2.
+
+A FAIRE : 
+
+- modification de la méthode de configuration d'apache: on doit
+   utiliser les outils wwwconfig-common, et nettoyer à la sortie
+
+- utiliser postconf pour configurer postfix
+
+- Package de gestion de dns secondaire (permettant d'installer X
+   serveur primaires maitres et configurer celui-là en esclave pour
+   eux avec Bind8/9) [en cours, benji]
+
+- Interface de gestion des ip autorisées en AXFR pour sécuriser le DNS
+   et éviter ce paramètre dans /etc/alternc/alternc.conf [en cours,
+   benji]
+
+* Documentations qu'il faudrait que l'on aie (idéalement...)
+
+** Utilisation d'AlternC : (sans développement)
+- Documentation utilisateur d'AlternC (pour ceux qui utilisent bêtement la bête en tant qu'utilisateur sans privilege)
+- Documentation Administrateur AlternC (pour ceux qui utilisent bêtement un compte root d'AlternC)
+- Documentation du mainteneur de serveur (pour ceux qui sont root sur le serveur)
+- Documentation de l'API (pour ceux qui veulent pouvoir personnaliser leur bureau, le piloter à distance etc.)
+
+** Développement d'AlternC :
+- Documentation développeur : comment est constitué AlternC, comment est organisé le développement, les
+fichiers, le CVS, etc.
+- Documentation de l'internationalisation : comment traduire le logiciel, les choses à faire attention etc.
+- Documentation de packaging : comment fait-on un paquet debian, maintenance, création, vis-à-vis d'AlternC etc.
+
+
+A faire plus tard (voire déjà fait...) :
+
+- Vérifier les variables globales définies avec "global" : certaines sont inutilisées
+
+- Mettre en place un "client" pour nagios/mrtg sur un AlternC (créer automatiquement le script de config et/ou autoriser les services des ports mrtg-x)
+- Mettre en place un systeme de backup des contenus hors /var/alternc (tel /var/lib/mailman, /etc/sympa, /etc/webalizer...) pour pouvoir tout copier dans /var/alternc et ainsi n'avoir à backuper que cette partition ?
+- Chercher les TODO et les résoudre ;)
+- vérifier do_domaines.sh : certains problèmes avec les changements de dns/nondns mx/nonmx
+

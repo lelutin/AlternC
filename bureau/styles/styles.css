@@ -1,0 +1,216 @@
+/* Styles balises */
+body {
+    font-family : "Bitstream Vera Sans", "Verdana", "sans serif";
+    font-size : 10pt;
+}
+/***********************************************/
+
+/* Styles ID */
+div#page {
+    width : 700px;
+    margin-left : auto;
+    margin-right : auto;
+    font-size : 8pt;
+}
+
+div#logo {
+    padding : 5px;
+}
+
+div#domaine {
+    padding : 5px;
+    background-color : #ba7800;
+    border : 1px solid #000;
+    -moz-border-radius-topleft : 10px; /* Pour mozilla */
+    -moz-border-radius-topright : 10px;
+    -moz-border-radius-bottomright : 10px;
+}
+
+div#domaine input[type=submit] {
+    border : 1px solid #000;
+    background-color : #eee;
+    font-size : 8pt; 
+    font-weight : bold;     
+}
+
+div#domaine select {
+    border : 1px solid #000;
+    font-size : 8pt;
+}
+
+div#contenu {
+
+}
+
+div#quota {
+    padding-top : 5px;
+    padding-left : 2px;
+    padding-bottom : 5px;
+    border-bottom : 1px dashed #000;
+    border-left : 1px dashed #000;
+    background-color : #eee; 
+    -moz-border-radius-bottomleft : 10px; /* Pour mozilla */
+}
+
+div#quota h4 {
+    background : url("../images/icons/quota_small.png") 0 0 no-repeat;
+    padding-left : 14px;
+}
+
+div#quota p {
+    font-size : 7pt;
+    padding-left : 20px; 
+}
+
+div#menu {
+    border-bottom : 1px dashed #999;
+}
+
+div#menu ul {
+    margin : 10px;
+    margin-right : 0;
+}
+
+div#menu li {
+    margin-left : 10px;
+    list-style-type : square;
+}
+
+div#menu a {
+    color : #000;
+}
+
+div#menu a:hover {
+    text-decoration : none;
+}
+
+div#sous-menu {
+    padding-top : 5px;
+    padding-bottom : 5px;
+    font-size : 7pt;
+}
+
+div#main {
+    padding : 5px;
+}
+
+div#main p {
+    padding-top : 5px;
+    padding-bottom : 5px;
+}
+
+div#main ul {
+    margin : 10px;
+}
+
+div#main li {
+    margin-left : 10px;
+}
+
+div#bottom {
+    padding : 5px;
+    margin-bottom : 5px;
+    background-color : #eee;
+    border : 1px solid #000;
+    text-align : center;
+    font-size : 7pt;
+    -moz-border-radius : 10px; /* Pour mozilla */
+}
+/***********************************************/
+
+/* Styles classe */
+p.justify {
+    text-align : justify;
+}
+
+h3.titre {
+    border-bottom : 1px solid #999;
+    margin-top : 10px;
+    margin-bottom : 5px;
+}
+
+img.titre-img {
+    float : left;
+}
+
+div.menu-actions {
+    text-align : right;
+    border-bottom : 1px solid #999;
+}
+
+.tblhome {
+    border : 1px solid #000;
+    border-bottom : none;
+}
+
+.tblhome td {
+    padding : 5px;
+    border-bottom : 1px solid #000;
+}
+
+.tblist {
+    border : 1px solid #000;   
+}
+
+.tblist th {
+    border-bottom : 1px solid #000;
+    background-color : #999;
+    color : #fff;
+}
+
+.barre-cote {
+    border-right : 1px solid #000;
+}
+
+.legend {
+    border : 1px solid #aaa;
+}
+
+.legend legend {
+    font-weight : bold;
+    padding-right : 20px; 
+}
+
+.legend label {
+    font-weight : bold;
+    border-bottom : 1px dotted #999; 
+}
+
+.legend input[type=text] {
+    border : 1px solid #000060;
+    background-color : #ffecc9;
+}
+
+.legend input[type=password] {
+    border : 1px solid #ff0000;
+    background-color : #ffecc9;
+}
+
+.legend button {
+    border : none;
+    background-color : #fff;
+}
+
+.menu-act {
+    background-color : #ba7800;
+    border : 1px solid #000; 
+    border-right : none; 
+    padding : 2px;
+}
+
+.menu-act a {
+    text-decoration : none;
+    color : #000;
+    font-weight : bold;
+}
+
+.menu-act a:hover {
+    text-decoration : none;
+    color : #000;
+    font-weight : bold;
+}
+
+.menu-dact {
+    color : #999;
+}
+/***********************************************/

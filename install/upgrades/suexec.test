@@ -1,0 +1,62 @@
+#! /bin/sh -e
+
+# this is a test script. to enable, rename to 1.0.sh (for example)
+
+# l'objectif ici est de:
+#
+# 1. modifier du propriétaire des fichiers des membres
+# 2. modification des quotas accordément (ie. ils sont aux usagers)
+# 3. modification du propriétaire des mails
+
+# On créé un groupe alternc qui sera propriétaire des fichiers, afin
+# qu'ils soient éditables du file manager. Le webserver roulera
+# normalement en www-data:www-data, comme tout bon webserver, sauf
+# dans la "section critique" (le bureau) où là il roulera en
+# alternc:alternc.
+
+. /etc/alternc/local.sh
+
+get_quota() {
+  pat='s/\//\\\//g'
+  ESC_PART=`echo $DATA_PART | sed -e $pat`
+  quota -g $1 | awk "/$ESC_PART/ {print \$3}"
+}
+
+USER=alternc
+GROUP=alternc
+
+echo addgroup --system $GROUP
+echo adduser --system --home /var/alternc/bureau --disabled-password --disabled-login --ingroup $GROUP --gecos "AlternC sandbox" $USER
+
+TMP=`mktemp`
+
+trap "rm -f $TMP" 1 2 15
+
+# 1. et 3.
+find /var/alternc/html /var/alternc/mail -maxdepth 2 -mindepth 2 | while read DIR
+do
+  owner=`ls -ld $DIR | awk '{print $4}'`
+  
+  cmd="chown -R $owner.$GROUP $DIR"
+  echo $cmd >&2 # debug
+# $cmd
+
+  # keep a list of users
+  echo $owner
+done > $TMP
+
+for owner in `sort -u $TMP`
+do
+  # 2. Quotas
+  quota=`get_quota $owner`
+  # reset group quotas
+  cmd="/usr/sbin/setquota -g $owner 0 0 0 0 $DATA_PART"
+  echo $cmd # debug
+# $cmd
+  # set user quotas
+  cmd="/usr/sbin/setquota -u $owner $quota $quota 0 0 $DATA_PART"
+  echo $cmd #debug
+# $cmd
+done
+
+rm -f $TMP

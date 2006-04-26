@@ -1,0 +1,11 @@
+Benjamin, 2004-08-27 12:15:00
+
+- Suppression de bind_slaves, remplacement par le systeme de slaves en bd pour les roots
+- Ajout dans le conf de dnsip, pour ceux situes derriere un routeur / firewall... et ayant donc des ips privees,
+  mais souhaitant annoncer des ip publiques dans le dns.
+- ajout du "warning_message" partout pour prevenir qu'il ne faut pas modifier les fichiers dans /etc/
+- ajout du lien symbolique du mysqld.sock (+ la doc MIGRATION.SARGE)
+
+- Correction des classes m_mail et m_dom pour appeler correctement les bonnes fonctions et creer les bonnes entrees dans mysql pour le mail
+- Test du mail, OK.
+
