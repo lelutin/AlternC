@@ -1,0 +1,7 @@
+Pour creer un alternc specifique a la sarge, on va retrouver differentes nouveautes comme suit : 
+
+- Le paquet squirrelmail est plus recent (1.2 => 1.4 ou 1.5) la configuration est bien differente.
+- Le paquet phpmyadmin aussi (idem)
+- Postfix passe en version 2.0, on peut donc remplacer le lien symbolique pour mysql par l'utilisation de la proxymap:
+	(chercher SARGETAG dans les fichiers alternc.install, my.cnf, main.cf et faire ce qu'il faut...)
+- apache separe desormais les fichiers de conf en plusieurs parties, suivre cette policy ...
