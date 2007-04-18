@@ -56,10 +56,8 @@ if($_POST["action"] == "add") {
     }
     include("adm_defquotas.php");
   }else{
-    include("head.php");
+    include_once("head.php");
     ?>
-    </head>
-    <body>
     <h3><?php printf(_("Deleting quota %s"),$_POST["type"]); ?> : </h3>
 
     <form action="adm_dodefquotas.php" method="post">
@@ -73,8 +71,10 @@ if($_POST["action"] == "add") {
         <input type="button" class="inb" name="cancel" value="<?php __("No"); ?>" onclick="document.location='adm_defquotas.php';" />
       </blockquote>
     </form>
-    </body>
-    </html>
+		<script type="text/javascript">
+		deploy("menu-adm");
+		</script>
+		<?php include_once("foot.php"); ?>
     <?php
   }
 } else if($_POST["action"] == "modify") {

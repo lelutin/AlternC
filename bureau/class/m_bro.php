@@ -90,23 +90,21 @@ class m_bro {
     // Sauvegarde du chemin de base.
     $root_alternc = $root ;
     // Passage du root en chemin réel (différent avec un lien)
-    $root=realpath($root) ;
-    // separer le chemin entre le repertoire et le fichier
-    $file = basename($dir);
-    $dir = dirname($dir);
+    $root=realpath($root);
+    $file=basename($dir);
+    $dir=dirname($dir);
     $dir=realpath($root."/".$dir);
-    // verifier que le repertoire est dans le home de l'usgaer
+
     if (substr($dir,0,strlen($root))!=$root) {
       return false;
-    } 
-    // recomposer le chemin
-    $dir = $dir . '/' . $file;
+    }
+    $dir=$dir."/".$file;
     if ($strip) {
       $dir=substr($dir,strlen($root));
     } else {
-      // si on ne strip pas, il faut enlever le chemin réel 
+      // si on ne strip pas, il faut enlever le chemin réel
       // et mettre la racine d'alternc pour éviter les
-      // problèmes de lien depuis /var/alternc ! 
+      // problèmes de lien depuis /var/alternc !
       $dir=$root_alternc . substr($dir,strlen($root));
     }
     if (substr($dir,-1)=="/") {
@@ -270,9 +268,11 @@ class m_bro {
     $absolute=$this->convertabsolute($dir."/".$file,0);
     if ($absolute && !file_exists($absolute)) {
       mkdir($absolute,00777);
-      $db->query("UPDATE browser SET crff=1 WHERE uid='$cuid';");
-      return true;
-    } else {
+			$db->query("UPDATE browser SET crff=1 WHERE uid='$cuid';");
+			return true;
+    }
+    else
+    {
       $err->raise("bro",1);
       return false;
     }
@@ -306,20 +306,20 @@ class m_bro {
    * @return boolean TRUE si les fichiers ont été effacés, FALSE si une erreur s'est produite.
    */
   function DeleteFile($file_list,$R) {
-    global $err, $mem;
-    $root=realpath("/var/alternc/html/".substr($mem->user["login"],0,1)."/".$mem->user["login"]);
-    $absolute=$this->convertabsolute($R,0);
-    if (!$absolute && strpos($root,$absolute) === 0 && strlen($absolute) > (strlen($root)+1) ) {
-      $err->raise("bro",1);
-      return false;
-    }
-    for ($i=0;$i<count($file_list);$i++) {
-      $file_list[$i]=ssla($file_list[$i]);
-      if (!strpos($file_list[$i],"/") && file_exists($absolute."/".$file_list[$i])) { // Character / forbidden in a FILE name
-	$this->_delete($absolute."/".$file_list[$i]);
-      }
-    }
-    return true;
+		global $err, $mem;
+		$root=realpath("/var/alternc/html/".substr($mem->user["login"],0,1)."/".$mem->user["login"]);
+		$absolute=$this->convertabsolute($R,0);
+		if (!$absolute && strpos($root,$absolute) === 0 && strlen($absolute) > (strlen($root)+1) ) {
+			$err->raise("bro",1);
+			return false;
+		}
+		for ($i=0;$i<count($file_list);$i++) {
+			$file_list[$i]=ssla($file_list[$i]);
+			if (!strpos($file_list[$i],"/") && file_exists($absolute."/".$file_list[$i])) { // Character / forbidden in a FILE name
+				$this->_delete($absolute."/".$file_list[$i]);
+			}
+		}
+		return true;
   }
 
   /* ----------------------------------------------------------------- */
@@ -378,7 +378,7 @@ class m_bro {
     }
     for ($i=0;$i<count($d);$i++) {
       $d[$i]=ssla($d[$i]); // strip slashes if needed
-      if (!strpos($d[$i],"/") && file_exists($old."/".$d[$i]) && !file_exists($new."/".$d[$i])) {  
+      if (!strpos($d[$i],"/") && file_exists($old."/".$d[$i]) && !file_exists($new."/".$d[$i])) {
         @rename($old."/".$d[$i],$new."/".$d[$i]);
       }
     }
@@ -408,7 +408,7 @@ class m_bro {
       } else {
 	$err->log("bro","uploadfile","Tentative d'attaque : ".$_FILES['userfile']['tmp_name']);
       }
-      // TODO delete this if it works :) 
+      // TODO delete this if it works :)
       // move_uploaded_file($_FILES['userfile']['tmp_name'], $absolute."/".$_FILES['userfile']['name']);
     }
   }
@@ -429,7 +429,7 @@ class m_bro {
     for($i=0;$i<count($a);$i++) {
       if ($a[$i]) {
 	$R.=$a[$i]."/";
-	$c.="<a href=\"$action?R=".urlencode($R)."\">".$a[$i]."</a>&nbsp;/&nbsp;";
+	$c.="<a href=\"$action?R=" . urlencode($R) . "\">".$a[$i]."</a>&nbsp;/&nbsp;";
       }
     }
     return $c;
@@ -658,7 +658,7 @@ class m_bro {
   /**
    * Exporte toutes les informations ftp du compte AlternC
    * @access private
-   * EXPERIMENTAL 'sid' function ;) 
+   * EXPERIMENTAL 'sid' function ;)
    */
   function alternc_export() {
     global $db,$err;
@@ -671,7 +671,7 @@ class m_bro {
       $str.="  </pref>\n";
     }
     $str.="</bro>\n";
-    
+
     return $str;
   }
 

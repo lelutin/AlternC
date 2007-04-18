@@ -28,16 +28,23 @@
  ----------------------------------------------------------------------
 */
 require_once("../class/config.php");
+include_once("head.php");
 
-if (!$res=$mail->get_mail_details($email)) {
-        $error=$err->errstr();
-        echo $error;
-}else{
+$fields = array (
+	"email"     => array ("request", "string", ""),
+	"domain"    => array ("request", "string", ""),
+);
+getFields($fields);
 
-include("head.php");
+if (!$res=$mail->get_mail_details($email))
+{
+	$error=$err->errstr();
+	echo $error;
+}
+else
+{
+
 ?>
-</head>
-<body>
 <h3><?php printf(_("Edit a mailbox of the domain %s"),"http://$domain"); ?> : </h3>
 <?php
 if ($error_edit) {
@@ -68,3 +75,7 @@ if ($error_edit) {
 <?php
 }
 ?>
+<script type="text/javascript">
+deploy("menu-mail");
+</script>
+<?php include_once("foot.php"); ?>

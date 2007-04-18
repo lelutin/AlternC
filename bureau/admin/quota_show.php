@@ -28,11 +28,9 @@
  ----------------------------------------------------------------------
 */
 require_once("../class/config.php");
+include_once("head.php");
 
-include("head.php");
 ?>
-</head>
-<body>
 <h3><?php __("Account's quotas"); ?> : </h3>
 <?php
 $q=$quota->getquota();
@@ -56,5 +54,4 @@ if (!is_array($q)) {
 	echo "</table>";
 }
 ?>
-</body>
-</html>
+<?php include_once("foot.php"); ?>

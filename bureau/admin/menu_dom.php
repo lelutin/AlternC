@@ -29,20 +29,35 @@
 */
 
 		/* ############# DOMAINES ############# */
-$q=$quota->getquota("dom");
-if ($q["t"]>0) { 
+$q = $quota->getquota("dom");
+
+if ($q["t"] > 0)
+{
+
 ?>
-<tr><td nowrap="nowrap">
-<?php __("Domains"); ?><br />
-	<?php if ($quota->cancreate("dom")) { ?>
-	- <a href="dom_add.php"><?php __("Add a domain"); ?></a><br />
-	<?php }
-	/* Enumeration des domaines : */
-	$domain=$dom->enum_domains();
-	reset($domain);
-	while (list($key,$val)=each($domain)) {
-	?>
-	- <a href="dom_edit.php?domain=<?php echo urlencode($val) ?>"><?php echo $val ?></a><br />
-<?php    }    ?>
-</td></tr>
-<?php   }   ?>
+<div class="menu-box">
+<div class="menu-title" id="test" onclick="javascript:deploy('menu-dom');">
+<script type="text/javascript">
+<!--
+	document.write('<img src="images/plus.png" alt="" style="float: right; padding: 4px; border: 0px;" id="img-menu-dom" />');
+//-->
+</script>
+<img src="images/dom.png" alt="<?php __("Domains"); ?>" />&nbsp;<?php __("Domains"); ?> (<?= $q["u"]; ?>/<?= $q["t"]; ?>)</div>
+<div class="menu-content" id="menu-dom">
+<ul>
+<?php if ($quota->cancreate("dom")) { ?>
+	<li><a href="dom_add.php"><img src="images/new.png" alt="<?php __("Add a domain"); ?>" /><?php __("Add a domain"); ?></a></li>
+<?php }
+
+/* Enumeration des domaines : */
+$domain = $dom->enum_domains();
+reset($domain);
+while (list($key, $val) = each($domain))
+{
+?>
+	<li><a href="dom_edit.php?domain=<?php echo urlencode($val) ?>"><?php echo $val ?></a></li>
+<?php } ?>
+</ul>
+</div>
+</div>
+<?php } ?>

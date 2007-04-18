@@ -28,6 +28,14 @@
  ----------------------------------------------------------------------
 */
 require_once("../class/config.php");
+include_once("head.php");
+
+$fields = array (
+	"domain"    => array ("request", "string", ""),
+	"dns"       => array ("request", "integer", 1),
+	"mx"        => array ("request", "string", ""),
+);
+getFields($fields);
 
 $dom->lock();
 if ($dns!="1") {
@@ -47,14 +55,10 @@ if (!$dom->edit_domain($domain,$dns,$mx)) {
 }
 $dom->unlock();
 
-include("head.php");
 ?>
-</head>
-<body>
 <h3><?php printf(_("Editing domain %s"),$domain); ?></h3>
 <p>
 <?php printf(_("The domain %s has been changed. The modifications will take effect in 5 minutes."),$domain); ?><br />
 <a href="login.php" target="_top"><?php __("Click here to continue"); ?></a>
 </p>
-</body>
-</html>
+<?php include_once("foot.php"); ?>

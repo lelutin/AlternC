@@ -50,15 +50,16 @@ if (!$id) {
 	}
 }
 
-include("head.php");
+include_once("head.php");
+
 ?>
-</head>
-<body>
 <div align="center"><h3><?php __("Editing an FTP account"); ?></h3></div>
 <?php
 	if ($error) {
-		echo "<p class=\"error\">$error</p></body></html>";
+		echo "<p class=\"error\">$error</p>";
 	}
 ?>
-</body>
-</html>
+<script type="text/javascript">
+deploy("menu-ftp");
+</script>
+<?php include_once("foot.php"); ?>

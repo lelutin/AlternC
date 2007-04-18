@@ -28,15 +28,11 @@
  ----------------------------------------------------------------------
 */
 require_once("../class/config.php");
-
+include_once("head.php");
 
 $r=$mysql->get_dblist();
 
-
-include("head.php");
 ?>
-</head>
-<body>
 <h3><?php __("MySQL Databases"); ?></h3>
 <?php
 	if ($error) {
@@ -89,7 +85,7 @@ for($i=0;$i<count($r);$i++) {
 <?php
 	} else {
   echo "<p>"._("help_sql_list_no")."</p>";
- 
+
 ?>
 <form method="post" action="sql_addmain.php">
 <table cellspacing="0" cellpadding="4">
@@ -100,9 +96,8 @@ for($i=0;$i<count($r);$i++) {
 	<tr><td><input type="submit" class="inb" name="submit" value="<?php __("Create my main database"); ?>" /></td></tr>
 </table>
 </form>
-<?php
-	}
-?>
-
-</body>
-</html>
+<?php } ?>
+<script type="text/javascript">
+deploy("menu-sql");
+</script>
+<?php include_once("foot.php"); ?>

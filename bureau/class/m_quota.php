@@ -165,11 +165,11 @@ class m_quota {
     if ($this->disk[$ressource]) {
       // It's a disk resource, update it with shell command
       exec("/usr/lib/alternc/quota_edit $cuid $size");
-      // Now we check that the value has been written properly : 
+      // Now we check that the value has been written properly :
       exec("/usr/lib/alternc/quota_get ".$cuid,$a);
       if ($size!=$a[1]) {
-	$err->raise("quota",1);
-	return false;
+				$err->raise("quota",1);
+				return false;
       }
     }
     // We check that this ressource exists for this client :
@@ -275,14 +275,17 @@ class m_quota {
    */
   function addtype($type) {
     global $db;
-    $qlist=$this->qlist();
+
+    $qlist = $this->qlist();
     reset($qlist);
+
     if(empty($type))
-	return false;
-    while (list($key,$val)=each($qlist)) {
-      if(!$db->query("INSERT IGNORE INTO defquotas (quota,type) VALUES('$key', '$type');")
-	 || $db->affected_rows() == 0)
-	return false;
+			return false;
+
+    while (list($key,$val)=each($qlist))
+    {
+			if (!$db->query("INSERT IGNORE INTO defquotas (quota,type) VALUES('$key', '$type');") || $db->affected_rows() == 0)
+				return false;
     }
     return true;
   }
@@ -370,7 +373,7 @@ class m_quota {
   /**
    * Exports all the quota related information for an account.
    * @access private
-   * EXPERIMENTAL 'sid' function ;) 
+   * EXPERIMENTAL 'sid' function ;)
    */
   function alternc_export($tmpdir) {
     global $db,$err;

@@ -29,29 +29,33 @@
 */
 require_once("../class/config.php");
 
-if (!is_array($d)) {
-        $d[]=$d;
+if (!is_array($d))
+{
+	$d[] = $d;
 }
 
-include("head.php");
+include_once("head.php");
+
 ?>
-
-</head>
-<body>
-<h3><?php __("Deleting mail accounts"); ?> : </h3>
-
+<h3><?php __("Deleting mail accounts"); ?></h3>
 <p>
 <?php
+
 reset($d);
-while (list($key,$val)=each($d)) {
-	if (!$mail->del_mail($val)) {
-		$error.=sprintf(_("The mailbox <b>%s</b> does not exist!")."<br />",$val); 
+while (list($key, $val) = each($d))
+{
+	if (!$mail->del_mail($val))
+	{
+		$error .= sprintf(_("The mailbox <b>%s</b> does not exist!") . "<br />", $val);
 		echo $error;
-	} else {
-		$error.=sprintf(_("The mailbox <b>%s</b> has been deleted!")."<br />",$val); 
-		echo $error;		
 	}
-list($ll,$dd)=explode("@",$val);
+	else
+	{
+		$error .= sprintf(_("The mailbox <b>%s</b> has been deleted!") . "<br />", $val);
+		echo $error;
+	}
+
+	list($ll, $dd) = explode("@", $val);
 }
 
 ?>
@@ -59,5 +63,11 @@ list($ll,$dd)=explode("@",$val);
 <p>
 <a href="mail_list.php?domain=<?php echo $dd; ?>"><?php __("Back to the mail account list"); ?></a>
 </p>
-</body>
-</html>
+<script type="text/javascript">
+deploy("menu-mail");
+</script>
+<?php
+
+include_once("foot.php");
+
+?>

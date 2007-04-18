@@ -29,7 +29,7 @@
 */
 require_once("../class/config.php");
 
-include("head.php");
+include_once("head.php");
 
 if ($help_setting) {
 	$mem->set_help_param($showhelp);
@@ -37,12 +37,11 @@ if ($help_setting) {
 }
 
 ?>
-</head>
-<body>
 <div align="center"><h3><?php __("Settings of your account"); ?></h3></div>
 <?php
 	if ($error) {
-		echo "<font color=red>$error</font></body></html>";
+		echo "<font color=red>$error</font>";
+		include_once("foot.php");
 		exit();
 	}
 ?>
@@ -95,7 +94,7 @@ if ($mem->user["su"]) {
 ?>
 <hr />
 <p>
-<?php __("Admin preferences"); ?> : 
+<?php __("Admin preferences"); ?> :
 </p>
 <form method="post" action="mem_admin.php">
 <table border="1" cellspacing="0" cellpadding="4">
@@ -109,5 +108,4 @@ if ($mem->user["su"]) {
 <p>&nbsp;</p>
 <?php } ?>
 <hr />
-</body>
-</html>
+<?php include_once("foot.php"); ?>

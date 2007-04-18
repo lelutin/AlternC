@@ -28,6 +28,13 @@
  ----------------------------------------------------------------------
 */
 require_once("../class/config.php");
+include_once("head.php");
+
+$fields = array (
+	"domain"    => array ("request", "string", ""),
+	"sub"       => array ("request", "string", ""),
+);
+getFields($fields);
 
 $dom->lock();
 if (!$r=$dom->get_sub_domain_all($domain,$sub)) {
@@ -35,14 +42,12 @@ if (!$r=$dom->get_sub_domain_all($domain,$sub)) {
 }
 $dom->unlock();
 
-include("head.php");
 ?>
-</head>
-<body>
 <h3>Edition du sous-domaine http://<?php ecif($sub,$sub."."); echo $domain; ?> : </h3>
 <?php
 	if ($error) {
-		echo "<p class=\"erroe\">$error</p></body></html>";
+		echo "<p class=\"erroe\">$error</p>";
+		include_once("foot.php");
 		exit();
 	}
 ?>
@@ -53,7 +58,7 @@ include("head.php");
 <h3>Sous-domaine http://<?php ecif($sub,$sub."."); echo $domain; ?></h3>
 <form action="dom_subdoedit.php" method="post" id="main" name="main">
 	<table border="0">
-	<tr> 
+	<tr>
 		<td>	<input type="hidden" name="domain" value="<?php echo $domain ?>" />
 	<input type="hidden" name="sub" value="<?php echo $sub ?>" />
 	<input type="hidden" name="action" value="edit" />
@@ -89,5 +94,7 @@ include("head.php");
 	</tr>
 	</table>
 </form>
-</body>
-</html>
+<script type="text/javascript">
+deploy("menu-dom");
+</script>
+<?php include_once("foot.php"); ?>

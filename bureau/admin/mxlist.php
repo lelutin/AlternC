@@ -24,24 +24,30 @@
  To read the license please visit http://www.gnu.org/copyleft/gpl.html
  ----------------------------------------------------------------------
  Original Author of file: Benjamin Sonntag
- Purpose of file: Returns the list of mx-hosted domains to a secondary mx 
+ Purpose of file: Returns the list of mx-hosted domains to a secondary mx
  ----------------------------------------------------------------------
 */
 require_once("../class/config_nochk.php");
 
 // Check for the http authentication
-if (!isset($_SERVER['PHP_AUTH_USER'])) {
- header('WWW-Authenticate: Basic realm="MX List Authentication"');
- header('HTTP/1.0 401 Unauthorized');
- exit;
- } else {
-	if ($mail->check_slave_account($_SERVER['PHP_AUTH_USER'],$_SERVER['PHP_AUTH_PW'])) {
+if (!isset($_SERVER['PHP_AUTH_USER']))
+{
+	header('WWW-Authenticate: Basic realm="MX List Authentication"');
+	header('HTTP/1.0 401 Unauthorized');
+	exit;
+}
+else
+{
+	if ($mail->check_slave_account($_SERVER['PHP_AUTH_USER'],$_SERVER['PHP_AUTH_PW']))
+	{
 		$mail->echo_domain_list();
-	} else {
- header('WWW-Authenticate: Basic realm="MX List Authentication"');
- header('HTTP/1.0 401 Unauthorized');
- exit;
 	}
-  }
+	else
+	{
+	header('WWW-Authenticate: Basic realm="MX List Authentication"');
+	header('HTTP/1.0 401 Unauthorized');
+	exit;
+	}
+ }
 
 ?>

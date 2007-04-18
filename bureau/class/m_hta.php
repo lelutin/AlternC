@@ -29,13 +29,13 @@
 */
 /**
 * Classe de gestion des dossiers protégés par .htaccess apache
-* 
+*
 * Cette classe permet de gérer les dossiers protégés par login/pass
 * par le système .htaccess d'apache.
 * Copyleft {@link http://alternc.net/ AlternC Team}
-* 
+*
 * @copyright    AlternC-Team 2002-11-01 http://alternc.net/
-* 
+*
 */
 class m_hta {
 
@@ -49,7 +49,7 @@ class m_hta {
   /*---------------------------------------------------------------------------*/
   /**
    * Crée un dossier à protéger (.htaccess et .htpasswd)
-   * @param string $dir Répertoire relatif au dossier de l'utilisateur 
+   * @param string $dir Répertoire relatif au dossier de l'utilisateur
    * @return boolean TRUE si le dossier a été protégé avec succès, FALSE sinon
    */
   function CreateDir($dir) {
@@ -81,7 +81,7 @@ class m_hta {
   /*---------------------------------------------------------------------------*/
   /**
    * Retourne la liste de tous les dossiers de l'utilisateur contenant un .htpasswd
-   * @return array Tableau contenant la liste des dossiers protégés de l'utilisateur 
+   * @return array Tableau contenant la liste des dossiers protégés de l'utilisateur
    */
   function ListDir() {
     global $err,$mem;
@@ -153,7 +153,7 @@ class m_hta {
 
   /*---------------------------------------------------------------------------*/
   /**
-   * Déprotège un dossier 
+   * Déprotège un dossier
    * @param string $dir Dossier à déprotéger
    * @return boolean TRUE si le dossier a été déprotégé, FALSE sinon
    */
@@ -178,10 +178,10 @@ class m_hta {
 
   /*---------------------------------------------------------------------------*/
   /**
-   * Ajoute un utilisateur à un dossier protégé. 
+   * Ajoute un utilisateur à un dossier protégé.
    * @param string $login Utilisateur à ajouter
    * @param string $password Mot de passe à ajouter (en clair)
-   * @param string $dir Dossier concerné 
+   * @param string $dir Dossier concerné
    * @return boolean TRUE si l'utilisateur a été ajouté avec succès, FALSE sinon
    */
   function add_user($user,$password,$dir) {
@@ -254,7 +254,7 @@ class m_hta {
   /*---------------------------------------------------------------------------*/
   /**
    * Change le mot de passe d'un utilisateur d'un dossier protégé.
-   * @param string $user Utilisateur dont on souhaite changer le mot de passe 
+   * @param string $user Utilisateur dont on souhaite changer le mot de passe
    * @param string $newpass Nouveau mot de passe de cet utilisateur
    * @param string $dir Dossier protégé concerné
    * @return boolean TRUE si le mot de passe a été changé avec succès, FALSE sinon
@@ -322,7 +322,7 @@ class m_hta {
       return false;
     }
     return true;
-  } 
+  }
 
 } /* CLASS m_webaccess */
 

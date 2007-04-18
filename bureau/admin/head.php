@@ -34,5 +34,12 @@
 <title>Bureau</title>
 <link rel="stylesheet" href="styles/style.css" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<script type="text/javascript" language="javascript" src="/admin/js/alternc.js">
-</script>
+<script type="text/javascript" src="/admin/js/alternc.js"></script>
+<script type="text/javascript" src="/admin/js/wz_dragdrop.js"></script>
+</head>
+<body>
+<div id="global">
+<table>
+<tr>
+<td id="tdMenu"><div id="menu"><?php include_once("menu.php"); ?></div></td>
+<td id="tdContent"><div id="content">

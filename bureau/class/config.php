@@ -28,13 +28,13 @@
  ----------------------------------------------------------------------
 */
 
-/* Toutes les pages du bureau passent ici. On utilise une sémaphore pour 
+/* Toutes les pages du bureau passent ici. On utilise une sémaphore pour
    s'assurer que personne ne pourra accéder à 2 pages du bureau en même temps.
 */
 
 /*
   Si vous voulez mettre le bureau en maintenance, décommentez le code ci-dessous
-  et mettez votre ip dans le IF pour que seule votre ip puisse accéder au bureau : 
+  et mettez votre ip dans le IF pour que seule votre ip puisse accéder au bureau :
 */
 
 /*
@@ -52,20 +52,20 @@ function alternc_shutdown() {
   global $alternc_sem;
   @sem_release( $alternc_sem );
 }
-// 3. Register the shutdown function 
+// 3. Register the shutdown function
 register_shutdown_function("alternc_shutdown");
-// 4. Acquire the semaphore : with that process, 
+// 4. Acquire the semaphore : with that process,
 sem_acquire( $alternc_sem );
 
 if (!get_magic_quotes_gpc()) {
   echo "MAGIC QUOTES GPC IS DISABLED ! It's a bug in your php4 configuration, please fix it !!";
   exit();
 }
+
 if (ini_get("safe_mode")) {
   echo "SAFE MODE IS ENABLED for the web panel ! It's a bug in your php4 or apache configuration, please fix it !!";
   exit();
 }
-
 
 /* PHPLIB inclusions : */
 $root="/var/alternc/bureau/";
@@ -77,17 +77,18 @@ require_once($root."class/local.php");
 
 require_once($root."class/db_mysql.php");
 require_once($root."class/functions.php");
+require_once($root."class/functions2.php");
 require_once($root."class/variables.php");
 
-// Redirection si appel à https://(!fqdn)/
-if ($_SERVER["HTTPS"]=="on" && $host!=$L_FQDN) {
-  header("Location: https://$L_FQDN/");
+// Redirection si appel https://(!fqdn)/
+if ($_SERVER["HTTPS"] == "on" && $host != $L_FQDN)
+{
+	header("Location: https://$L_FQDN/");
 }
-
 
 // Classe héritée de la classe db de la phplib.
 /**
-* Class for MySQL management in the bureau 
+* Class for MySQL management in the bureau
 *
 * This class heriting from the db class of the phplib manages
 * the connection to the MySQL database.
@@ -148,7 +149,7 @@ if (!defined('NOCHECK')) {
     include("index.php");
     exit();
   }
-} 
+}
 
 for($i=0;$i<count($classes);$i++) {
   if ($classes[$i]!="mem" && $classes[$i]!="err") {

@@ -30,7 +30,7 @@
 /**
  * MySQL user database management for AlternC.
  * This class manage user's databases in MySQL, and user's MySQL accounts.
- * 
+ *
  * @copyright    AlternC-Team 2002-2005 http://alternc.org/
  */
 class m_mysql {
@@ -58,7 +58,7 @@ class m_mysql {
   /*---------------------------------------------------------------------------*/
   /** Get the list of the database for the current user.
    * @return array returns an associative array as follow : <br>
-   *  "db" => database name "bck" => backup mode for this db 
+   *  "db" => database name "bck" => backup mode for this db
    *  "dir" => Backup folder.
    *  "size" => Size of the database (in bytes)
    *  Returns FALSE if the user has no database.
@@ -76,7 +76,7 @@ class m_mysql {
       list($dbu,$dbn)=split_mysql_database_name($db->f("db"));
       $c[]=array("db"=>$db->f("db"), "name"=>$dbn,"bck"=>$db->f("bck_mode"), "dir"=>$db->f("bck_dir"), "login"=>$db->f("login"), "pass"=>$db->f("pass"));
     }
-    
+
     /* find the size of each database */
     foreach ($c as $key => $val) {
       $c[$key]['size'] = $this->get_db_size($c[$key]['db']);
@@ -87,9 +87,9 @@ class m_mysql {
   /*---------------------------------------------------------------------------*/
   /** Returns the details of a user's database.
    * $dbn is the name of the database (after the _) or nothing for the database "$user"
-   * @return array returns an associative array as follow : 
-   *  "db" => Name of the database 
-   *  "bck" => Current bckup mode 
+   * @return array returns an associative array as follow :
+   *  "db" => Name of the database
+   *  "bck" => Current bckup mode
    *  "dir" => Backup directory
    *  "size" => Size of the database (in bytes)
    *  "pass" => Password of the user
@@ -117,7 +117,7 @@ class m_mysql {
   /*---------------------------------------------------------------------------*/
   /** Create a new database for the current user.
    * @param $dbn string Database name ($user_$dbn is the mysql db name)
-   * @return TRUE if the database $user_$db has been successfully created, or FALSE if 
+   * @return TRUE if the database $user_$db has been successfully created, or FALSE if
    * an error occured, such as over quota user.
    */
   function add_db($dbn) {
@@ -141,7 +141,7 @@ class m_mysql {
       $err->raise("mysql",3);
       return false;
     }
-    // find the login/pass for this user : 
+    // find the login/pass for this user :
     $db->query("SELECT login,pass FROM db WHERE uid='$cuid' LIMIT 0,1;");
     if (!$db->num_rows()) {
       $lo=$mem->user["login"];
@@ -167,14 +167,14 @@ class m_mysql {
   /*---------------------------------------------------------------------------*/
   /** Delete a database for the current user.
    * @param $dbn string Name of the database to delete. The db name is $user_$dbn
-   * @return TRUE if the database $user_$db has been successfully deleted, or FALSE if 
+   * @return TRUE if the database $user_$db has been successfully deleted, or FALSE if
    *  an error occured, such as db does not exist.
    */
   function del_db($dbn) {
     global $db,$err,$mem,$cuid;
     $err->log("mysql","del_db",$dbn);
 
-    $dbname=addslashes($mem->user["login"].($dbn?"_":"").$dbn);
+		$dbname=addslashes($mem->user["login"].($dbn?"_":"").$dbn);
     $db->query("SELECT login FROM db WHERE db='$dbname';");
     if (!$db->num_rows()) {
       $err->raise("mysql",4);
@@ -195,7 +195,7 @@ class m_mysql {
     }
     return true;
   }
-  
+
   /*---------------------------------------------------------------------------*/
   /** Set the backup parameters for the database $db
    * @param $db string database name
@@ -259,7 +259,7 @@ class m_mysql {
       $err->raise("mysql",8);
       return false;
     }
-    // Update all the "pass" fields for this user : 
+    // Update all the "pass" fields for this user :
     $db->query("UPDATE db SET pass='$password' WHERE uid='$cuid';");
     $db->query("SET PASSWORD FOR '$login'@'$this->client' = PASSWORD('$password')");
     return true;
@@ -296,24 +296,24 @@ class m_mysql {
   /* ----------------------------------------------------------------- */
   /** Restore a sql backup script on a user's database.
    */
-  function restore($file,$stdout,$id) { 
+  function restore($file,$stdout,$id) {
     global $err,$bro,$mem,$L_MYSQL_HOST;
-    if (!$r=$this->get_mysql_details($id)) { 
-      return false; 
-    } 
+    if (!$r=$this->get_mysql_details($id)) {
+      return false;
+    }
     if (!($fi=$bro->convertabsolute($file,0))) {
       $err->raise("mysql",9);
-      return false; 
+      return false;
     }
     if (substr($fi,-3)==".gz") {
-      $exe="/bin/gzip -d -c <".escapeshellarg($fi)." | /usr/bin/mysql -h".escapeshellarg($L_MYSQL_HOST)." -u".escapeshellarg($r["login"])." -p".escapeshellarg($r["pass"])." ".escapeshellarg($r["db"]); 
-    } elseif (substr($fi,-4)==".bz2") { 
-      $exe="/usr/bin/bunzip2 -d -c <".escapeshellarg($fi)." | /usr/bin/mysql -h".escapeshellarg($L_MYSQL_HOST)." -u".escapeshellarg($r["login"])." -p".escapeshellarg($r["pass"])." ".escapeshellarg($r["db"]); 
-    } else { 
-      $exe="/usr/bin/mysql -h".escapeshellarg($L_MYSQL_HOST)." -u".escapeshellarg($r["login"])." -p".escapeshellarg($r["pass"])." ".escapeshellarg($r["db"])." <".escapeshellarg($fi); 
+      $exe="/bin/gzip -d -c <".escapeshellarg($fi)." | /usr/bin/mysql -h".escapeshellarg($L_MYSQL_HOST)." -u".escapeshellarg($r["login"])." -p".escapeshellarg($r["pass"])." ".escapeshellarg($r["db"]);
+    } elseif (substr($fi,-4)==".bz2") {
+      $exe="/usr/bin/bunzip2 -d -c <".escapeshellarg($fi)." | /usr/bin/mysql -h".escapeshellarg($L_MYSQL_HOST)." -u".escapeshellarg($r["login"])." -p".escapeshellarg($r["pass"])." ".escapeshellarg($r["db"]);
+    } else {
+      $exe="/usr/bin/mysql -h".escapeshellarg($L_MYSQL_HOST)." -u".escapeshellarg($r["login"])." -p".escapeshellarg($r["pass"])." ".escapeshellarg($r["db"])." <".escapeshellarg($fi);
     }
     $exe .= " 2>&1";
-    
+
     echo "<code><pre>" ;
     if ($stdout) {
       passthru($exe,$ret);
@@ -327,7 +327,7 @@ class m_mysql {
       return true ;
     }
   }
-  
+
   /* ----------------------------------------------------------------- */
   /** Get size of a database
    * @param $dbname name of the database
@@ -345,7 +345,7 @@ class m_mysql {
    }
    return $size;
  }
-  
+
   /* ----------------------------------------------------------------- */
   /** Hook function called by the quota class to compute user used quota
    * Returns the used quota for the $name service for the current user.
@@ -395,7 +395,7 @@ class m_mysql {
   /**
    * Exporte toutes les informations mysql du compte.
    * @access private
-   * EXPERIMENTAL 'sid' function ;) 
+   * EXPERIMENTAL 'sid' function ;)
    */
   function alternc_export($tmpdir) {
     global $db,$err,$cuid;
@@ -406,7 +406,7 @@ class m_mysql {
       $str.="  <login>".xml_entities($db->Record["login"])."</login>";
       $str.="  <pass>".xml_entities($db->Record["pass"])."</pass>";
       do {
-	// Do the dump : 
+	// Do the dump :
 	$filename=$tmpdir."/mysql.".$db->Record["db"].".sql.gz";
 	exec("/usr/bin/mysqldump --add-drop-table --allow-keywords -Q -f -q -a -e -u".escapeshellarg($db->Record["login"])." -p".escapeshellarg($db->Record["pass"])." ".escapeshellarg($db->Record["db"])." |/bin/gzip >".escapeshellarg($filename));
 	$str.="  <db>\n";
@@ -445,10 +445,10 @@ class m_mysql {
   function add_user($usern,$password,$passconf) {
     global $db,$err,$quota,$mem,$cuid;
     $err->log("mysql","add_user",$usern);
-    
+
     $user=addslashes($mem->user["login"]."_$usern");
     $pass=addslashes($password);
-        
+
     if (!$quota->cancreate("mysql_users")) {
       $err->raise("mysql",13);
       return false;
@@ -457,7 +457,7 @@ class m_mysql {
       $err->raise("mysql",14);
       return false;
     }
-    
+
     if (strlen($user) > 16 || strlen($usern) == 0 ) {
       $err->raise("mysql",15);
       return false;
@@ -566,14 +566,14 @@ class m_mysql {
       }
     }
 
-    
+
     // On remet à zéro tous les droits de l'utilisateur
     $db->query("SELECT * FROM mysql.db WHERE User = '$usern' AND Db = '$dbname';");
     if($db->num_rows())
       $db->query("REVOKE ALL PRIVILEGES ON $dbname.* FROM '$usern'@'$this->client';");
     if( $strrights ){
       $strrights=substr($strrights,0,strlen($strrights)-1);
-      $db->query("GRANT $strrights ON $dbname.* TO '$usern'@'$this->client';");      
+      $db->query("GRANT $strrights ON $dbname.* TO '$usern'@'$this->client';");
     }
     $db->query("FLUSH PRIVILEGES");
     return TRUE;

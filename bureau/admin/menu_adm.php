@@ -32,15 +32,24 @@
 /* ######### SUPER-ADMIN ########## */
 /* ############################# */
 
-if ($mem->checkRight())
-{    ?>
-
-<tr><td nowrap>
-   <a href="adm_list.php"><font color="red"><?php __("Manage the members"); ?></font></a><br>
-   <a href="adm_panel.php"><font color="red"><?php __("Admin Control Panel"); ?></font></a><br>
-   <a href="/admin/sql/?server=2"><font color="red"><?php __("General SQL Admin"); ?></font></a><br>
-
-</td></tr>
-<?php
-	    }
-?>
+if ($mem->checkRight()) { ?>
+<div class="menu-box">
+<div class="menu-title" onclick="javascript:deploy('menu-adm');">
+<script type="text/javascript">
+<!--
+	document.write('<img src="images/plus.png" alt="" style="float: right; padding: 4px; border: 0px;" id="img-menu-adm" />');
+//-->
+</script>
+<img src="images/admin.png" alt="Administration" />&nbsp;<span style="color: red;">Administration</span></div>
+<div class="menu-content" id ="menu-adm">
+<ul>
+<li><a href="adm_list.php"><span style="color: red;"><?php __("Manage the members"); ?></span></a></li>
+<li><a href="quotas_users.php?mode=4"><span style="color: red;"><?php __("Quotas utilisateurs"); ?></span></a></li>
+<?php if ($cuid == 2000) { ?>
+<li><a href="adm_panel.php"><span style="color: red;"><?php __("Admin Control Panel"); ?></span></a></li>
+<li><a href="/admin/sql/?server=2"><span style="color: red;"><?php __("General SQL Admin"); ?></span></a></li>
+<?php } ?>
+</ul>
+</div>
+</div>
+<?php } ?>

@@ -37,10 +37,9 @@ if ($submit) {
 }
 $p=$bro->GetPrefs();
 
-include("head.php");
+include_once("head.php");
+
 ?>
-</head>
-<body>
 <?php if ($error) echo "<font color=\"red\">$error</font><br />"; ?>
 <h3><?php __("File editor preferences"); ?></h3>
 <form action="bro_pref.php" method="post">
@@ -134,10 +133,9 @@ for($i=0;$i<count($bro->l_icons);$i++) {
 ?></select></td></tr>
 
 </table>
-<p><input type="submit" name="submit" class="inb" value="<?php __("Change my settings"); ?>"></p>
+<p><input type="submit" name="submit" class="inb" value="<?php __("Change my settings"); ?>" /></p>
 
 </form>
 <p>&nbsp;</p>
 <a href="bro_main.php"><?php __("Back to the file browser"); ?></a>
-</body>
-</html>
+<?php include_once("foot.php"); ?>

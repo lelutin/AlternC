@@ -28,7 +28,6 @@
  ----------------------------------------------------------------------
 */
 ?>
-
-<tr><td nowrap="nowrap">
-<a href="http://doc.alternc.org/user/" target="help"><?php __("Online help"); ?></a><br />
-</td></tr>
+<div class="menu-box">
+<div class="menu-title"><img src="images/help.png" alt="<?php __("Online help"); ?>" />&nbsp;<a href="http://doc.alternc.org/user/" target="help"><?php __("Online help"); ?></a></div>
+</div>

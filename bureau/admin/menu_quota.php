@@ -28,6 +28,6 @@
  ----------------------------------------------------------------------
 */
 ?>
-<tr><td nowrap="nowrap">
-<a href="quota_show.php"><?php __("Show my quotas"); ?></a><br />
-</td></tr>
+<div class="menu-box">
+<div class="menu-title"><img src="images/quota.png" alt="<?php __("Show my quotas"); ?>" />&nbsp;<a href="quota_show.php"><?php __("Show my quotas"); ?></a></div>
+</div>

@@ -28,7 +28,9 @@
  ----------------------------------------------------------------------
 */
 ?>
-<tr><td nowrap="nowrap">
-<a href="mem_param.php"><?php __("Settings"); ?></a><br />
-<a href="mem_logout.php" target="_parent"><?php __("Logout"); ?></a><br />
-</td></tr>
+<div class="menu-box">
+<div class="menu-title"><img src="images/config.png" alt="<?php __("Settings"); ?>" />&nbsp;<a href="mem_param.php"><?php __("Settings"); ?></a></div>
+</div>
+<div class="menu-box">
+<div class="menu-title"><img src="images/exit.png" alt="<?php __("Logout"); ?>" />&nbsp;<a href="mem_logout.php" target="_parent"><?php __("Logout"); ?></a></div>
+</div>

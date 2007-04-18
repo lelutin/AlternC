@@ -28,76 +28,92 @@
  ----------------------------------------------------------------------
 */
 require_once("../class/config.php");
+include_once("head.php");
 
-include("head.php");
 ?>
-</head>
-<body>
 <h3><?php __("Quotas"); ?></h3>
-
-<p><a href="<?php echo $_SERVER["SCRIPT_NAME"]; ?>"><?php __("Update this page"); ?></a></p>
-
 <?php
 
 $quota_utilise = array();
 $tot = array();
 
 if ($mem->user['uid'] == "2000")
+{
   $user_list = $admin->get_list(1);
-else{
-  $user_list = $admin->get_list(0);
-  $user_list[] = $mem->user;
 }
-$class = ($class== 'lst1' ? 'lst2' : 'lst1');
-print "<table><tr class=\"$class\">";
-$ql = $quota->qlist();
-reset($ql);
-print "<td>"._("User")."</td>";
-$sequence = array();
-foreach ($ql as $key => $name) {
-  print "<td>$name</td>";
-  $sequence[] = $key;
-}
-print "</tr>";
-$u = array();
-foreach ($user_list as $user) {
-  $u[$user['uid']] = $user['login'];
-}
-asort($u);
-foreach ($u as $uid => $login) {
-  $class = ($class== 'lst1' ? 'lst2' : 'lst1');
-  print "<tr class=\"$class\"><td>";
-  print $login.'('.$uid.")</td>";
-  $mem->su($uid);
-  if (!($quots = $quota->getquota())) {
-    $error = $err->errstr();
-  }
-  foreach($sequence as $key) {
-    $q = $quots[$key];
-    if ($q['u'] > $q['t']) {
-      $style = ' style="color: red"';
-    } else {
-      $style = '';
-    }
-    $quota_utilise[$key] += $q['u']; 
-    $tot[$key]+= $q['t']; 
-    print "<td $style>".str_replace(" ", "&nbsp;", m_quota::display_val($key, $q['u']).'/'.m_quota::display_val($key, $q['t'])).'</td>';
-  }
-  print "</tr>";
-  $mem->unsu();
+else
+{
+	$user_list = $admin->get_list(0);
+	$user_list[] = $mem->user;
 }
 
-echo "<tr>";
-echo "<td $style><b>"._("Total")."</b></td>";
-foreach($sequence as $key) {
-  echo "<td $style><b>";
-  echo $quota_utilise[$key]."/".$tot[$key];
-  echo "</b></td>";
+$class = ($class== 'lst1' ? 'lst2' : 'lst1');
+echo "<table><tr class=\"$class\">";
+$ql = $quota->qlist();
+
+reset($ql);
+echo "<td>"._("User")."</td>";
+$sequence = array();
+foreach ($ql as $key => $name)
+{
+	echo "<td>" . $name . "</td>";
+	$sequence[] = $key;
 }
 echo "</tr>";
 
-print "</table>";
+$u = array();
+foreach ($user_list as $user)
+{
+	$u[$user['uid']] = $user['login'];
+}
+
+asort($u);
+foreach ($u as $uid => $login)
+{
+	$class = ($class== 'lst1' ? 'lst2' : 'lst1');
+	echo "<tr class=\"" . $class . "\"><td>";
+	echo $login . " (" . $uid . ")</td>";
+	$mem->su($uid);
+	if (!($quots = $quota->getquota()))
+	{
+		$error = $err->errstr();
+	}
+	foreach($sequence as $key)
+	{
+		$q = $quots[$key];
+		if ($q['u'] > $q['t'])
+		{
+			$style = ' style="color: red"';
+		}
+		else
+		{
+			$style = '';
+		}
+
+		$quota_utilise[$key] += $q['u'];
+		$tot[$key]+= $q['t'];
+
+		echo "<td $style>".str_replace(" ", "&nbsp;", m_quota::display_val($key, $q['u']).'/'.m_quota::display_val($key, $q['t'])).'</td>';
+	}
+
+	echo "</tr>";
+	$mem->unsu();
+}
+
+echo "<tr>";
+echo "<td " . $style . "><b>"._("Total")."</b></td>";
+foreach($sequence as $key)
+{
+	echo "<td " . $style . "><b>";
+	echo $quota_utilise[$key] . "/" . $tot[$key];
+	echo "</b></td>";
+}
+echo "</tr>";
+
+echo "</table>";
 
 ?>
-</body>
-</html>
+<script type="text/javascript">
+deploy("menu-adm");
+</script>
+<?php include_once("foot.php"); ?>

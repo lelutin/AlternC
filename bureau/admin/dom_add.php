@@ -29,12 +29,11 @@
 */
 require_once("../class/config.php");
 
-if (!isSet($dns)) $dns="1";
+include_once("head.php");
 
-include("head.php");
+if (!isset($dns)) $dns="1";
+
 ?>
-</head>
-<body onload="document.forms['main'].newdomain.focus();">
 <h3><?php __("Domain hosting"); ?></h3>
 <?php
 if (!$quota->cancreate("dom")) { ?>
@@ -68,5 +67,8 @@ if ($error) echo "<p class=\"error\">$error</p>";
 		echo "</pre>";
 	}
 ?>
-</body>
-</html>
+<script type="text/javascript">
+document.forms['main'].newdomain.focus();
+deploy("menu-dom");
+</script>
+<?php include_once("foot.php"); ?>

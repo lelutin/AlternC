@@ -42,16 +42,15 @@ if ($delaccount) {
 }
 if ($newlogin) {
 	// Add an account
-	if ($mail->add_slave_account($newlogin,$newpass)) { 
+	if ($mail->add_slave_account($newlogin,$newpass)) {
 		$error=_("The requested account address has been created. It is now allowed.");
 		unset($newlogin); unset($newpass);
 	}
 }
 
-include("head.php");
+include_once ("head.php");
+
 ?>
-</head>
-<body>
 <h3><?php __("Manage allowed accounts for secondary mx"); ?></h3>
 <?php
 	if ($error) {
@@ -98,5 +97,7 @@ for($i=0;$i<count($c);$i++) {
 </table>
 
 </form>
-</body>
-</html>
+<script type="text/javascript">
+deploy("menu-adm");
+</script>
+<?php include_once("foot.php"); ?>

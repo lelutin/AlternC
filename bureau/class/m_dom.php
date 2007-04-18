@@ -25,13 +25,13 @@ define('SLAVE_FLAG', "/var/run/alternc/refresh_slave");
 
 /**
 * Classe de gestion des domaines de l'hébergé.
-* 
+*
 * Cette classe permet de gérer les domaines / sous-domaines, redirections
 * dns et mx des domaines d'un membre hébergé.<br />
 * Copyleft {@link http://alternc.net/ AlternC Team}
-* 
+*
 * @copyright    AlternC-Team 2002-11-01 http://alternc.net/
-* 
+*
 */
 class m_dom {
 
@@ -262,7 +262,7 @@ class m_dom {
     $this->set_sub_domain($domain, 'mail', $this->type_webmail, 'add', '');
     // DEPENDANCE :
     // Lancement de add_dom sur les classes domain_sensitive :
-     // Declenchons les autres classes.    
+     // Declenchons les autres classes.
     foreach($classes as $c) {
       if (method_exists($GLOBALS[$c],"alternc_add_domain")) {
 	$GLOBALS[$c]->alternc_add_domain($domain);
@@ -422,9 +422,9 @@ class m_dom {
 /* e.g.
 Welcome to the .WS Whois Server
 
-Use of this service for any purpose other 
-than determining the availability of a domain 
-in the .WS TLD to be registered is strictly 
+Use of this service for any purpose other
+than determining the availability of a domain
+in the .WS TLD to be registered is strictly
 prohibited.
 
   Domain Name: DRONE.WS
@@ -445,9 +445,9 @@ failure:
 
 Welcome to the .WS Whois Server
 
-Use of this service for any purpose other 
-than determining the availability of a domain 
-in the .WS TLD to be registered is strictly 
+Use of this service for any purpose other
+than determining the availability of a domain
+in the .WS TLD to be registered is strictly
 prohibited.
 
 No match for "dronefdasfsa.ws".
@@ -480,16 +480,16 @@ No match for "dronefdasfsa.ws".
     }
   } // whois
 
-  /* ----------------------------------------------------------------- */
+	/* ----------------------------------------------------------------- */
   /**
    *  vérifie la presence d'un champs mx valide sur un serveur DNS
    *
   */
-  
+
   function checkmx($domaine,$mx) {
     //initialise variables
     $mxhosts = array();
-    
+
     //récupére les champs mx
     if (!getmxrr($domaine,$mxhosts)) {
       //aucune hôte mx spécifié
@@ -511,7 +511,7 @@ No match for "dronefdasfsa.ws".
       //définition de l'erreur selon reponse du parcours de mxhosts
       if ($bolmx == 0) {
         //aucun des champs MX ne correspond au serveur
-        return 2;          
+        return 2;
       }
       else {
         //un champ mx correct a été trouvé
@@ -519,9 +519,6 @@ No match for "dronefdasfsa.ws".
       }
     }
   } //checkmx
-
-
-
 
   /* ----------------------------------------------------------------- */
   /**
@@ -666,7 +663,6 @@ No match for "dronefdasfsa.ws".
     $dest=trim($dest);
     $dom=strtolower($dom);
     $sub=strtolower($sub);
-
     if (!(($sub == '*') || ($sub=="") || (preg_match('/([a-z0-9][\.\-a-z0-9]*)?[a-z0-9]/', $sub)))) {
       $err->raise("dom",24);
       return false;
@@ -820,19 +816,20 @@ No match for "dronefdasfsa.ws".
       $gesmx="1";
     else
       $gesmx="0";
-      
-    //si gestion mx uniquement, vérification du dns externe
-    if ($dns=="0" && $gesmx=="1") {
-      $vmx = checkmx($dom,$mx);
-      if ($vmx == 1) {
-        //aucun champ mx de spécifié sur le dns
-      }
-  
-      if ($vmx == 2) {
-        //serveur non spécifié parmi les champx mx
-      }
-    }
-      
+
+    //si gestion mx uniquement, verification du dns externe
+		if ($dns=="0" && $gesmx=="1") {
+			$vmx = $this->checkmx($dom,$mx);
+			if ($vmx == 1) {
+				//aucun champ mx de specifie sur le dns
+			}
+
+			if ($vmx == 2) {
+				//serveur non specifie parmi les champx mx
+			}
+		}
+
+
     // OK, des modifs ont été faites, on valide :
     // DEPENDANCE :
     if ($gesmx && !$r["mail"]) { // on a associé le MX : on cree donc l'entree dans LDAP
@@ -843,7 +840,7 @@ No match for "dronefdasfsa.ws".
 	}
       }
     }
-    
+
     if (!$gesmx && $r["mail"]) { // on a dissocié le MX : on détruit donc l'entree dans LDAP
       // Lancement de del_dom sur les classes domain_sensitive :
       foreach($classes as $c) {
@@ -852,13 +849,13 @@ No match for "dronefdasfsa.ws".
 	}
       }
     }
-    
+
     $db->query("update domaines set gesdns='$dns', mx='$mx', gesmx='$gesmx' where domaine='$dom'");
-    $db->query("insert into domaines_standby (compte,domaine,mx,gesdns,gesmx,action) values ('$cuid','$dom','$mx','$dns','$gesmx',1);"); 
+    $db->query("insert into domaines_standby (compte,domaine,mx,gesdns,gesmx,action) values ('$cuid','$dom','$mx','$dns','$gesmx',1);");
     // UPDATE
     return true;
   } // edit_domain
-  
+
 
 
   /****************************/
@@ -901,7 +898,7 @@ No match for "dronefdasfsa.ws".
 	$db->query("INSERT INTO slaveip (ip,class) VALUES ('$ip','$class');");
 	$f=fopen(SLAVE_FLAG,"w");
 	fputs($f,"yopla");
-	fclose($f);	
+	fclose($f);
 	return true;
   }
 
@@ -918,7 +915,7 @@ No match for "dronefdasfsa.ws".
 	$db->query("DELETE FROM slaveip WHERE ip='$ip'");
 	$f=fopen(SLAVE_FLAG,"w");
 	fputs($f,"yopla");
-	fclose($f);	
+	fclose($f);
 	return true;
   }
 
@@ -931,7 +928,7 @@ No match for "dronefdasfsa.ws".
   function check_slave_account($login,$pass) {
 	global $db,$err;
 	$db->query("SELECT * FROM slaveaccount WHERE login='$login' AND pass='$pass';");
-	if ($db->next_record()) { 
+	if ($db->next_record()) {
 		return true;
 	}
 	return false;
@@ -939,7 +936,7 @@ No match for "dronefdasfsa.ws".
 
   /* ----------------------------------------------------------------- */
   /**
-   * Out (echo) the complete hosted domain list : 
+   * Out (echo) the complete hosted domain list :
    */
   function echo_domain_list() {
 	global $db,$err;
@@ -952,7 +949,7 @@ No match for "dronefdasfsa.ws".
 
   /* ----------------------------------------------------------------- */
   /**
-   * Return the list of allowed slave accounts 
+   * Return the list of allowed slave accounts
    */
   function enum_slave_account() {
 	global $db,$err;
@@ -1069,7 +1066,7 @@ No match for "dronefdasfsa.ws".
   /**
    * Exporte toutes les informations domaine du compte.
    * @access private
-   * EXPERIMENTAL 'sid' function ;) 
+   * EXPERIMENTAL 'sid' function ;)
    */
   function alternc_export() {
     global $db,$err;

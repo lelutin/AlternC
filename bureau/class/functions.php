@@ -200,7 +200,7 @@ function checkuserpath($path) {
   $userpath = realpath("/var/alternc/html/$usar/$user");
   if(strpos($rpath,$userpath) === 0){
     if (is_dir("/var/alternc/html/$usar/$user$path")) {
-        return 1;
+      return 1;
     }
     if (is_file("/var/alternc/html/$usar/$user$path")) {
       return 2;
@@ -380,6 +380,5 @@ function duration_list($name, $selected=0) {
   $res .= '</select>';
   return $res;
 }
-
 
 ?>

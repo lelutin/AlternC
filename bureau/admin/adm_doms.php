@@ -34,10 +34,9 @@ if (!$admin->enabled) {
 	exit();
 }
 
-include("head.php");
+include_once ("head.php");
+
 ?>
-</head>
-<body>
 <h3><?php __("Manage installed domains"); ?></h3>
 <?php
 	if ($error) {
@@ -51,8 +50,6 @@ $c=$admin->dom_list();
 <?php __("Here is the list of the domains installed on this server. You can remove a domain if it does not exist or does not point to our server anymore. You can also set the 'Lock' flag on a domain so that the user will not be able to change any DNS parameter or delete this domain from his account."); ?>
 </p>
 
-<p><a href="<?php echo $_SERVER["SCRIPT_NAME"]; ?>"><?php __("Update this page"); ?></a></p>
-
 <form method="post" action="adm_dodom.php">
 <table border="0" cellpadding="4" cellspacing="0">
 <tr><th><?php __("Action"); ?></th><th><?php __("Domain"); ?></th><th><?php __("Member"); ?></th><th>Lock</th></tr>
@@ -63,7 +60,7 @@ for($i=0;$i<count($c);$i++) {
 ?>
 
 <tr class="lst<?php echo $col; ?>">
-<td><a href="adm_domlock.php?domain=<?php echo urlencode($c[$i][domaine]); ?>"><?php 
+<td><a href="adm_domlock.php?domain=<?php echo urlencode($c[$i][domaine]); ?>"><?php
    if ($c[$i][noerase]) __("Unlock"); else __("Lock");  ?></a></td>
 <td><?php echo $c[$i][domaine]; ?></td>
 <td><?php echo $c[$i][login]; ?></td>
@@ -76,6 +73,7 @@ for($i=0;$i<count($c);$i++) {
 ?>
 </table>
 </form>
-
-</body>
-</html>
+<script type="text/javascript">
+deploy("menu-adm");
+</script>
+<?php include_once("foot.php"); ?>

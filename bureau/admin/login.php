@@ -29,11 +29,15 @@
 */
 require_once("../class/config.php");
 
-if (!$mem->checkid()) {
-        $error=$err->errstr();
+if (!$mem->checkid())
+{
+	$error = $err->errstr();
 	include("index.php");
 	exit();
 }
+
+include("main.php");
+exit;
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">

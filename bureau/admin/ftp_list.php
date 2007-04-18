@@ -28,6 +28,12 @@
  ----------------------------------------------------------------------
 */
 require_once("../class/config.php");
+include_once("head.php");
+
+$fields = array (
+	"domain"    => array ("request", "string", ""),
+);
+getFields($fields);
 
 $noftp=false;
 if (!$r=$ftp->get_list($domain)) {
@@ -35,10 +41,7 @@ if (!$r=$ftp->get_list($domain)) {
 	$error=$err->errstr();
 }
 
-include("head.php");
 ?>
-</head>
-<body>
 <h3><?php __("FTP accounts list"); ?></h3>
 <?php
 	if ($noftp) {
@@ -46,8 +49,11 @@ include("head.php");
 	<p class="error"><?php echo $error ?></p>
 	<a href="ftp_add.php"><?php __("Create a new ftp account") ?></a><br />
 	<?php $mem->show_help("ftp_list_no"); ?>
-	</body></html>
+	<script type="text/javascript">
+	deploy("menu-ftp");
+	</script>
 <?php
+		include_once("foot.php");
 		exit();
 	}
 
@@ -67,7 +73,7 @@ while (list($key,$val)=each($r))
 ?>
 	<tr class="lst<?php echo $col; ?>">
 		<td align="center"><input type="checkbox" class="inc" id="del_<?php echo $val["id"]; ?>" name="del_<?php echo $val["id"]; ?>" value="<?php echo $val["id"]; ?>" /></td>
-		<td><a href="ftp_edit.php?id=<?php echo $val["id"] ?>"><?php __("Edit"); ?></a></td>
+		<td class="center"><a href="ftp_edit.php?id=<?php echo $val["id"] ?>"><img src="images/edit.png" alt="<?php __("Edit"); ?>" /></a></td>
 		<td><label for="del_<?php echo $val["id"]; ?>"><?php echo $val["login"] ?></label></td>
 		<td><code>/<?php echo $val["dir"] ?></code></td>
 	</tr>
@@ -86,5 +92,7 @@ while (list($key,$val)=each($r))
 
 $mem->show_help("ftp_list");
 ?>
-</body>
-</html>
+<script type="text/javascript">
+deploy("menu-ftp");
+</script>
+<?php include_once("foot.php"); ?>

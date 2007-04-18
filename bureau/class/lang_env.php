@@ -40,13 +40,13 @@ if (!$locales[$lang]) { // Requested language not found in locales
   }
 }
 
-if (!$locales[$lang]) $lang=$locales[0]; 
+if (!$locales[$lang]) $lang=$locales[0];
 
 if ($setlang && $lang) {
   setcookie("lang",$lang);
 }
 
-// User chose a non existent language, select the first available one 
+// User chose a non existent language, select the first available one
 
 
 /* Language ok, set the locale environment */
@@ -54,7 +54,7 @@ putenv("LC_MESSAGES=$lang");
 putenv("LANG=$lang");
 putenv("LANGUAGE=$lang");
 // this locale MUST be selected in "dpkg-reconfigure locales"
-setlocale(LC_ALL,$lang); 
+setlocale(LC_ALL,$lang);
 textdomain("alternc");
 
 ?>

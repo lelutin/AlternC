@@ -34,14 +34,20 @@ if (!$admin->enabled) {
 	exit();
 }
 
-include("head.php");
+include_once("head.php");
+
 ?>
-</head>
-<body>
 <h3><?php __("Admin Control Panel"); ?></h3>
 <?php
 	if ($error) {
-		echo "<p class=\"error\">$error</p></body></html>";
+		echo "<p class=\"error\">$error</p>";
+?>
+<script type="text/javascript">
+deploy("menu-adm");
+</script>
+<?php
+		include_once("foot.php");
+		exit;
 	}
 ?>
 <blockquote>
@@ -51,14 +57,14 @@ include("head.php");
 <tr class="lst1"><td><a href="adm_doms.php"><?php __("Manage installed domains"); ?></a></td></tr>
 <tr class="lst2"><td><a href="adm_slaveip.php"><?php __("Manage allowed ip for slave zone transfers"); ?></a></td></tr>
 <tr class="lst1"><td><a href="adm_slaveaccount.php"><?php __("Manage allowed accounts for slave zone transfers"); ?></a></td></tr>
-<tr class="lst1"><td><a href="adm_mxaccount.php"><?php __("Manage allowed accounts for secondary mx"); ?></a></td></tr>
-<tr class="lst2"><td><a href="adm_variables.php"><?php __("Configure AlternC variables"); ?></a></td></tr>
-<tr class="lst1"><td><a href="quota_show_all.php"><?php __("Show all quotas"); ?></a></td></tr>
+<tr class="lst2"><td><a href="adm_mxaccount.php"><?php __("Manage allowed accounts for secondary mx"); ?></a></td></tr>
+<tr class="lst1"><td><a href="adm_variables.php"><?php __("Configure AlternC variables"); ?></a></td></tr>
+<tr class="lst2"><td><a href="quota_show_all.php"><?php __("Show all quotas"); ?></a></td></tr>
 <?php
 
 // here we include any "adminmenu_*" file content
 $d=opendir(".");
-if ($d) { 
+if ($d) {
   $lst=1;
   while ($c=readdir($d)) {
     if (substr($c,0,10)=="adminmenu_") {
@@ -67,7 +73,7 @@ if ($d) {
       echo "</tr>\n";
       $lst=3-$lst;
     }
-  } 
+  }
 }
 
 closedir($d);
@@ -75,7 +81,7 @@ closedir($d);
 
 </table>
 </blockquote>
-</body>
-</html>
-
-
+<script type="text/javascript">
+deploy("menu-adm");
+</script>
+<?php include_once("foot.php"); ?>

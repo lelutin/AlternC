@@ -30,6 +30,6 @@
 
 /* ############# BROUTEUR ############# */
 ?>
-<tr><td nowrap="nowrap">
-<a href="bro_main.php"><?php __("File browser"); ?></a><br />
-</td></tr>
+<div class="menu-box">
+<div class="menu-title"><img src="images/folder.png" alt="<?php __("File browser"); ?>" />&nbsp;<a href="bro_main.php"><?php __("File browser"); ?></a></div>
+</div>

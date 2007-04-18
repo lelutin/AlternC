@@ -29,6 +29,7 @@
  ----------------------------------------------------------------------
 */
 require_once("../class/config.php");
+include_once ("head.php");
 
 $p=$bro->GetPrefs();
 if (!$R && $p["golastdir"]) {
@@ -39,15 +40,11 @@ $R=$bro->convertabsolute($R,1);
 if ($formu) {
   switch ($formu) {
   case 1:  // Créer le répertoire $R.$nomfich
-    if ($bro->CreateDir($R,$nomfich)) {
-      print $err->errstr();
-    }
+    $bro->CreateDir($R,$nomfich);
     $p=$bro->GetPrefs();
     break;
   case 6: // Créer le fichier $R.$nomfich
-    if (!$bro->CreateFile($R,$nomfich)) {
-      print $err->errstr();
-    }
+    $bro->CreateFile($R,$nomfich);
     $p=$bro->GetPrefs();
     if ($p["createfile"]==1) {
       $file=$nomfich;
@@ -57,50 +54,17 @@ if ($formu) {
     break;
   case 2:  // act vaut Supprimer Copier ou Renommer.
     if ($actdel) {
-      if($del_confirm == "y"){
-        if (!$bro->DeleteFile($d,$R)) {
-          print $err->errstr();
-        }
-      }else{
-        include("head.php");
-?>
-</head>
-<body>
-  <h3><?php printf(_("Deleting files and/or directories")); ?> : </h3>
-  <form action="bro_main.php" method="post">  
-    <input type="hidden" name="del_confirm" value="y" />
-    <input type="hidden" name="formu" value="2" />
-    <p class="error"><?php __("WARNING : Confirm the deletion of this files"); ?></p>
-<?php foreach($d as $file){ ?>
-	<p><?php echo stripslashes($file); ?></p>
-        <input type="hidden" name="d[]" value="<?php echo htmlentities(stripslashes($file)); ?>" />
-<?php } ?>
-    <blockquote>
-      <input type="submit" class="inb" name="actdel" value="<?php __("Yes"); ?>" />&nbsp;&nbsp;
-      <input type="button" class="inb" name="cancel" value="<?php __("No"); ?>" onclick="document.location='bro_main.php';" />
-    </blockquote>
-  </form>
-</body>
-</html>
-<?php
-        die();
-      }
+      $bro->DeleteFile($d,$R);
     }
     if ($actmove) {
-      if (!$bro->MoveFile($d,$R,$actmoveto)) {
-        print $err->errstr();
-      }
+      $bro->MoveFile($d,$R,$actmoveto);
     }
     break;
   case 4:  // Renommage Effectif...
-    if (!$bro->RenameFile($R,$o,$d)) { // Rename $R (directory) $o (old) $d (new) names
-      print $err->errstr();
-    }
+    $bro->RenameFile($R,$o,$d); // Rename $R (directory) $o (old) $d (new) names
     break;
   case 3:  // Upload de fichier...
-    if (!$bro->UploadFile($R)) {
-      print $err->errstr();
-    }
+    $bro->UploadFile($R);
     break;
   }
 }
@@ -109,21 +73,16 @@ if ($formu) {
 $c=$bro->filelist($R);
 if ($c===false) $error=$err->errstr();
 
-include("head.php");
 ?>
-</head>
-<body>
-
+<h3><?php __("File browser"); ?></h3>
 <table border="0" width="100%" cellspacing="0">
 <tr><td>
 
 <hr />
 <table width="100%"><tr><td valign="top">
 <a href="bro_main.php?R=/"><?php echo $mem->user["login"]; ?></a>&nbsp;/&nbsp;<?php echo $bro->PathList($R,"bro_main.php") ?><br />
-<small>
 <?php if ($error) echo "<font color=\"red\">$error</font>"; ?>
 </td><td valign="top" align="right">
-<h3><?php __("File browser"); ?></h3>
 
 <form action="bro_main.php" method="post" name="nn" id="nn">
 <input type="hidden" name="R" value="<?php echo $R; ?>" />
@@ -248,7 +207,7 @@ for($i=0;$i<round(count($c)/2);$i++) {
 $col=3-$col;
 echo "<tr class=\"lst$col\">\n";
 if ($c[$i]["type"]) {
-echo "	<td width=\"28\"><input type=\"checkbox\" class=\"inc\" name=\"d[]\" value=\"".$c[$i]["name"]."\" /></td><td><a href=\"";
+echo "	<td width=\"28\"><input type=\"checkbox\" class=\"inc\" name=\"d[]\" value=\"".htmlentities($c[$i]["name"])."\" /></td><td><a href=\"";
 echo "bro_editor.php?file=".urlencode($c[$i]["name"])."&amp;R=".urlencode($R);
 echo "\">".htmlentities($c[$i]["name"])."</a></td>\n";
 echo "	<td>".format_size($c[$i]["size"])."</td><td>";
@@ -260,7 +219,7 @@ echo "<td>&nbsp;";
 }
 echo "</td>\n";
 } else {
-echo "	<td width=\"28\"><input TYPE=checkbox class=\"inc\" name=\"d[]\" value=\"".$c[$i]["name"]."\"></td><td><b><a href=\"";
+echo "	<td width=\"28\"><input type=\"checkbox\" class=\"inc\" name=\"d[]\" value=\"".htmlentities($c[$i]["name"])."\" /></td><td><b><a href=\"";
 echo "bro_main.php?R=".urlencode($R."/".$c[$i]["name"]);
 echo "\">".htmlentities($c[$i]["name"])."/</a></b></td>\n";
 echo "	<td>".format_size($c[$i]["size"])."</td><td>";
@@ -278,7 +237,7 @@ for($i=round(count($c)/2);$i<count($c);$i++) {
 $col=3-$col;
 echo "<tr class=\"lst$col\">\n";
 if ($c[$i]["type"]) {
-echo "	<td width=\"28\"><input TYPE=checkbox class=\"inc\" name=\"d[]\" value=\"".$c[$i]["name"]."\"></td><td><a href=\"";
+echo "	<td width=\"28\"><input type=\"checkbox\" class=\"inc\" name=\"d[]\" value=\"".htmlentities($c[$i]["name"])."\" /></td><td><a href=\"";
 echo "bro_editor.php?file=".urlencode($c[$i]["name"])."&amp;R=".urlencode($R);
 echo "\">".htmlentities($c[$i]["name"])."</a></td>\n";
 echo "	<td>".format_size($c[$i]["size"])."</td><td>";
@@ -290,7 +249,7 @@ echo "<td>&nbsp;";
 }
 echo "</td>\n";
 } else {
-echo "	<td width=\"28\"><input TYPE=checkbox class=\"inc\" name=\"d[]\" value=\"".$c[$i]["name"]."\"></td><td><b><a href=\"";
+echo "	<td width=\"28\"><input type=\"checkbox\" class=\"inc\" name=\"d[]\" value=\"".htmlentities($c[$i]["name"])."\" /></td><td><b><a href=\"";
 echo "bro_main.php?R=".urlencode($R."/".$c[$i]["name"]);
 echo "\">".htmlentities($c[$i]["name"])."/</a></b></td>\n";
 echo "	<td>".format_size($c[$i]["size"])."</td><td>";
@@ -315,7 +274,7 @@ for($i=0;$i<round(count($c)/3);$i++) {
 $col=3-$col;
 echo "<tr class=\"lst$col\">\n";
 if ($c[$i]["type"]) {
-echo "	<td width=\"28\"><input TYPE=checkbox class=\"inc\" name=\"d[]\" value=\"".$c[$i]["name"]."\"></td><td><a href=\"";
+echo "	<td width=\"28\"><input type=\"checkbox\" class=\"inc\" name=\"d[]\" value=\"".htmlentities($c[$i]["name"])."\" /></td><td><a href=\"";
 echo "bro_editor.php?file=".urlencode($c[$i]["name"])."&amp;R=".urlencode($R);
 echo "\">".htmlentities($c[$i]["name"])."</a></td>\n";
 echo "	<td>".format_size($c[$i]["size"])."</td><td>";
@@ -327,7 +286,7 @@ echo "<td>&nbsp;";
 }
 echo "</td>\n";
 } else {
-echo "	<td width=\"28\"><input TYPE=checkbox class=\"inc\" name=\"d[]\" value=\"".$c[$i]["name"]."\"></td><td><b><a href=\"";
+echo "	<td width=\"28\"><input type=\"checkbox\" class=\"inc\" name=\"d[]\" value=\"".htmlentities($c[$i]["name"])."\" /></td><td><b><a href=\"";
 echo "bro_main.php?R=".urlencode($R."/".$c[$i]["name"]);
 echo "\">".htmlentities($c[$i]["name"])."/</a></b></td>\n";
 echo "	<td>".format_size($c[$i]["size"])."</td><td>";
@@ -345,7 +304,7 @@ for($i=round(count($c)/3);$i<round(2*count($c)/3);$i++) {
 $col=3-$col;
 echo "<tr class=\"lst$col\">\n";
 if ($c[$i]["type"]) {
-echo "	<td width=\"28\"><input TYPE=checkbox class=\"inc\" name=\"d[]\" value=\"".$c[$i]["name"]."\"></td><td><a href=\"";
+echo "	<td width=\"28\"><input type=\"checkbox\" class=\"inc\" name=\"d[]\" value=\"".htmlentities($c[$i]["name"])."\" /></td><td><a href=\"";
 echo "bro_editor.php?file=".urlencode($c[$i]["name"])."&amp;R=".urlencode($R);
 echo "\">".htmlentities($c[$i]["name"])."</a></td>\n";
 echo "	<td>".format_size($c[$i]["size"])."</td><td>";
@@ -358,7 +317,7 @@ echo "<td>&nbsp;";
 
 echo "</td>\n";
 } else {
-echo "	<td width=\"28\"><input TYPE=checkbox class=\"inc\" name=\"d[]\" value=\"".$c[$i]["name"]."\"></td><td><b><a href=\"";
+echo "	<td width=\"28\"><input type=\"checkbox\" class=\"inc\" name=\"d[]\" value=\"".htmlentities($c[$i]["name"])."\" /></td><td><b><a href=\"";
 echo "bro_main.php?R=".urlencode($R."/".$c[$i]["name"]);
 echo "\">".htmlentities($c[$i]["name"])."/</a></b></td>\n";
 echo "	<td>".format_size($c[$i]["size"])."</td><td>";
@@ -376,7 +335,7 @@ for($i=round(2*count($c)/3);$i<count($c);$i++) {
 $col=3-$col;
 echo "<tr class=\"lst$col\">\n";
 if ($c[$i]["type"]) {
-echo "	<td width=\"28\"><input TYPE=checkbox class=\"inc\" name=\"d[]\" value=\"".$c[$i]["name"]."\"></td><td><a href=\"";
+echo "	<td width=\"28\"><input TYPE=checkbox class=\"inc\" name=\"d[]\" value=\"".htmlentities($c[$i]["name"])."\" /></td><td><a href=\"";
 echo "bro_editor.php?file=".urlencode($c[$i]["name"])."&amp;R=".urlencode($R);
 echo "\">".htmlentities($c[$i]["name"])."</a></td>\n";
 echo "	<td>".format_size($c[$i]["size"])."</td><td>";
@@ -388,7 +347,7 @@ echo "<td>&nbsp;";
 }
 echo "</td>\n";
 } else {
-echo "	<td width=\"28\"><input TYPE=checkbox class=\"inc\"  name=\"d[]\" value=\"".$c[$i]["name"]."\"></td><td><b><a href=\"";
+echo "	<td width=\"28\"><input TYPE=checkbox class=\"inc\"  name=\"d[]\" value=\"".htmlentities($c[$i]["name"])."\" /></td><td><b><a href=\"";
 echo "bro_main.php?R=".urlencode($R."/".$c[$i]["name"]);
 echo "\">".htmlentities($c[$i]["name"])."/</a></b></td>\n";
 echo "	<td>".format_size($c[$i]["size"])."</td><td>";
@@ -405,7 +364,7 @@ break;
 }
 ?>
      </form>
-<?php 
+<?php
 	 } // is there any files here ?
 else {
   echo "<p class=\"error\">"._("No files in this folder")."</p>";
@@ -449,6 +408,4 @@ echo "<a href=\"hta_add.php?value=$R\">"._("Click here to protect this folder wi
 <a href="bro_pref.php"><?php __("Configure the file browser"); ?></a><br />
 
 </td></tr></table>
-
-</body>
-</html>
+<?php include_once("foot.php"); ?>

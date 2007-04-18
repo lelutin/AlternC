@@ -30,19 +30,19 @@
  ----------------------------------------------------------------------
 */
 require_once("../class/config.php");
+include_once("head.php");
 
 if (!$admin->enabled) {
 	__("This page is restricted to authorized staff");
 	exit();
 }
 
-if (!isset($canpass)) $canpass=1;
-
-include("head.php");
+$fields = array (
+	"canpass"   => array ("request", "integer", 1),
+);
+getFields($fields);
 
 ?>
-</head>
-<body>
 <h3><?php __("New member"); ?></h3>
 <?php
 if ($error) {
@@ -65,7 +65,7 @@ if ($error) {
 <tr>
 	<th><label for="canpass"><?php __("Can he change its password"); ?></label></th>
 	<td><select class="inl" name="canpass" id="canpass">
-	<?php 
+	<?php
 	for($i=0;$i<count($bro->l_icons);$i++) {
 	  echo "<option";
 	  if ($canpass==$i) echo " selected=\"selected\"";
@@ -99,7 +99,7 @@ if ($error) {
 <? if (variable_get('hosting_tld')) { ?>
 <tr>
 	<th colspan="2"><label><input type="checkbox" name="create_dom" value="1" />
-	<?php printf(_("Create the domain <b>username.%s</b>"),variable_get('hosting_tld')); ?></label></th>
+	<?php print _("Create the domain username.").variable_get('hosting_tld'); ?></label></th>
 	</tr>
 <tr>
 <? } ?>
@@ -107,6 +107,7 @@ if ($error) {
 </tr>
 </table>
 </form>
-
-</body>
-</html>
+<script type="text/javascript">
+deploy("menu-adm");
+</script>
+<?php include_once("foot.php"); ?>

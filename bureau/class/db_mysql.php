@@ -8,10 +8,10 @@
  *
  * $Id: db_mysql.php,v 1.3 2005/03/05 16:27:30 said Exp $
  *
- */ 
+ */
 
 class DB_Sql {
-  
+
   /* public: connection parameters */
   var $Host     = "";
   var $Database = "";
@@ -39,11 +39,11 @@ class DB_Sql {
   /* private: link and query handles */
   var $Link_ID  = 0;
   var $Query_ID = 0;
-  
+
 
 
   /**
-  * Constructor 
+  * Constructor
   */
   function DB_Sql($query = "") {
       $this->query($query);
@@ -85,10 +85,10 @@ class DB_Sql {
       $User     = $this->User;
     if ("" == $Password)
       $Password = $this->Password;
-      
+
     /* establish connection, select database */
     if ( 0 == $this->Link_ID ) {
-    
+
       $this->Link_ID=mysql_pconnect($Host, $User, $Password);
       if (!$this->Link_ID) {
         $this->halt("pconnect($Host, $User, \$Password) failed.");
@@ -100,12 +100,12 @@ class DB_Sql {
         return 0;
       }
     }
-    
+
     return $this->Link_ID;
   }
 
   /**
-  * Discard the query result 
+  * Discard the query result
   *
   * This function discards the last query result.
   */
@@ -114,12 +114,12 @@ class DB_Sql {
       $this->Query_ID = 0;
   }
 
-  /** 
-  * Perform a query 
-  * 
+  /**
+  * Perform a query
+  *
   * This function performs the MySQL query described in the string parameter
   *
-  * @param a string describing the MySQL query   
+  * @param a string describing the MySQL query
   * @return the $Query_ID class variable (null if fails)
   */
   function query($Query_String) {
@@ -156,7 +156,7 @@ class DB_Sql {
   }
 
   /**
-  * walk result set 
+  * walk result set
   *
   * This function tests if a new record is available in the current
   * query result.
@@ -183,7 +183,7 @@ class DB_Sql {
 
   /**
   *
-  * public: position in result set 
+  * public: position in result set
   */
 
   function seek($pos = 0) {
@@ -193,7 +193,7 @@ class DB_Sql {
     else {
       $this->halt("seek($pos) failed: result has ".$this->num_rows()." rows");
 
-      /* half assed attempt to save the day, 
+      /* half assed attempt to save the day,
        * but do not consider this documented or even
        * desireable behaviour.
        */
@@ -208,7 +208,7 @@ class DB_Sql {
   /* public: table locking */
   function lock($table, $mode="write") {
     $this->connect();
-    
+
     $query="lock tables ";
     if (is_array($table)) {
       while (list($key,$value)=each($table)) {
@@ -229,7 +229,7 @@ class DB_Sql {
     }
     return $res;
   }
-  
+
   function unlock() {
     $this->connect();
 
@@ -287,7 +287,7 @@ class DB_Sql {
                 $seq_name);
       $id  = @mysql_query($q, $this->Link_ID);
       $res = @mysql_fetch_array($id);
-      
+
       /* No current value, make one */
       if (!is_array($res)) {
         $currentid = 0;
@@ -353,11 +353,11 @@ class DB_Sql {
       if (!$id)
         $this->halt("Metadata query failed.");
     } else {
-      $id = $this->Query_ID; 
+      $id = $this->Query_ID;
       if (!$id)
         $this->halt("No query specified.");
     }
- 
+
     $count = @mysql_num_fields($id);
 
     // made this IF due to performance (one if is faster than $count if's)
@@ -371,7 +371,7 @@ class DB_Sql {
       }
     } else { // full
       $res["num_fields"]= $count;
-    
+
       for ($i=0; $i<$count; $i++) {
         $res[$i]["table"] = @mysql_field_table ($id, $i);
         $res[$i]["name"]  = @mysql_field_name  ($id, $i);
@@ -390,13 +390,13 @@ class DB_Sql {
 /********************************************************************************************************/
 // AJOUT PERSO : TEST
 
-/* public: return table metadata 
+/* public: return table metadata
   function retourneNameField($this->Query_ID,$full=false) {
     $count = 0;
     $id    = 0;
     $res   = array();
 
-    
+
     $count = @mysql_num_fields($this->Query_ID);
 
     // made this IF due to performance (one if is faster than $count if's)
@@ -410,7 +410,7 @@ class DB_Sql {
       }
     } else { // full
       $res["num_fields"]= $count;
-    
+
       for ($i=0; $i<$count; $i++) {
         $res[$i]["table"] = @mysql_field_table ($id, $i);
         $res[$i]["name"]  = @mysql_field_name  ($id, $i);
@@ -420,7 +420,7 @@ class DB_Sql {
         $res["meta"][$res[$i]["name"]] = $i;
       }
     }
-    
+
     // free the result only if we were called on a table
     if ($table) @mysql_free_result($id);
     return $res;

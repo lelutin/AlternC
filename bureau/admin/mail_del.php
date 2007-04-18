@@ -29,17 +29,16 @@
 */
 require_once("../class/config.php");
 
-if (!is_array($d)) {
-        $d[]=$d;
+if (!is_array($d))
+{
+	$d[] = $d;
 }
-
 reset($d);
 
-include("head.php");
+include_once ("head.php");
+
 ?>
-</head>
-<body>
-<h3><?php __("Deleting mail accounts"); ?> : </h3>
+<h3><?php __("Deleting mail accounts"); ?></h3>
 <p><?php __("Please confirm the deletion of the following mail accounts:"); ?></p>
 
 <form method="post" action="mail_dodel.php" id="main">
@@ -47,9 +46,10 @@ include("head.php");
 <p>
 <?php
 
-while (list($key,$val)=each($d)) {
-  echo "<input type=\"hidden\" name=\"d[]\" value=\"$val\" />";
-  echo $val."<br />";
+while (list($key,$val) = each($d))
+{
+  echo "<input type=\"hidden\" name=\"d[]\" value=\"" . $val . "\" />";
+  echo $val . "<br />";
 }
 
 ?>
@@ -57,6 +57,11 @@ while (list($key,$val)=each($d)) {
 <p><input type="submit" class="inb" name="submit" value="<?php __("Delete the selected mailboxes"); ?>" /> - <input type="button" name="cancel" id="cancel" onclick="window.history.go(-1);" class="inb" value="<?php __("Don't delete accounts and go back to the mail list"); ?>"/>
 </p>
 
-</form>
-</body>
-</html>
+<script type="text/javascript">
+deploy("menu-mail");
+</script>
+<?php
+
+include_once("foot.php");
+
+?>

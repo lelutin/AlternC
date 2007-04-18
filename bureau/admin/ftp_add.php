@@ -28,21 +28,25 @@
  ----------------------------------------------------------------------
 */
 require_once("../class/config.php");
+include_once("head.php");
 
 if (!$quota->cancreate("ftp")) {
 	$error=_("You cannot add any new ftp account, your quota is over.");
 	$fatal=1;
 }
-include("head.php");
+
 ?>
-</head>
-<body>
 <h3><?php __("Create a new ftp account"); ?></h3>
 <?php
 	if ($error) {
 		echo "<p class=\"error\">$error</p>";
-		if ($fatal) { 
-			echo "</body></html>";
+		if ($fatal) {
+?>
+<script type="text/javascript">
+deploy("menu-ftp");
+</script>
+<?php include_once("foot.php"); ?>
+<?php
 			exit();
 		}
 	}
@@ -66,5 +70,7 @@ include("head.php");
 </table>
 </form>
 <?php $mem->show_help("ftp_add"); ?>
-</body>
-</html>
+<script type="text/javascript">
+deploy("menu-ftp");
+</script>
+<?php include_once("foot.php"); ?>

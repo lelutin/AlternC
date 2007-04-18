@@ -28,15 +28,18 @@
  ----------------------------------------------------------------------
 */
 require_once("../class/config.php");
+include_once("head.php");
 
-include("head.php");
+$fields = array (
+	"id"     => array ("request", "string", ""),
+);
+getFields($fields);
+
 if (!$r=$mysql->get_mysql_details($id)) {
 	$error=$err->errstr();
 }
 
 ?>
-</head>
-<body>
 <h3><?php __("MySQL Databases"); ?></h3>
 <?php
 	if ($error) {
@@ -71,5 +74,7 @@ __("You currently have no database defined");
 
 	}
 ?>
-</body>
-</html>
+<script type="text/javascript">
+deploy("menu-sql");
+</script>
+<?php include_once("foot.php"); ?>

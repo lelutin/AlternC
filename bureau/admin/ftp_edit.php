@@ -28,6 +28,12 @@
  ----------------------------------------------------------------------
 */
 require_once("../class/config.php");
+include_once("head.php");
+
+$fields = array (
+	"id"    => array ("request", "integer", ""),
+);
+getFields($fields);
 
 if (!$id) {
 	$error=_("No account selected!");
@@ -38,14 +44,12 @@ if (!$id) {
 	}
 }
 
-include("head.php");
 ?>
-</head>
-<body>
 <h3><?php __("Editing an FTP account"); ?></h3>
 <?php
 	if ($error) {
-		echo "<p class=\"error\">$error</p></body></html>";
+		echo "<p class=\"error\">$error</p>";
+		include_once("foot.php");
 		exit();
 	}
 ?>
@@ -69,5 +73,7 @@ include("head.php");
 <tr><td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Change this FTP account"); ?>" /></td></tr>
 </table>
 </form>
-</body>
-</html>
+<script type="text/javascript">
+deploy("menu-ftp");
+</script>
+<?php include_once("foot.php"); ?>

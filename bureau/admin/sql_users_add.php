@@ -28,22 +28,25 @@
  ----------------------------------------------------------------------
 */
 require_once("../class/config.php");
-
+include_once("head.php");
 
 if (!$quota->cancreate("mysql_users")) {
 	$error=_("err_mysql_20");
 	$fatal=1;
 }
-include("head.php");
+
 ?>
-</head>
-<body>
 <h3><?php __("Create a new MySQL user"); ?></h3>
 <?php
 	if ($error) {
 		echo "<p class=\"error\">$error</p>";
-		if ($fatal) { 
-			echo "</body></html>";
+		if ($fatal) {
+?>
+<script type="text/javascript">
+deploy("menu-sql");
+</script>
+<?php include_once("foot.php"); ?>
+<?php
 			exit();
 		}
 	}
@@ -66,6 +69,7 @@ include("head.php");
 <tr><td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Create this new user"); ?>" /></td></tr>
 </table>
 </form>
-
-</body>
-</html>
+<script type="text/javascript">
+deploy("menu-sql");
+</script>
+<?php include_once("foot.php"); ?>

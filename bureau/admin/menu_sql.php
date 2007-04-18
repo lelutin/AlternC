@@ -27,15 +27,23 @@
  Purpose of file:
  ----------------------------------------------------------------------
 */
-$r=$quota->getquota("mysql");
-if ($r["t"]) {
+$q = $quota->getquota("mysql");
+if ($q["t"]) {
 ?>
-<tr><td nowrap="nowrap">
-MySQL<br />
-	- <a href="sql_users_list.php"><?php __("MySQL Users") ?></a><br />
-	- <a href="sql_list.php"><?php __("Databases"); ?></a><br />
-	- <a target="_blank" href="sql_admin.php"><?php __("SQL Admin"); ?></a><br />
-</td></tr>
-<?php
-	}
-?>
+<div class="menu-box">
+<div class="menu-title" onclick="javascript:deploy('menu-sql');">
+<script type="text/javascript">
+<!--
+	document.write('<img src="images/plus.png" alt="" style="float: right; padding: 4px; border: 0px;" id="img-menu-sql" />');
+//-->
+</script>
+<img src="images/mysql.png" alt="MySQL" />&nbsp;MySQL (<?= $q["u"]; ?>/<?= $q["t"]; ?>)</div>
+<div class="menu-content" id="menu-sql">
+<ul>
+<li><a href="sql_users_list.php"><?php __("MySQL Users") ?></a></li>
+<li><a href="sql_list.php"><?php __("Databases"); ?></a></li>
+<li><a target="_blank" href="sql_admin.php"><?php __("SQL Admin"); ?></a></li>
+</ul>
+</div>
+</div>
+<?php } ?>

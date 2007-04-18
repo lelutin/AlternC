@@ -28,7 +28,7 @@
  ----------------------------------------------------------------------
 */
 require_once("../class/config.php");
-
+// include_once ("head.php");
 
 if (!$r=$mysql->get_dblist()) {
 	$error=$err->errstr();
@@ -40,13 +40,17 @@ if (!$r=$mysql->get_dblist()) {
 	header("Location: /admin/sql/index.php?server=1$l");
 	exit();
 }
-include("head.php");
+
+include_once("head.php");
+
 ?>
-</head>
-<body>
 <h3><?php __("SQL Admin"); ?></h3>
 <?php
 	if ($error) {
-		echo "<p class=\"error\#>$error</p></body></html>";
+		echo "<p class=\"error\">$error</p>";
 	}
 ?>
+<script type="text/javascript">
+deploy("menu-sql");
+</script>
+<?php include_once("foot.php"); ?>
