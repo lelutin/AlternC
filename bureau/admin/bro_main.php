@@ -40,11 +40,15 @@ $R=$bro->convertabsolute($R,1);
 if ($formu) {
   switch ($formu) {
   case 1:  // Créer le répertoire $R.$nomfich
-    $bro->CreateDir($R,$nomfich);
+    if (!$bro->CreateDir($R,$nomfich)) {
+      echo $err->errstr();
+    }
     $p=$bro->GetPrefs();
     break;
   case 6: // Créer le fichier $R.$nomfich
-    $bro->CreateFile($R,$nomfich);
+    if (!$bro->CreateFile($R,$nomfich)) {
+      echo $err->errstr();
+    }
     $p=$bro->GetPrefs();
     if ($p["createfile"]==1) {
       $file=$nomfich;
@@ -54,18 +58,51 @@ if ($formu) {
     break;
   case 2:  // act vaut Supprimer Copier ou Renommer.
     if ($actdel) {
-      $bro->DeleteFile($d,$R);
+      if($del_confirm == _("Yes")) {
+        if (!$bro->DeleteFile($d,$R)) {
+          print $err->errstr();
+        }
+      }
+      else if (!$cancel)
+      {
+
+?>
+  <h3><?php printf(_("Deleting files and/or directories")); ?></h3>
+  <form action="bro_main.php" method="post">
+    <input type="hidden" name="formu" value="2" />
+    <input type="hidden" name="actdel" value="1" />
+    <input type="hidden" name="R" value="<?php echo $R?>" />
+    <p class="error"><?php __("WARNING : Confirm the deletion of this files"); ?></p>
+<?php foreach($d as $file){ ?>
+	<p><?php echo stripslashes($file); ?></p>
+        <input type="hidden" name="d[]" value="<?php echo htmlentities(stripslashes($file)); ?>" />
+<?php } ?>
+    <blockquote>
+      <input type="submit" class="inb" name="del_confirm" value="<?php __("Yes"); ?>" />&nbsp;&nbsp;
+      <input type="submit" class="inb" name="cancel" value="<?php __("No"); ?>" />
+    </blockquote>
+  </form>
+<?php
+				include_once("foot.php");
+        die();
+      }
     }
     if ($actmove) {
-      $bro->MoveFile($d,$R,$actmoveto);
+      if (!$bro->MoveFile($d,$R,$actmoveto)) {
+        echo $err->errstr();
+      }
     }
     break;
   case 4:  // Renommage Effectif...
-    $bro->RenameFile($R,$o,$d); // Rename $R (directory) $o (old) $d (new) names
+    if (!$bro->RenameFile($R,$o,$d)) { // Rename $R (directory) $o (old) $d (new) names
+      echo $err->errstr();
+    }
     break;
   case 3:  // Upload de fichier...
-    $bro->UploadFile($R);
-    break;
+    if (!$bro->UploadFile($R)) {
+      echo $err->errstr();
+    }
+		break;
   }
 }
 

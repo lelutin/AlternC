@@ -108,7 +108,7 @@ class m_mail {
     if($letter == "@")
 			$letter = "";
     else
-			$letter = "%$letter";
+			$letter .= "%";
     $db->query("SELECT mail,pop,alias FROM mail_domain WHERE mail LIKE '".addslashes($letter)."@".addslashes($dom)."' AND uid='$cuid' AND type=0;");
     $res=array(); $i=0;
     while ($db->next_record()) {

@@ -43,30 +43,32 @@ if(!$domain)
 	exit();
 }
 
-if(!$res=$mail->enum_doms_mails($domain,1,$letter)) {
+if(!$res=$mail->enum_doms_mails($domain,1,$letter))
+{
   $error=$err->errstr();
+
 ?>
-<h3><?php printf(_("Mailbox list of the domain %s"),"http://$domain"); ?> : </h3>
+<h3><?php printf(_("Mailbox list of the domain %s"), $domain); ?></h3>
 <?php
 if ($error) {
   echo "<p class=\"error\">$error</p>";
 }
-echo "<p><a href=\"mail_add.php?domain=$domain\">".sprintf(_("Add a mailbox on <b>%s</b>"),$domain)."</a><br />";
-echo "   <a href=\"mail_add.php?many=1&amp;domain=$domain\">".sprintf(_("Add many mailboxes on <b>%s</b>"),$domain)."</a></p>";
+echo "<p><a href=\"mail_add.php?domain=" . $domain . "\">".sprintf(_("Add a mailbox on <b>%s</b>"), $domain)."</a><br />";
+echo "   <a href=\"mail_add.php?many=1&amp;domain=" . $domain . "\">".sprintf(_("Add many mailboxes on <b>%s</b>"), $domain)."</a></p>";
 
 }
 else
 {
 
 ?>
-<h3><?php printf(_("Mailbox list of the domain %s"),"http://$domain"); ?> : </h3>
+<h3><?php printf(_("Mailbox list of the domain %s"), $domain); ?></h3>
 <?php
 if ($error) {
   echo "<p class=\"error\">$error</p>";
 }
 
-echo "<p><a href=\"mail_add.php?domain=$domain\">".sprintf(_("Add a mailbox on <b>%s</b>"),$domain)."</a><br />";
-echo "   <a href=\"mail_add.php?many=1&amp;domain=$domain\">".sprintf(_("Add many mailboxes on <b>%s</b>"),$domain)."</a></p>";
+echo "<p><a href=\"mail_add.php?domain=" . $domain . "\">".sprintf(_("Add a mailbox on <b>%s</b>"), $domain)."</a><br />";
+echo "   <a href=\"mail_add.php?many=1&amp;domain=" . $domain . "\">".sprintf(_("Add many mailboxes on <b>%s</b>"), $domain)."</a></p>";
 
 if(!$letters=$mail->enum_doms_mails_letters($domain))
   $error=$err->errstr();

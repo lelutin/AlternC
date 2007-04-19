@@ -78,31 +78,37 @@ while($db->next_record()) {
 <input type="hidden" name="action" value="modify" />
 <?php
 $col=1;
-$qarray=$quota->qlist();
 $qlist=$quota->getdefaults();
+$aqlist = $quota->qlist();
 reset($qlist);
-foreach($qlist as $type => $q) {
+foreach($qlist as $qname => $q)
+{
+
 ?>
-<div>
-<h4><?php echo _("Accounts of type"). " \"$type\"" ?></h4>
+<h4><?php echo _("Accounts of type"). " \"" . $qname . "\"" ?></h4>
 <table border="0" cellpadding="4" cellspacing="0">
 <tr><th><?php __("Quotas") ?></th><th><?php __("Default Value"); ?></th></tr>
 <?php
-foreach($q as $name => $value) {
-	$key = $type . ":" . $name;
-	$col=3-$col;
-?>
 
+	foreach($aqlist as $aqtype => $aqname)
+	{
+		$key = $qname . ":" . $aqtype;
+		$col=3-$col;
+
+?>
 <tr class="lst<?php echo $col; ?>">
-<td><label for="<?php echo $key; ?>"><?php echo $qarray[$name]; ?></label></td>
-<td><input type="text" class="int" size="16" maxlength="16" name="<?php echo $key; ?>" id="<?php echo $name; ?>" value="<?php echo $value; ?>" /></td></tr>
+<td><label for="<?php echo $key; ?>"><?php echo $aqname; ?></label></td>
+<td><input type="text" class="int" size="16" maxlength="16" name="<?php echo $key; ?>" id="<?php echo $key; ?>" value="<?php echo $q[$aqtype]; ?>" /></td></tr>
 <?php
-  }
+
+	}
+
 ?>
 </table>
-</div>
 <?php
+
 }
+
 ?>
 <input type="submit" class="inb" value="<?php __("Edit the default quotas"); ?>" />
 </div>
