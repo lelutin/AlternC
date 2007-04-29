@@ -36,23 +36,25 @@ if ($q["t"] > 0 && $r["u"] > 0) {
 
 ?>
 <div class="menu-box">
+<div class="menu-top"></div>
 <div class="menu-title" onclick="javascript:deploy('menu-mail');">
 <script type="text/javascript">
 <!--
-	document.write('<img src="images/plus.png" alt="" style="float: right; padding: 4px; border: 0px;" id="img-menu-mail" />');
+	document.write('<img src="images/plus.png" alt="" class="imgDeploy" id="img-menu-mail" />');
 //-->
 </script>
 <img src="images/mail.png" alt="<?php __("Mailboxes"); ?>" />&nbsp;<?php __("Mailboxes"); ?> (<?= $q["u"]; ?>/<?= $q["t"]; ?>)</div>
-<div class="menu-content" id="menu-mail">
+<div class="menu-bottom"></div>
+<div class="menu-content" id="menu-mail" style="display: none;">
 <ul>
 <?php
-	
+
 /* Enumeration des domaines en mail : */
 $domain = $mail->enum_domains();
 reset($domain);
 while (list($key, $val) = each($domain)) {
 $res = $mail->enum_doms_mails($val, 1);
-	
+
 ?>
 	<li><a href="mail_list.php?domain=<?php echo urlencode($val) ?>"><?php echo $val ?> (<?= $res["count"]; ?>)</a></li>
 <?php } ?>

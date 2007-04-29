@@ -31,5 +31,7 @@
 /* ############# WEB ACCESS ############# */
 ?>
 <div class="menu-box">
+<div class="menu-top"></div>
 <div class="menu-title"><img src="images/password.png" alt="<?php __("Protected folders"); ?>" />&nbsp;<a href="hta_list.php"><?php __("Protected folders"); ?></a></div>
+<div class="menu-bottom"></div>
 </div>

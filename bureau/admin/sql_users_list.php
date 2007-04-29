@@ -30,54 +30,70 @@
 require_once("../class/config.php");
 include_once("head.php");
 
-$r=$mysql->get_userslist();
-$rdb=$mysql->get_dblist();
+$r = $mysql->get_userslist();
+$rdb = $mysql->get_dblist();
 
 ?>
 <h3><?php __("MySQL Users"); ?></h3>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p><p>&nbsp;</p>";
-	}
 
-if ($rdb) {
-  if($r){
-echo "<p>"._("help_sql_users_list_ok")."</p>";
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p><p>&nbsp;</p>";
+}
+
+if ($rdb)
+{
+	if($r)
+	{
+		echo "<p>"._("help_sql_users_list_ok")."</p>";
+
 ?>
-
 <form method="post" action="sql_users_del.php">
 <table cellspacing="0" cellpadding="4">
-   <tr><th>&nbsp;</th><th><?php __("User"); ?></th><th><?php __("Rights"); ?></th></tr>
-<?php
-$col=1;
-for($i=0;$i<count($r);$i++) {
-  $val=$r[$i];
-  $col=3-$col;
-?>
-	<tr class="lst<?php echo $col; ?>">
-	  <td align="center">
-            <input type="checkbox" class="inc" id="del_<?php echo $val["name"]; ?>" name="del_<?php echo $val["name"]; ?>" value="<?php echo $val["name"]; ?>" />
-          </td>
-	  <td><label for="del_<?php echo $val["name"]; ?>"><?php echo $mem->user["login"]."_".$val["name"]; ?></label></td>
-	  <td><a href="sql_users_rights.php?id=<?php echo $val["name"] ?>"><?php __("Rights"); ?></a></td>
+	<tr>
+		<th>&nbsp;</th>
+		<th><?php __("User"); ?></th>
+		<th><?php __("Rights"); ?></th>
 	</tr>
 <?php
 
+$col = 1;
+for($i = 0; $i < count($r); $i++)
+{
+	$val = $r[$i];
+	$col = 3 - $col;
 
- }
 ?>
+	<tr class="lst<?php echo $col; ?>">
+		<td align="center">
+			<input type="checkbox" class="inc" id="del_<?php echo $val["name"]; ?>" name="d[]" value="<?php echo $val["name"]; ?>" />
+		</td>
+		<td><label for="del_<?php echo $val["name"]; ?>"><?php echo $mem->user["login"]."_".$val["name"]; ?></label></td>
+		<td><a href="sql_users_rights.php?id=<?php echo $val["name"] ?>"><?php __("Rights"); ?></a></td>
+	</tr>
+<?php
 
-<tr><td colspan="5">
-   <input type="submit" name="sub" value="<?php __("Delete the checked users"); ?>" class="inb" />
-</td></tr>
+}
+
+?>
+<tr>
+	<td colspan="5">
+		<input type="submit" name="sub" value="<?php __("Delete the checked users"); ?>" class="inb" />
+	</td>
+</tr>
 </table>
 </form>
 
 <p>&nbsp;</p>
 
 <?php
-  }
-  if ($quota->cancreate("mysql_users")) {
+
+}
+
+if ($quota->cancreate("mysql_users"))
+{
+
 ?>
 <p><a href="sql_users_add.php"><?php __("Create a new MySQL user"); ?></a><br /></p>
 <?php

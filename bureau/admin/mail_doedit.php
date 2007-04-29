@@ -29,26 +29,39 @@
 */
 require_once("../class/config.php");
 
-$error_edit="";
+$error_edit = "";
 
-if ($pass != $passconf) {
+$fields = array (
+	"email"     => array ("request", "string", ""),
+	"domain"    => array ("request", "string", ""),
+	"pop"       => array ("request", "integer", 0),
+	"pass"      => array ("request", "string", ""),
+	"passconf"  => array ("request", "string", ""),
+	"alias"     => array ("request", "string", ""),
+);
+getFields($fields);
+
+if ($pass != $passconf)
+{
 	$error = _("Passwords do not match");
 	include ("mail_edit.php");
 	exit();
 }
 
-if (!$mail->put_mail_details($email,$pop,$pass,$alias)) {
-	$error_edit=$err->errstr();
-            $addok=0;
-		include ("mail_edit.php");
-
-} else {
-            $ok=sprintf(_("The mailbox <b>%s</b> has been successfully changed"),$email)."<br />";
-            $addok=1;
-            $t=explode("@",$email);
-            $email=$t[0];
-	    $error=$ok;
-	    include("mail_list.php");
-	    exit();
+if (!$mail->put_mail_details($email, $pop, $pass, $alias))
+{
+	$error_edit = $err->errstr();
+	$addok = 0;
+	include ("mail_edit.php");
+}
+else
+{
+	$ok = sprintf(_("The mailbox <b>%s</b> has been successfully changed"), $email) . "<br />";
+	$addok = 1;
+	$t = explode("@", $email);
+	$email = $t[0];
+	$error = $ok;
+	include ("mail_list.php");
+	exit();
 }
 ?>

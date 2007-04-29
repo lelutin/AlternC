@@ -37,24 +37,25 @@ $fields = array (
 );
 getFields($fields);
 
-if(!$domain)
+if (!$domain)
 {
 	include("main.php");
 	exit();
 }
 
-if(!$res=$mail->enum_doms_mails($domain,1,$letter))
+if (!$res = $mail->enum_doms_mails($domain, 1, $letter))
 {
-  $error=$err->errstr();
+	$error = $err->errstr();
 
 ?>
 <h3><?php printf(_("Mailbox list of the domain %s"), $domain); ?></h3>
 <?php
-if ($error) {
-  echo "<p class=\"error\">$error</p>";
-}
-echo "<p><a href=\"mail_add.php?domain=" . $domain . "\">".sprintf(_("Add a mailbox on <b>%s</b>"), $domain)."</a><br />";
-echo "   <a href=\"mail_add.php?many=1&amp;domain=" . $domain . "\">".sprintf(_("Add many mailboxes on <b>%s</b>"), $domain)."</a></p>";
+
+	if ($error)
+		echo "<p class=\"error\">" . $error . "</p>";
+
+	echo "<p><a href=\"mail_add.php?domain=" . $domain . "\">" . sprintf(_("Add a mailbox on <b>%s</b>"), $domain) . "</a><br />";
+	echo "<a href=\"mail_add.php?many=1&amp;domain=" . $domain . "\">" . sprintf(_("Add many mailboxes on <b>%s</b>"), $domain) . "</a></p>";
 
 }
 else
@@ -63,55 +64,73 @@ else
 ?>
 <h3><?php printf(_("Mailbox list of the domain %s"), $domain); ?></h3>
 <?php
-if ($error) {
-  echo "<p class=\"error\">$error</p>";
-}
 
-echo "<p><a href=\"mail_add.php?domain=" . $domain . "\">".sprintf(_("Add a mailbox on <b>%s</b>"), $domain)."</a><br />";
-echo "   <a href=\"mail_add.php?many=1&amp;domain=" . $domain . "\">".sprintf(_("Add many mailboxes on <b>%s</b>"), $domain)."</a></p>";
+	if ($error)
+		echo "<p class=\"error\">" . $error . "</p>";
 
-if(!$letters=$mail->enum_doms_mails_letters($domain))
-  $error=$err->errstr();
-else{
-  for($i=0;$i<count($letters);$i++){
-    $val=$letters[$i];
-    echo "   <a href=\"mail_list.php?domain=$domain&amp;letter=$val\">$val&nbsp;</a>";
-  }
-  echo "   <a href=\"mail_list.php?domain=$domain\">".sprintf(_("All"))."</a>";
-}
+	echo "<p><a href=\"mail_add.php?domain=" . $domain . "\">".sprintf(_("Add a mailbox on <b>%s</b>"), $domain)."</a><br />";
+	echo "   <a href=\"mail_add.php?many=1&amp;domain=" . $domain . "\">".sprintf(_("Add many mailboxes on <b>%s</b>"), $domain)."</a></p>";
 
+	if (!$letters = $mail->enum_doms_mails_letters($domain))
+		$error = $err->errstr();
+	else
+	{
+		for ($i = 0; $i < count($letters); $i++)
+		{
+			$val = $letters[$i];
+			echo "<a class=\"letter" . ($letter == $val ? " letterover" : "") . "\" href=\"mail_list.php?domain=" . $domain . "&amp;letter=" . $val . "\">" . strtoupper($val) . "</a>&nbsp;";
+		}
+		echo "<a class=\"letter" . (empty($letter) ? " letterover" : "") . "\" href=\"mail_list.php?domain=" . $domain . "\">" . sprintf(_("All")) . "</a>";
+	}
 
 ?>
 <form method="post" action="mail_del.php" id="main">
 
 <table cellspacing="0" cellpadding="4">
-
-<tr><th><input type="hidden" name="domain" value="<?php echo $domain ?>" />
-<?php __("Delete"); ?></th><th><?php __("Email address"); ?></th><th><?php __("Action"); ?></th><th><?php __("Size"); ?></th></tr>
+	<tr>
+		<th><input type="hidden" name="domain" value="<?php echo $domain ?>" /><?php __("Delete"); ?></th>
+		<th><?php __("Email address"); ?></th>
+		<th><?php __("Action"); ?></th>
+		<th><?php __("Size"); ?></th>
+	</tr>
 <?php
-$col=1;
-for($i=0;$i<$res["count"];$i++) {
-	$col=3-$col;
-	$val=$res[$i];
-	echo "<tr class=\"lst$col\">";
-	echo "<td align=\"center\"><input class=\"inc\" type=\"checkbox\" id=\"del_$i\" name=\"d[]\" value=\"".$val["mail"]."\" /></td>
-	<td><label for=\"del_$i\">".$val["mail"]."</label></td>
-	<td class=\"center\"><a href=\"mail_edit.php?email=".urlencode($val["mail"])."&amp;domain=".urlencode($domain)."\"><img src=\"images/edit.png\" alt=\""._("Edit")."\" /></a></td>";
-	if ($val["pop"]) {
-		echo "<td>".format_size($val["size"])."</td>";
-	} else {
-		echo "<td>&nbsp;</td>";
-	}
-	echo "</tr>";
 
+$totalSize = 0;
+$col = 1;
+for ($i = 0; $i < $res["count"]; $i++)
+{
+	$col = 3 - $col;
+	$val = $res[$i];
+	$altImg = ($i % 2 == 0 ? "" : "alt");
+	$totalSize += intval($val["size"]);
+
+	echo "<tr class=\"lst" . $col . "\">";
+	echo "<td align=\"center\"><input class=\"inc\" type=\"checkbox\" id=\"del_" . $i . "\" name=\"d[]\" value=\"" . $val["mail"] . "\" /></td>";
+	echo "<td><label for=\"del_" . $i . "\">" . $val["mail"] . "</label></td>";
+	echo "<td class=\"center\"><a href=\"mail_edit.php?email=" . urlencode($val["mail"]) . "&amp;domain=" . urlencode($domain) . "\"><img src=\"images/edit" . $altImg . ".png\" alt=\"" . _("Edit") . "\" /></a>&nbsp;<a href=\"mail_del.php?d[]=" . urlencode($val["mail"]) . "&amp;domain=" . urlencode($domain) . "\"><img src=\"images/delete" . $altImg . ".png\" alt=\"" . _("Delete") . "\" /></a></td>";
+
+	if ($val["pop"])
+		echo "<td>" . format_size($val["size"]) . "</td>";
+	else
+		echo "<td>&nbsp;</td>";
+
+	echo "</tr>";
 }
+
 ?>
-<tr><td colspan="5"><input type="submit" class="inb" name="submit" value="<?php __("Delete the selected mailboxes"); ?>" /></td></tr>
+	<tr class="lst<?php echo (3 - $col); ?>">
+		<td colspan="3" style="text-align: right; font-weight: bold;">Total</td>
+		<td><?php echo format_size($totalSize); ?></td>
+	</tr>
+	<tr>
+		<td colspan="4"><input type="submit" class="inb" name="submit" value="<?php __("Delete the selected mailboxes"); ?>" /></td>
+	</tr>
 </table>
 </form>
-
 <?php
+
 }
+
 ?>
 <script type="text/javascript">
 deploy("menu-mail");

@@ -30,27 +30,48 @@
 require_once("../class/config.php");
 include_once("head.php");
 
-if (!$r=$mysql->get_dblist()) {
-	$error=$err->errstr();
+if (!$r = $mysql->get_dblist())
+{
+	$error = $err->errstr();
 }
+
+$fields = array (
+	"pass" => array ("request", "string", ""),
+);
+getFields($fields);
 
 ?>
 <h3><?php __("MySQL Databases"); ?></h3>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p><p>&nbsp;</p>";
-	}
 
-echo "<p>"._("Enter the new password of your SQL database and click 'change the password' to change it")."</p>";
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p><p>&nbsp;</p>";
+}
+
+echo "<p>" . _("Enter the new password of your SQL database and click 'change the password' to change it") . "</p>";
+
 ?>
-
 <form method="post" action="sql_pass.php">
 <table cellspacing="0" cellpadding="4">
-		<tr class="lst2"><th><?php __("Username"); ?></th><td><code><?php echo $mem->user["login"]; ?></code></td></tr>
-		<tr class="lst1"><th><label for="pass"><?php __("Password"); ?></label></th><td><code><input class="int" type="password" name="pass" id="pass" value="" /></code></td></tr>
-		<tr class="lst2"><th><?php __("SQL Server"); ?></th><td><code><?php echo $mysql->server; ?></code></td></tr>
-		<tr class="lst1"><th><?php __("Database"); ?></th><td><code><?php echo $r[0]["db"]; ?></code></td></tr>
-	<tr><td><input type="submit" class="inb" name="submit" value="<?php __("Change the password"); ?>" /></td></tr>
+	<tr class="lst2">
+		<th><?php __("Username"); ?></th>
+		<td><code><?php echo $mem->user["login"]; ?></code></td>
+	</tr>
+	<tr class="lst1">
+		<th><label for="pass"><?php __("Password"); ?></label></th>
+		<td><code><input class="int" type="password" name="pass" id="pass" value="" /></code></td>
+	</tr>
+	<tr class="lst2">
+		<th><?php __("SQL Server"); ?></th>
+		<td><code><?php echo $mysql->server; ?></code></td>
+	</tr>
+	<tr class="lst1">
+		<th><?php __("Database"); ?></th>
+		<td><code><?php echo $r[0]["db"]; ?></code></td></tr>
+	<tr>
+		<td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Change the password"); ?>" /></td>
+	</tr>
 </table>
 </form>
 <script type="text/javascript">

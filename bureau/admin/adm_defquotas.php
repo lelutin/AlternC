@@ -87,7 +87,10 @@ foreach($qlist as $qname => $q)
 ?>
 <h4><?php echo _("Accounts of type"). " \"" . $qname . "\"" ?></h4>
 <table border="0" cellpadding="4" cellspacing="0">
-<tr><th><?php __("Quotas") ?></th><th><?php __("Default Value"); ?></th></tr>
+	<tr>
+		<th><?php __("Quotas") ?></th>
+		<th><?php __("Default Value"); ?></th>
+	</tr>
 <?php
 
 	foreach($aqlist as $aqtype => $aqname)
@@ -96,9 +99,10 @@ foreach($qlist as $qname => $q)
 		$col=3-$col;
 
 ?>
-<tr class="lst<?php echo $col; ?>">
-<td><label for="<?php echo $key; ?>"><?php echo $aqname; ?></label></td>
-<td><input type="text" class="int" size="16" maxlength="16" name="<?php echo $key; ?>" id="<?php echo $key; ?>" value="<?php echo $q[$aqtype]; ?>" /></td></tr>
+	<tr class="lst<?php echo $col; ?>">
+		<td><label for="<?php echo $key; ?>"><?php echo $aqname; ?></label></td>
+		<td><input type="text" class="int" size="16" maxlength="16" name="<?php echo $key; ?>" id="<?php echo $key; ?>" value="<?php echo isset($q[$aqtype]) ? $q[$aqtype] : ""; ?>" /></td>
+	</tr>
 <?php
 
 	}

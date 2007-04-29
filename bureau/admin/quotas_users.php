@@ -25,27 +25,27 @@ Cette page résume les informations d`hébergement des comptes AlternC<br />
 Les tailles sont exprimées en <?php if ($mode==0 || $mode==4) echo "Mo."; else echo "% du total"; ?>
 </p>
 <p>
-<a href="quotas_users.php?mode=4">Global</a><br /><br />
+<a href="adm_usersquota.php?mode=4">Global</a><br /><br />
 Détail:
 <?php if ($mode==0) { ?>
-<a href="quotas_users.php?mode=1&amp;sd=<?php echo $sd; ?>&amp;usr=<?php echo $usr; ?>">En pourcentage</a>
-<a href="quotas_users.php?mode=2&amp;sd=<?php echo $sd; ?>&amp;usr=<?php echo $usr; ?>">En graphique</a>
+<a href="adm_usersquota.php?mode=1&amp;sd=<?php echo $sd; ?>&amp;usr=<?php echo $usr; ?>">En pourcentage</a>
+<a href="adm_usersquota.php?mode=2&amp;sd=<?php echo $sd; ?>&amp;usr=<?php echo $usr; ?>">En graphique</a>
    <?php } elseif ($mode==1) { ?>
-<a href="quotas_users.php?mode=0&amp;sd=<?php echo $sd; ?>&amp;usr=<?php echo $usr; ?>">En Mo</a>
-<a href="quotas_users.php?mode=2&amp;sd=<?php echo $sd; ?>&amp;usr=<?php echo $usr; ?>">En graphique</a>
+<a href="adm_usersquota.php?mode=0&amp;sd=<?php echo $sd; ?>&amp;usr=<?php echo $usr; ?>">En Mo</a>
+<a href="adm_usersquota.php?mode=2&amp;sd=<?php echo $sd; ?>&amp;usr=<?php echo $usr; ?>">En graphique</a>
    <?php } else { ?>
-<a href="quotas_users.php?mode=0&amp;sd=<?php echo $sd; ?>&amp;usr=<?php echo $usr; ?>">En Mo</a>
-<a href="quotas_users.php?mode=1&amp;sd=<?php echo $sd; ?>&amp;usr=<?php echo $usr; ?>">En pourcentage</a>
+<a href="adm_usersquota.php?mode=0&amp;sd=<?php echo $sd; ?>&amp;usr=<?php echo $usr; ?>">En Mo</a>
+<a href="adm_usersquota.php?mode=1&amp;sd=<?php echo $sd; ?>&amp;usr=<?php echo $usr; ?>">En pourcentage</a>
  <?php } ?>
 
 <?php if ($mode != 4) { ?>
 <?php if ($usr==0) { if ($sd==0) { ?>
-<a href="quotas_users.php?mode=<?php echo $mode; ?>&amp;sd=1&amp;usr=<?php echo $usr; ?>">Afficher les domaines</a>
+<a href="adm_usersquota.php?mode=<?php echo $mode; ?>&amp;sd=1&amp;usr=<?php echo $usr; ?>">Afficher les domaines</a>
    <?php } else { ?>
-<a href="quotas_users.php?mode=<?php echo $mode; ?>&amp;sd=0&amp;usr=<?php echo $usr; ?>">Cacher les domaines</a>
+<a href="adm_usersquota.php?mode=<?php echo $mode; ?>&amp;sd=0&amp;usr=<?php echo $usr; ?>">Cacher les domaines</a>
  <?php } } ?>
 <?php if ($usr) { ?>
-<a href="quotas_users.php?mode=<?php echo $mode; ?>&amp;sd=<? echo $sd; ?>">Tous les comptes</a>
+<a href="adm_usersquota.php?mode=<?php echo $mode; ?>&amp;sd=<? echo $sd; ?>">Tous les comptes</a>
 <?php } ?>
 <?php } ?>
 </p>
@@ -248,7 +248,7 @@ while ($c=mysql_fetch_array($r)) {
   echo "<tr><td>";
 
   // On affiche le compte et ses domaines :
-  echo "<b><a href=\"quotas_users.php?mode=".$mode."&sd=".$sd."&usr=".$c["uid"]."\">".$c["login"]."</a></b><br />\n";
+  echo "<b><a href=\"adm_usersquota.php?mode=".$mode."&sd=".$sd."&usr=".$c["uid"]."\">".$c["login"]."</a></b><br />\n";
   $s=mysql_query("SELECT * FROM domaines WHERE compte='".$c["uid"]."';");
   $dc=0; // Domain Count
   $ms=0; // Mail Space

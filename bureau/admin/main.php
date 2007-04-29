@@ -33,6 +33,8 @@ include_once("head.php");
 
 include_once("menu.php");
 
+$mode = 0;
+
 // Show last login information :
 echo "<p>";
 __("Last Login: ");

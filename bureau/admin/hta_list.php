@@ -30,55 +30,72 @@
 require_once("../class/config.php");
 include_once("head.php");
 
-if (!$r=$hta->ListDir()) {
-	$error=$err->errstr();
+if (!$r = $hta->ListDir())
+{
+	$error = $err->errstr();
 }
-else {
+else
+{
 	reset($r);
 }
 
 ?>
 <h3><?php __("Protected folders list"); ?></h3>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p>";
-	}
 
-	if (!is_array($r)) {
-		echo "<p><a href=\"hta_add.php\">"._("Protect a folder")."</a><br />";
-		$mem->show_help("hta_list");
-		echo "</p>";
-		include_once("foot.php");
-		exit();
-	}
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p>";
+}
+
+if (!is_array($r))
+{
+	echo "<p><a href=\"hta_add.php\">" . _("Protect a folder") . "</a><br />";
+	$mem->show_help("hta_list");
+	echo "</p>";
+	include_once("foot.php");
+	exit();
+}
 
 ?>
-
 <p>
-<?php __("help_hta_list");
+<?php
+
+__("help_hta_list");
 $mem->show_help("hta_list2");
+
 ?>
 </p>
 
 <form method="post" action="hta_del.php">
 <table cellspacing="0" cellpadding="4">
-<tr><th colspan="2">&nbsp;</th><th><?php __("Folder"); ?></th></tr>
+	<tr>
+		<th colspan="2">&nbsp;</th>
+		<th><?php __("Folder"); ?></th>
+	</tr>
 <?php
-$col=1;
 
+$col = 1;
 
-for($i=0;$i<count($r);$i++){
-	$col=3-$col;
+for ($i = 0; $i < count($r); $i++)
+{
+	$col = 3 - $col;
+	$altImg = ($i % 2 == 0 ? "" : "alt");
+
 ?>
 	<tr  class="lst<?php echo $col; ?>">
 		<td align="center"><input type="checkbox" class="inc" name="del_<?php echo $r[$i] ?>" value="<?php echo $r[$i] ?>" /></td>
-		<td><a href="hta_edit.php?dir=<?php echo $r[$i]?>"><img src="images/edit.png" alt="<?php __("Edit"); ?>" /></a></td>
+		<td><a href="hta_edit.php?dir=<?php echo $r[$i]?>"><img src="images/edit<?php echo $altImg; ?>.png" alt="<?php __("Edit"); ?>" /></a></td>
 		<td><code><?php echo "$r[$i]"?></code></td>
 	</tr>
-    <?php
-	}
+<?php
+
+}
+
 ?>
-<tr><td colspan="3"><input type="submit" class="inb" name="submit" value="<?php __("Unprotect the checked folders"); ?>" /></td></tr>
+	<tr>
+		<td colspan="3"><input type="submit" class="inb" name="submit" value="<?php __("Unprotect the checked folders"); ?>" /></td>
+	</tr>
 </table>
 </form>
 <p>

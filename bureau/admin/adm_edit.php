@@ -38,25 +38,39 @@ if (!$admin->enabled) {
 }
 
 $fields = array (
-	"uid"    => array ("request", "integer", 0),
+	"uid"        => array ("request", "integer", 0),
+	"enabled"    => array ("request", "integer", 0),
+	"pass"       => array ("request", "string", ""),
+	"passconf"   => array ("request", "string", ""),
+	"canpass"    => array ("request", "integer", 1),
+	"prenom"     => array ("request", "string", ""),
+	"nom"        => array ("request", "string", ""),
+	"nmail"      => array ("request", "string", ""),
+	"duration"   => array ("request", "integer", 0),
+	"periods"    => array ("request", "integer", 1),
 );
 getFields($fields);
 
-if (!$admin->checkcreator($uid)) {
+if (!$admin->checkcreator($uid))
+{
 	__("This page is restricted to authorized staff");
 	exit();
 }
 
-if (!$r=$admin->get($uid)) {
-	$error=$err->errstr();
+if (!$r = $admin->get($uid))
+{
+	$error = $err->errstr();
 }
 
 ?>
 <h3><?php __("Member Edition"); ?></h3>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p>";
-	}
+
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p>";
+}
+
 ?>
 <form method="post" action="adm_doedit.php">
 <table border="1" cellspacing="0" cellpadding="4">
@@ -110,7 +124,7 @@ if (!$r=$admin->get($uid)) {
 	<th><label for="type"><?php __("Account type"); ?></label></th>
 	<td><select name="type" id="type">
 	<?php
-	$db->query("SELECT distinct(type) FROM defquotas ORDER by type");
+	$db->query("SELECT DISTINCT(type) FROM defquotas ORDER BY type");
 	while($db->next_record()) {
 	  $type = $db->f("type");
 	  echo "<option value=\"$type\"";
@@ -130,28 +144,25 @@ if (!$r=$admin->get($uid)) {
 </tr>
 </table>
 </form>
-
+<br />
 <?php if($r['duration']) { ?>
-<p>
 <form method="post" action="adm_dorenew.php">
 <input type="hidden" name="uid" value="<?php echo $uid ?>" />
 <table border="1" cellspacing="0" cellpadding="4">
-<tr>
-	<th><label for="periods"><?php __("Renew for") ?></label></th>
-	<td><input name="periods" id="periods" type="text" size="2" value="1"/><?php echo ' ' . _('period(s)') ?></td>
-</tr>
-<tr>
-	<td colspan="2" align="center"><input type="submit" class="inb" name="submit" value="<?php __("Renew"); ?>" />
-</td>
-</tr>
+	<tr>
+		<th><label for="periods"><?php __("Renew for") ?></label></th>
+		<td><input name="periods" id="periods" type="text" size="2" value="<?php echo $periods; ?>" /><?php echo ' ' . _('period(s)') ?></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center"><input type="submit" class="inb" name="submit" value="<?php __("Renew"); ?>" /></td>
+	</tr>
 </table>
 </form>
-</p>
 <?php } /* Renouvellement */ ?>
 
 <p>
 <?php
-	if ($mem->user[uid]==2000) { // PATCHBEN only admin can change su/nosu :)
+	if ($mem->user["uid"]==2000) { // PATCHBEN only admin can change su/nosu :)
 if ($r["su"]) {
 ?>
 <b><?php __("This account is a super-admin account"); ?></b><br />

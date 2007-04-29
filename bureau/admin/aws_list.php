@@ -58,15 +58,19 @@ if (!$nosta) {
 <table cellspacing="0" cellpadding="4">
 <tr><th colspan="2">&nbsp;</th><th><?php __("Domain name"); ?></th><th>Allowed Users</th><th><?php __("View"); ?></th></tr>
 <?php
+
 reset($r);
-$col=1;
-while (list($key,$val)=each($r))
-	{
-	$col=3-$col;
+$col = 1;
+$i = 0;
+while (list($key, $val) = each($r))
+{
+	$col = 3 - $col;
+	$altImg = ($i % 2 == 0 ? "" : "alt");
+	$i++;
 ?>
 	<tr class="lst<?php echo $col; ?>">
 		<td><input type="checkbox" class="inc" id="del_<?php echo $val["id"]; ?>" name="del_<?php echo $val["id"]; ?>" value="<?php echo $val["id"]; ?>" /></td>
-		<td><a href="aws_edit.php?id=<?php echo $val["id"] ?>"><img src="images/edit.png" alt="<?php __("Edit"); ?>" title="<?php __("Edit"); ?>" /></a></td>
+		<td><a href="aws_edit.php?id=<?php echo $val["id"] ?>"><img src="images/edit<?php echo $altImg; ?>.png" alt="<?php __("Edit"); ?>" title="<?php __("Edit"); ?>" /></a></td>
 		<td><label for="del_<?php echo $val["id"]; ?>"><?php echo $val["hostname"] ?></label></td>
 		<td><?php echo $val["users"] ?></td>
 		<td><a href="/cgi-bin/awstats.pl?config=<?php echo $val["hostname"]; ?>"><?php __("View"); ?></a></td>

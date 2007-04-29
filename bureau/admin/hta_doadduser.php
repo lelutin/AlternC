@@ -29,22 +29,36 @@
 */
 require_once("../class/config.php");
 
-if ($password != $passwordconf) {
+$fields = array (
+	"password"      => array ("request", "string", ""),
+	"passwordconf"  => array ("request", "string", ""),
+	"user"          => array ("request", "string", ""),
+	"dir"           => array ("request", "string", ""),
+);
+getFields($fields);
+
+if ($password != $passwordconf)
+{
 	$error = _("Passwords do not match");
-	include("hta_adduser.php");
-	exit();
-}
-
-if (!$password) {
-	$error=_("Please enter a password");
 	include ("hta_adduser.php");
 	exit();
 }
 
-if (!$hta->add_user($user, $password,$dir)) {
-	$error=$err->errstr();
+if (!$password)
+{
+	$error = _("Please enter a password");
 	include ("hta_adduser.php");
-	} else {
+	exit();
+}
+
+if (!$hta->add_user($user, $password, $dir))
+{
+	$error = $err->errstr();
+	include ("hta_adduser.php");
+}
+else
+{
 	include ("hta_edit.php");
 }
+
 ?>

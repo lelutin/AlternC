@@ -29,11 +29,18 @@
 */
 require_once("../class/config.php");
 
+$currentMenu = "";
+$currentPage = end(explode("/", $_SERVER["PHP_SELF"]));
+if (ereg("^(dom|mail|ftp|sql|adm)", $currentPage, $regs))
+	$currentMenu = "menu-" . $regs[1];
+
 ?>
 <h3>Menu <?php echo $mem->user["login"]; ?></h3>
 
 <div class="menu-box">
-	<div class="menu-title"><img src="images/home.png" alt="Accueil / Informations" />&nbsp;<a href="main.php">Accueil / Informations</a></div>
+<div class="menu-top"></div>
+<div class="menu-title"><img src="images/home.png" alt="<?php echo _("Front page / Informations"); ?>" />&nbsp;<a href="main.php"><?php echo _("Front page / Informations"); ?></a></div>
+<div class="menu-bottom"></div>
 </div>
 <?php
 
@@ -49,7 +56,7 @@ fclose($tt);
 
 ?>
 <script type="text/javascript">
-deploy(0);
+// deploy(0);
 </script>
 <p class="center"><a href="http://alternc.org"><img src="alternc.png" width="120" height="82" border="0" alt="AlternC" /></a>
 <?php // echo "$L_VERSION"; ?>

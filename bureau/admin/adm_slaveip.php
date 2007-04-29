@@ -42,17 +42,22 @@ $fields = array (
 );
 getFields($fields);
 
-if ($delip) {
+if ($delip)
+{
 	// Delete an ip address/class
-	if ($dom->del_slave_ip($delip)) {
-		$error=_("The requested ip address has been deleted. It will be denied in one hour.");
+	if ($dom->del_slave_ip($delip))
+	{
+		$error = _("The requested ip address has been deleted. It will be denied in one hour.");
 	}
 }
-if ($newip) {
+if ($newip)
+{
 	// Add an ip address/class
-	if ($dom->add_slave_ip($newip,$newclass)) {
-		$error=_("The requested ip address has been added to the list. It will be allowed in one hour.");
-		unset($newip); unset($newclass);
+	if ($dom->add_slave_ip($newip,$newclass))
+	{
+		$error = _("The requested ip address has been added to the list. It will be allowed in one hour.");
+		$newip = "";
+		$newclass = "";
 	}
 }
 
@@ -61,13 +66,16 @@ include_once("head.php");
 ?>
 <h3><?php __("Manage allowed ip for slave zone transfers"); ?></h3>
 <?php
-	if ($error) {
-	  echo "<p class=\"error\">$error</p>";
-	}
 
-$c=$dom->enum_slave_ip();
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p>";
+}
 
-if (is_array($c)) {
+$c = $dom->enum_slave_ip();
+
+if (is_array($c))
+{
 
 ?>
 <p>
@@ -83,7 +91,7 @@ for($i=0;$i<count($c);$i++) {
 ?>
 
 <tr class="lst<?php echo $col; ?>">
-<td class="center"><a href="adm_slaveip.php?delip=<?php echo urlencode($c[$i][ip]); ?>"><img src="images/delete.png" alt="<?php __("Delete"); ?>" /></a></td>
+<td class="center"><a href="adm_slaveip.php?delip=<?php echo urlencode($c[$i]["ip"]); ?>"><img src="images/delete.png" alt="<?php __("Delete"); ?>" /></a></td>
 <td><?php echo $c[$i]["ip"]."/".$c[$i]["class"]; ?></td>
 </tr>
 <?php

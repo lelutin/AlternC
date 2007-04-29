@@ -31,5 +31,7 @@
 /* ############# BROUTEUR ############# */
 ?>
 <div class="menu-box">
+<div class="menu-top"></div>
 <div class="menu-title"><img src="images/folder.png" alt="<?php __("File browser"); ?>" />&nbsp;<a href="bro_main.php"><?php __("File browser"); ?></a></div>
+<div class="menu-bottom"></div>
 </div>

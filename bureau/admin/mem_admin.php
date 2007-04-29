@@ -30,14 +30,17 @@
 require_once("../class/config.php");
 
 $fields = array (
-	"admlist"    => array ("request", "string", ""),
+	"admlist"    => array ("request", "integer", 0),
 );
 getFields($fields);
 
-if (!$mem->adminpref($admlist)) {
-	$error=$err->errstr();
-} else {
-	$error=_("Your administrator preferences has been successfully changed.");
+if (!$mem->adminpref($admlist))
+{
+	$error = $err->errstr();
+}
+else
+{
+	$error = _("Your administrator preferences has been successfully changed.");
 }
 
 include_once("head.php");
@@ -45,11 +48,12 @@ include_once("head.php");
 ?>
 <h3><?php __("Admin preferences"); ?></h3>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p>";
-	}
+
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p>";
+}
+
+include_once("foot.php");
+
 ?>
-<script type="text/javascript">
-deploy("menu-adm");
-</script>
-<?php include_once("foot.php"); ?>

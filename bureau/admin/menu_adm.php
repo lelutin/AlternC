@@ -34,20 +34,23 @@
 
 if ($mem->checkRight()) { ?>
 <div class="menu-box">
+<div class="menu-top"></div>
 <div class="menu-title" onclick="javascript:deploy('menu-adm');">
 <script type="text/javascript">
 <!--
-	document.write('<img src="images/plus.png" alt="" style="float: right; padding: 4px; border: 0px;" id="img-menu-adm" />');
+	document.write('<img src="images/plus.png" alt="" class="imgDeploy" id="img-menu-adm" />');
 //-->
 </script>
-<img src="images/admin.png" alt="Administration" />&nbsp;<span style="color: red;">Administration</span></div>
-<div class="menu-content" id ="menu-adm">
+<img src="images/admin.png" alt="Administration" />&nbsp;<span style="color: red;">Administration</span>
+</div>
+<div class="menu-bottom"></div>
+<div class="menu-content" id="menu-adm" style="display: none;">
 <ul>
-<li><a href="adm_list.php"><span style="color: red;"><?php __("Manage the members"); ?></span></a></li>
-<li><a href="quotas_users.php?mode=4"><span style="color: red;"><?php __("Quotas utilisateurs"); ?></span></a></li>
+<li><a href="adm_list.php"><img src="images/members.png" alt="<?php __("Manage the members"); ?>" />&nbsp;<span style="color: red;"><?php __("Manage the members"); ?></span></a></li>
+<li><a href="adm_usersquota.php?mode=4"><img src="images/quotamenu.png" alt="<?php __("Quotas utilisateurs"); ?>" />&nbsp;<span style="color: red;"><?php __("Quotas utilisateurs"); ?></span></a></li>
 <?php if ($cuid == 2000) { ?>
-<li><a href="adm_panel.php"><span style="color: red;"><?php __("Admin Control Panel"); ?></span></a></li>
-<li><a href="/admin/sql/?server=2"><span style="color: red;"><?php __("General SQL Admin"); ?></span></a></li>
+<li><a href="adm_panel.php"><img src="images/configure.png" alt="<?php __("Admin Control Panel"); ?>" />&nbsp;<span style="color: red;"><?php __("Admin Control Panel"); ?></span></a></li>
+<li><a href="/admin/sql/?server=2"><img src="images/mysqlmenu.png" alt="<?php __("General SQL Admin"); ?>" />&nbsp;<span style="color: red;"><?php __("General SQL Admin"); ?></span></a></li>
 <?php } ?>
 </ul>
 </div>

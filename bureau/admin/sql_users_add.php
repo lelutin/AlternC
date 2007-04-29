@@ -30,32 +30,44 @@
 require_once("../class/config.php");
 include_once("head.php");
 
-if (!$quota->cancreate("mysql_users")) {
-	$error=_("err_mysql_20");
-	$fatal=1;
+$fields = array (
+	"usern"        => array ("request", "string", ""),
+);
+getFields($fields);
+
+if (!$quota->cancreate("mysql_users"))
+{
+	$error = _("err_mysql_20");
+	$fatal = 1;
 }
 
 ?>
 <h3><?php __("Create a new MySQL user"); ?></h3>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p>";
-		if ($fatal) {
+
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p>";
+	if (isset($fatal))
+	{
+
 ?>
 <script type="text/javascript">
 deploy("menu-sql");
 </script>
 <?php include_once("foot.php"); ?>
 <?php
-			exit();
-		}
+
+		exit();
 	}
+}
+
 ?>
 <form method="post" action="sql_users_doadd.php" id="main">
 <table border="1" cellspacing="0" cellpadding="4">
 <tr>
   <th><label for="usern"><?php __("Username"); ?></label></th>
-  <td><?php echo $mem->user["login"]; ?>&nbsp;<b>_</b>&nbsp;<input type="text" class="int" name="usern" id="usern" value="" size="20" maxlength="30" /></td>
+  <td><?php echo $mem->user["login"]; ?>&nbsp;<b>_</b>&nbsp;<input type="text" class="int" name="usern" id="usern" value="<?php echo $usern; ?>" size="20" maxlength="30" /></td>
 </tr>
 <tr>
   <th><label for="password"><?php __("Password"); ?></label></th>

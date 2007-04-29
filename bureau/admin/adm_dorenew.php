@@ -30,20 +30,33 @@
 */
 require_once("../class/config.php");
 
-if (!$admin->enabled) {
-  __("This page is restricted to authorized staff");
-  exit();
-}
-if (!$admin->checkcreator($uid)) {
-  __("This page is restricted to authorized staff");
-  exit();
+$fields = array (
+	"uid"      => array ("request", "integer", 0),
+	"periods"  => array ("request", "integer", 0),
+);
+getFields($fields);
+
+if (!$admin->enabled)
+{
+	__("This page is restricted to authorized staff");
+	exit();
 }
 
-if (!$admin->renew_mem($_REQUEST['uid'], $_REQUEST['periods'])){
-  $error=$err->errstr();
-  include("adm_edit.php");
-} else {
-  $error=_("The member has been successfully renewed");
-  include("adm_list.php");
+if (!$admin->checkcreator($uid))
+{
+	__("This page is restricted to authorized staff");
+	exit();
 }
+
+if (!$admin->renew_mem($uid, $periods))
+{
+	$error = $err->errstr();
+	include ("adm_edit.php");
+}
+else
+{
+	$error = _("The member has been successfully renewed");
+	include ("adm_list.php");
+}
+
 ?>

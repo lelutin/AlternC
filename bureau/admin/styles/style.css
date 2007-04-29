@@ -144,9 +144,9 @@ img {
 	margin-top: 20px;
 	margin-bottom: 20px;
 	width: 980px;
-	border: 5px solid #1D6A9F;
-	-moz-border-radius: 10px;
-	background-color: #F1F8FD;
+/* 	border: 5px solid #1D6A9F; */
+/* 	-moz-border-radius: 10px; */
+/* 	background-color: #F1F8FD; */
 /* 	background: #F1F8FD url(/admin/images/bgborder.gif) repeat-y scroll top left; */
 }
 
@@ -162,7 +162,7 @@ img {
 
 #content {
 	display: block;
-	width: 740px;
+	width: 720px;
 	padding-left: 10px;
 	vertical-align: top;
 }
@@ -187,14 +187,43 @@ img {
 
 .menu-box .menu-title {
 	color: #000000;
-	border: 1px solid #1D6A9F;
+	border-left: 1px solid #1D6A9F;
+	border-right: 1px solid #1D6A9F;
 	background-color: #C0DCF0;
-	padding: 3px;
-	-moz-border-radius: 4px;
+	padding: 0px;
+	_padding-bottom: 1px;
+	margin: 0px;
+	height: auto;
+	padding-left: 3px;
+	padding-right: 3px;
+/* 	-moz-border-radius: 4px; */
 }
 
 .menu-box .menu-content {
 	margin-top: 1px;
+}
+
+.menu-title .imgDeploy {
+ float: right;
+ padding: 4px;
+ border: 0px;
+}
+
+.menu-top {
+	background: #C0DCF0 url(../images/boxes/menuBoxTop.png) top left no-repeat;
+	font-size: 1px;
+	height: 5px;
+	padding: 0px;
+	margin: 0px;
+/* 	border: 1px solid black; */
+}
+
+.menu-bottom {
+	background: #C0DCF0 url(../images/boxes/menuBoxBottom.png) top left no-repeat;
+	font-size: 1px;
+	height: 5px;
+	padding: 0px;
+	margin: 0px;
 }
 
 .menu-box ul {
@@ -229,14 +258,19 @@ img {
 	margin: 0px;
 	padding: 0px;
 	padding-top: 1px;
+	vertical-align: bottom;
 }
 
 .menu-box li a:hover {
 	color: #000000;
 	height: 18px;
-	border: 1px solid #1D6A9F;
+/* 	border: 1px solid #C0DCF0; */
+/* 	border-right: 1px solid #1D6A9F; */
+	border-left: 1px solid #1D6A9F;
+	border-bottom: 1px solid #1D6A9F;
 	text-decoration: none;
-	background-color: #DFEEF8;
+	background: url(../images/arrow2.png) center right no-repeat;
+/* 	background-color: #DFEEF8; */
 }
 
 .menu-box .full {
@@ -288,4 +322,32 @@ a:hover {
 
 .bold {
 	font-weight: bold;
+}
+
+.letter {
+	border: 1px solid #1D6A9F;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.letterover, .letter:hover {
+	background-color: #C0DCF0;
+	text-decoration: none;
+}
+
+.diago {
+	height: 0px;
+	width: 50px;
+	border-left: 15px solid white;
+	border-bottom: 15px solid orange;
+}
+
+
+.activeCart
+{
+	background-color: #DAFF9F;
+}
+.hoverCart
+{
+	background-color:#FFFFCC;
 }

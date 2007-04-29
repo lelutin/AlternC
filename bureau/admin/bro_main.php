@@ -28,87 +28,119 @@
  TODO : Voir ??? + Déplacer / Copier
  ----------------------------------------------------------------------
 */
-require_once("../class/config.php");
+require_once ("../class/config.php");
 include_once ("head.php");
 
-$p=$bro->GetPrefs();
-if (!$R && $p["golastdir"]) {
-  $R=$p["lastdir"];
+$fields = array (
+	"R"           => array ("request", "string", ""),
+	"formu"       => array ("request", "integer", 0),
+	"nomfich"     => array ("request", "string", ""),
+	"o"           => array ("request", "array", array()),
+	"d"           => array ("request", "array", array()),
+	"actmove"     => array ("request", "string", ""),
+	"actmoveto"   => array ("request", "string", ""),
+	"actrename"   => array ("request", "string", ""),
+	"actdel"      => array ("request", "string", ""),
+	"del_confirm" => array ("request", "string", ""),
+	"cancel"      => array ("request", "string", ""),
+);
+getFields($fields);
+
+$p = $bro->GetPrefs();
+if (!$R && $p["golastdir"])
+{
+	$R = $p["lastdir"];
 }
-$R=$bro->convertabsolute($R,1);
+
+$R = $bro->convertabsolute($R, 1);
+
 // on fait ?
-if ($formu) {
-  switch ($formu) {
-  case 1:  // Créer le répertoire $R.$nomfich
-    if (!$bro->CreateDir($R,$nomfich)) {
-      echo $err->errstr();
-    }
-    $p=$bro->GetPrefs();
-    break;
-  case 6: // Créer le fichier $R.$nomfich
-    if (!$bro->CreateFile($R,$nomfich)) {
-      echo $err->errstr();
-    }
-    $p=$bro->GetPrefs();
-    if ($p["createfile"]==1) {
-      $file=$nomfich;
-      include("bro_editor.php");
-      exit();
-    }
-    break;
-  case 2:  // act vaut Supprimer Copier ou Renommer.
-    if ($actdel) {
-      if($del_confirm == _("Yes")) {
-        if (!$bro->DeleteFile($d,$R)) {
-          print $err->errstr();
-        }
-      }
-      else if (!$cancel)
-      {
+if ($formu)
+{
+	switch ($formu)
+	{
+		case 1:  // Créer le répertoire $R.$nomfich
+			if (!$bro->CreateDir($R, $nomfich))
+			{
+				echo $err->errstr();
+			}
+			$p = $bro->GetPrefs();
+		break;
+
+		case 6: // Créer le fichier $R.$nomfich
+			if (!$bro->CreateFile($R,$nomfich))
+			{
+				echo $err->errstr();
+			}
+			$p = $bro->GetPrefs();
+			if ($p["createfile"] == 1)
+			{
+				$file = $nomfich;
+				include ("bro_editor.php");
+				exit();
+			}
+		break;
+		case 2:  // act vaut Supprimer Copier ou Renommer.
+			if ($actdel)
+			{
+				if ($del_confirm == _("Yes"))
+				{
+					if (!$bro->DeleteFile($d, $R))
+					{
+						echo $err->errstr();
+					}
+				}
+				else if (!$cancel)
+				{
 
 ?>
-  <h3><?php printf(_("Deleting files and/or directories")); ?></h3>
-  <form action="bro_main.php" method="post">
-    <input type="hidden" name="formu" value="2" />
-    <input type="hidden" name="actdel" value="1" />
-    <input type="hidden" name="R" value="<?php echo $R?>" />
-    <p class="error"><?php __("WARNING : Confirm the deletion of this files"); ?></p>
-<?php foreach($d as $file){ ?>
-	<p><?php echo stripslashes($file); ?></p>
-        <input type="hidden" name="d[]" value="<?php echo htmlentities(stripslashes($file)); ?>" />
+<h3><?php printf(_("Deleting files and/or directories")); ?></h3>
+<form action="bro_main.php" method="post">
+<input type="hidden" name="formu" value="2" />
+<input type="hidden" name="actdel" value="1" />
+<input type="hidden" name="R" value="<?php echo $R?>" />
+<p class="error"><?php __("WARNING : Confirm the deletion of this files"); ?></p>
+<?php foreach ($d as $file) { ?>
+<p><?php echo stripslashes($file); ?></p>
+<input type="hidden" name="d[]" value="<?php echo htmlentities(stripslashes($file)); ?>" />
 <?php } ?>
-    <blockquote>
-      <input type="submit" class="inb" name="del_confirm" value="<?php __("Yes"); ?>" />&nbsp;&nbsp;
-      <input type="submit" class="inb" name="cancel" value="<?php __("No"); ?>" />
-    </blockquote>
-  </form>
+<blockquote>
+	<input type="submit" class="inb" name="del_confirm" value="<?php __("Yes"); ?>" />&nbsp;&nbsp;
+	<input type="submit" class="inb" name="cancel" value="<?php __("No"); ?>" />
+</blockquote>
+</form>
 <?php
-				include_once("foot.php");
-        die();
-      }
-    }
-    if ($actmove) {
-      if (!$bro->MoveFile($d,$R,$actmoveto)) {
-        echo $err->errstr();
-      }
-    }
-    break;
-  case 4:  // Renommage Effectif...
-    if (!$bro->RenameFile($R,$o,$d)) { // Rename $R (directory) $o (old) $d (new) names
-      echo $err->errstr();
-    }
-    break;
-  case 3:  // Upload de fichier...
-    if (!$bro->UploadFile($R)) {
-      echo $err->errstr();
-    }
+					include_once("foot.php");
+					die();
+				}
+			}
+			if ($actmove)
+			{
+				if (!$bro->MoveFile($d, $R, $actmoveto))
+				{
+					echo $err->errstr();
+				}
+			}
 		break;
-  }
+		case 4:  // Renommage Effectif...
+			if (!$bro->RenameFile($R, $o, $d)) // Rename $R (directory) $o (old) $d (new) names
+			{
+				echo $err->errstr();
+			}
+		break;
+		case 3:  // Upload de fichier...
+			if (!$bro->UploadFile($R))
+			{
+				echo $err->errstr();
+			}
+		break;
+	}
 }
 
 /* Creation de la liste des fichiers courants */
-$c=$bro->filelist($R);
-if ($c===false) $error=$err->errstr();
+$c = $bro->filelist($R);
+if ($c === false)
+	$error = $err->errstr();
 
 ?>
 <h3><?php __("File browser"); ?></h3>

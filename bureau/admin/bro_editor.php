@@ -29,6 +29,16 @@
 */
 require_once("../class/config.php");
 
+$fields = array (
+	"R"         => array ("request", "string", ""),
+	"file"      => array ("request", "string", ""),
+	"texte"     => array ("request", "string", ""),
+	"cancel"    => array ("request", "string", ""),
+	"saveret"   => array ("request", "string", ""),
+	"save"      => array ("request", "string", ""),
+);
+getFields($fields);
+
 $file=ssla($file);
 $texte=ssla($texte);
 
@@ -58,7 +68,7 @@ include_once("head.php");
 <?php echo _("File editing")." <code>$R/<b>$file</b></code><br />"; ?>
 </p>
 <form action="bro_editor.php" method="post"><br />
-<div id="resizer" style="left: 0px; top: 0px; z-index: 54; width: 646px; height: 252px; cursor: auto;"><textarea class="int" style="font-family: <?php echo $p["editor_font"]; ?>; font-size: <?php echo $p["editor_size"]; ?>; width: 90%; height: 90%;" cols="<?php echo $p["editsizex"]; ?>" rows="<?php echo $p["editsizey"]; ?>" name="texte"><?php
+<div id="resizer" style="left: 0px; top: 0px; z-index: 54; width: <?php echo $p["editsizex"]; ?>px; height: <?php echo $p["editsizey"]; ?>px; cursor: auto;"><textarea class="int" style="font-family: <?php echo $p["editor_font"]; ?>; font-size: <?php echo $p["editor_size"]; ?>; width: 90%; height: 90%;" cols="<?php echo $p["editsizex"]; ?>" rows="<?php echo $p["editsizey"]; ?>" name="texte"><?php
 $bro->content($R,$file);
 ?></textarea><img src="/admin/icon/winresize.gif" alt="shift+click and drag to resize textarea" title="shift+click and drag to resize textarea" height="20" width="20" /></div><br />
 	<input type="hidden" name="file" value="<?php echo str_replace("\"","&quot;",$file); ?>" />

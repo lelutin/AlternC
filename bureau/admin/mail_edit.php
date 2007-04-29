@@ -36,44 +36,71 @@ $fields = array (
 );
 getFields($fields);
 
-if (!$res=$mail->get_mail_details($email))
+if (!$res = $mail->get_mail_details($email))
 {
-	$error=$err->errstr();
+	$error = $err->errstr();
 	echo $error;
 }
 else
 {
 
 ?>
-<h3><?php printf(_("Edit a mailbox of the domain %s"),"http://$domain"); ?> : </h3>
+<h3><?php printf(_("Edit a mailbox of the domain %s"),"http://$domain"); ?></h3>
 <?php
-if ($error_edit) {
-	echo "<p class=\"error\">$error_edit</p>";
-	$error_edit="";
 
-} else {
-	$pop=$res["pop"];
-	$pass=$res["password"];
-	$alias=$res["alias"];
-} ?>
+if ($error)
+	echo "<p class=\"error\">" . $error . "</p>";
 
+if (isset($error_edit))
+{
+	echo "<p class=\"error\">" . $error_edit . "</p>";
+	$error_edit = "";
+
+}
+else
+{
+	$pop = $res["pop"];
+	$alias = $res["alias"];
+
+}
+?>
 <form action="mail_doedit.php" method="post">
 <table border="1" cellspacing="0" cellpadding="4">
-	<tr><th colspan="2"><input type="hidden" name="email" value="<?php echo $email; ?>" />
-<input type="hidden" name="domain" value="<?php echo $domain; ?>" />
-<?php printf(_("Edit the mailbox %s"),$email); ?></th></tr>
-	<tr><td><label for="ispop"><?php __("Is it a POP account?"); ?></label></td><td><input id="ispop" type="checkbox" class="inc" name="pop" value="1" <?php if ($pop=="1") echo "checked=\"checked\""; ?> /></td></tr>
-	<tr><td><label for="pass"><?php __("POP password"); ?></label></td><td><input type="password" class="int" name="pass" id="pass" value="<?php echo $pass; ?>" size="20" maxlength="32" /></td></tr>
-	<tr><td><label for="passconf"><?php __("Confirm password"); ?></label></td><td><input type="password" class="int" name="passconf" id="passconf" value="<?php echo $pass; ?>" size="20" maxlength="32" /></td></tr>
-	<tr><td><label for="alias"><?php __("Other recipients"); ?></label></td><td>(<?php __("One email per line"); ?>)<br /><textarea class="int" cols="32" rows="5" name="alias" id="alias"><?php echo $alias; ?></textarea></td></tr>
-	<tr><td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Change this mailbox"); ?>" /></td></tr>
+	<tr>
+		<th colspan="2">
+			<input type="hidden" name="email" value="<?php echo $email; ?>" />
+			<input type="hidden" name="domain" value="<?php echo $domain; ?>" />
+			<?php printf(_("Edit the mailbox %s"), $email); ?>
+		</th>
+	</tr>
+	<tr>
+		<td><label for="ispop"><?php __("Is it a POP account?"); ?></label></td>
+		<td><input id="ispop" type="checkbox" class="inc" name="pop" value="1" <?php if ($pop == "1") echo "checked=\"checked\""; ?> /></td>
+	</tr>
+	<tr>
+		<td><label for="pass"><?php __("POP password"); ?></label></td>
+		<td><input type="password" class="int" name="pass" id="pass" value="" size="20" maxlength="32" /></td>
+	</tr>
+	<tr>
+		<td><label for="passconf"><?php __("Confirm password"); ?></label></td>
+		<td><input type="password" class="int" name="passconf" id="passconf" value="" size="20" maxlength="32" /></td>
+	</tr>
+	<tr>
+		<td><label for="alias"><?php __("Other recipients"); ?></label></td>
+		<td>(<?php __("One email per line"); ?>)<br /><textarea class="int" cols="32" rows="5" name="alias" id="alias"><?php echo $alias; ?></textarea></td>
+	</tr>
+	<tr>
+		<td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Change this mailbox"); ?>" /></td>
+	</tr>
 </table>
 </form>
 <p><small>
 <?php __("help_mail_edit"); ?>
 </small></p>
 <?php
+
 }
+
 ?>
 <script type="text/javascript">
 deploy("menu-mail");

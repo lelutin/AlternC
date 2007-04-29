@@ -29,14 +29,19 @@
 */
 require_once("../class/config.php");
 
+$fields = array (
+	"dir" => array ("request", "string", ""),
+);
+getFields($fields);
 
-if(!$hta->CreateDir($dir)) {
-	$error=$err->errstr();
-	include("hta_add.php");
+if(!$hta->CreateDir($dir))
+{
+	$error = $err->errstr();
+	include ("hta_add.php");
 	exit();
 }
 
-include("hta_list.php");
+include ("hta_list.php");
 exit();
 
 ?>

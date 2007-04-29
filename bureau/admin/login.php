@@ -29,7 +29,14 @@
 */
 require_once("../class/config.php");
 
-if (!$mem->checkid())
+$fields = array (
+	"username"  => array ("request", "string", ""),
+	"password"  => array ("request", "string", ""),
+	"restrictip" => array ("request", "integer", 0),
+);
+getFields($fields);
+
+if (!$mem->checkid($username, $password, $restrictip))
 {
 	$error = $err->errstr();
 	include("index.php");

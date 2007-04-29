@@ -34,13 +34,23 @@ if (!$admin->enabled) {
 	exit();
 }
 
-if (!$admin->addtld($tld,$mode)) {
-	$error=$err->errstr();
-	include("adm_tldadd.php");
-	exit();
-} else {
-	$error=_("The TLD has been successfully added");
-	include("adm_tld.php");
+$fields = array (
+	"tld"      => array ("request", "string", ""),
+	"mode"     => array ("request", "integer", 0),
+);
+getFields($fields);
+
+if (!$admin->addtld($tld, $mode))
+{
+	$error = $err->errstr();
+	include ("adm_tldadd.php");
 	exit();
 }
+else
+{
+	$error = _("The TLD has been successfully added");
+	include ("adm_tld.php");
+	exit();
+}
+
 ?>

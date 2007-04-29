@@ -30,43 +30,60 @@
 require_once("../class/config.php");
 include_once("head.php");
 
-if (!$quota->cancreate("ftp")) {
-	$error=_("You cannot add any new ftp account, your quota is over.");
-	$fatal=1;
+if (!$quota->cancreate("ftp"))
+{
+	$error = _("You cannot add any new ftp account, your quota is over.");
+	$fatal = 1;
 }
+
+$fields = array (
+	"id"         => array ("request", "integer", 0),
+	"prefixe"    => array ("request", "string", ""),
+	"login"      => array ("request", "string", ""),
+	"pass"       => array ("request", "string", ""),
+	"passconf"   => array ("request", "string", ""),
+	"dir"        => array ("request", "string", ""),
+);
+getFields($fields);
 
 ?>
 <h3><?php __("Create a new ftp account"); ?></h3>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p>";
-		if ($fatal) {
-?>
-<script type="text/javascript">
-deploy("menu-ftp");
-</script>
-<?php include_once("foot.php"); ?>
-<?php
-			exit();
-		}
-	}
+
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p>";
+}
+
 ?>
 <form method="post" action="ftp_doadd.php" name="main">
 <table border="1" cellspacing="0" cellpadding="4">
-<tr><th><input type="hidden" name="id" value="<?php echo $id ?>" />
-<label for="login"><?php __("Username"); ?></label></th><td>
-	<select class="inl" name="prefixe"><?php $ftp->select_prefix_list($prefixe); ?></select>&nbsp;<b>_</b>&nbsp;<input type="text" class="int" name="login" id="login" value="<?php echo $login; ?>" size="20" maxlength="64" />
-</td></tr>
-<tr><th><label for="pass"><?php __("Password"); ?></label></th><td><input type="password" class="int" name="pass" id="pass" value="<?php echo $pass; ?>" size="20" maxlength="64" /></td></tr>
-<tr><th><label for="passconf"><?php __("Confirm password"); ?></label></th><td><input type="password" class="int" name="passconf" id="passconf" value="<?php echo $passconf; ?>" size="20" maxlength="64" /></td></tr>
-<tr><th><label for="dir"><?php __("Folder"); ?></label></th><td><input type="text" class="int" name="dir" id="dir" value="<?php echo $dir; ?>" size="20" maxlength="255" />
-<script type="text/javascript">
-<!--
-  document.write("&nbsp;<input type=\"button\" name=\"bff\" onclick=\"browseforfolder('main.dir');\" value=\" ... \" class=\"inb\">");
-//  -->
-</script>
-</td></tr>
-<tr><td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Create this new FTP account."); ?>" /></td></tr>
+	<tr>
+		<th><input type="hidden" name="id" value="<?php echo $id ?>" /><label for="login"><?php __("Username"); ?></label></th>
+		<td><select class="inl" name="prefixe"><?php $ftp->select_prefix_list($prefixe); ?></select>&nbsp;<b>_</b>&nbsp;<input type="text" class="int" name="login" id="login" value="<?php echo $login; ?>" size="20" maxlength="64" /></td>
+	</tr>
+	<tr>
+		<th><label for="pass"><?php __("Password"); ?></label></th>
+		<td><input type="password" class="int" name="pass" id="pass" value="<?php echo $pass; ?>" size="20" maxlength="64" /></td>
+	</tr>
+	<tr>
+		<th><label for="passconf"><?php __("Confirm password"); ?></label></th>
+		<td><input type="password" class="int" name="passconf" id="passconf" value="<?php echo $passconf; ?>" size="20" maxlength="64" /></td>
+	</tr>
+	<tr>
+		<th><label for="dir"><?php __("Folder"); ?></label></th>
+		<td>
+			<input type="text" class="int" name="dir" id="dir" value="<?php echo $dir; ?>" size="20" maxlength="255" />
+			<script type="text/javascript">
+			<!--
+				document.write("&nbsp;<input type=\"button\" name=\"bff\" onclick=\"browseforfolder('main.dir');\" value=\" ... \" class=\"inb\">");
+			//  -->
+			</script>
+			</td>
+	</tr>
+	<tr>
+		<td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Create this new FTP account."); ?>" /></td>
+	</tr>
 </table>
 </form>
 <?php $mem->show_help("ftp_add"); ?>

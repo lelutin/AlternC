@@ -30,28 +30,43 @@
 require_once("../class/config.php");
 include_once("head.php");
 
-if (!$quota->cancreate("mysql")) {
-	$error=_("err_mysql_1");
-	$fatal=1;
+if (!$quota->cancreate("mysql"))
+{
+	$error = _("err_mysql_1");
+	$fatal = 1;
 }
+
+$fields = array (
+	"dbn" => array ("request", "string", ""),
+);
+getFields($fields);
 
 ?>
 <h3><?php __("Create a new database"); ?></h3>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p>";
-		if ($fatal) {
-			include_once("foot.php");
-			exit();
-		}
+
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p>";
+	if (isset($fatal))
+	{
+		include_once("foot.php");
+		exit();
 	}
+}
+
 ?>
 <form method="post" action="sql_doadd.php" id="main">
 <table border="1" cellspacing="0" cellpadding="4">
-<tr><th><label for="dbn"><?php __("Database"); ?></label></th><td>
-	<?php echo $mem->user["login"]; ?>&nbsp;<b>_</b>&nbsp;<input type="text" class="int" name="dbn" id="dbn" value="<?php echo $dbn; ?>" size="20" maxlength="30" />
-</td></tr>
-<tr><td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Create this new database."); ?>" /></td></tr>
+	<tr>
+		<th><label for="dbn"><?php __("Database"); ?></label></th>
+		<td>
+			<?php echo $mem->user["login"]; ?>&nbsp;<b>_</b>&nbsp;<input type="text" class="int" name="dbn" id="dbn" value="<?php echo $dbn; ?>" size="20" maxlength="30" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Create this new database."); ?>" /></td>
+	</tr>
 </table>
 </form>
 <script type="text/javascript">

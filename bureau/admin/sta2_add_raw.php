@@ -29,35 +29,61 @@
 */
 require_once("../class/config.php");
 
-if (!$quota->cancreate("sta2")) {
-	$error=_("You cannot add any new statistics, your quota is over.");
+if (!$quota->cancreate("sta2"))
+{
+	$error = _("You cannot add any new statistics, your quota is over.");
 }
 
 include_once("head.php");
+
+$fields = array (
+	"id"       => array ("request", "integer", 0),
+	"hostname" => array ("request", "string", ""),
+	"folder"   => array ("request", "string", ""),
+);
+getFields($fields);
+
 ?>
 <h3><?php __("New Raw Statistics (apache)"); ?></h3>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p>";
-		include_once("foot.php");
-		exit();
-	}
+
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p>";
+	include_once ("foot.php");
+	exit();
+}
+
 ?>
 <form method="post" action="sta2_doadd_raw.php" id="main" name="main">
 <table border="1" cellspacing="0" cellpadding="4">
-<tr><th><input type="hidden" name="id" value="<?php echo $id ?>" />
-        <label for="hostname"><?php __("Domain name"); ?></label></th><td>
-	<select class="inl" name="hostname" id="hostname"><?php $sta2->select_host_list($hostname); ?></select>
-</td></tr>
-<tr><th><label for="folder"><?php __("Folder"); ?></label></th><td><input type="text" class="int" name="folder" id="folder" value="<?php echo $folder; ?>" size="20" maxlength="255" />
-<script type="text/javascript">
-<!--
-  document.write("&nbsp;<input type=\"button\" name=\"bff\" onclick=\"browseforfolder('main.folder');\" value=\" ... \" class=\"inb\" />");
-//  -->
-</script>
-</td></tr>
-<tr><td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Create those raw statistics"); ?>" /></td></tr>
+	<tr>
+		<th>
+			<input type="hidden" name="id" value="<?php echo $id ?>" />
+			<label for="hostname"><?php __("Domain name"); ?></label></th>
+		<td>
+			<select class="inl" name="hostname" id="hostname"><?php $sta2->select_host_list($hostname); ?></select>
+		</td>
+	</tr>
+	<tr>
+		<th><label for="folder"><?php __("Folder"); ?></label></th>
+		<td><input type="text" class="int" name="folder" id="folder" value="<?php echo $folder; ?>" size="20" maxlength="255" />
+		<script type="text/javascript">
+		<!--
+		document.write("&nbsp;<input type=\"button\" name=\"bff\" onclick=\"browseforfolder('main.folder');\" value=\" ... \" class=\"inb\" />");
+		//  -->
+		</script>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Create those raw statistics"); ?>" /></td>
+	</tr>
 </table>
 </form>
-<?php $mem->show_help("sta2_add"); ?>
-<?php include_once("foot.php"); ?>
+<?php
+
+$mem->show_help("sta2_add");
+
+include_once("foot.php");
+
+?>

@@ -29,14 +29,22 @@
 */
 require_once("../class/config.php");
 
+$fields = array (
+	"pass" => array ("request", "string", ""),
+);
+getFields($fields);
 
-if (!$mysql->put_mysql_details($pass)) {
-	$error=$err->errstr();
-	include("sql_passchg.php");
-	exit();
-} else {
-	$error=_("Your password has been successfully changed.");
-	include("sql_list.php");
+if (!$mysql->put_mysql_details($pass))
+{
+	$error = $err->errstr();
+	include ("sql_passchg.php");
 	exit();
 }
+else
+{
+	$error = _("Your password has been successfully changed.");
+	include ("sql_list.php");
+	exit();
+}
+
 ?>

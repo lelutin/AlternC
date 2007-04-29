@@ -30,16 +30,19 @@
 require_once("../class/config.php");
 include_once("head.php");
 
-if (!$r=$mysql->get_dblist()) {
-	$error=$err->errstr();
+if (!$r = $mysql->get_dblist())
+{
+	$error = $err->errstr();
 }
 
 ?>
 <h3><?php __("MySQL Databases"); ?></h3>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p><p>&nbsp;</p>";
-	}
+
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p><p>&nbsp;</p>";
+}
 
 ?>
 <p><?php __("Your current settings are"); ?> : </p>

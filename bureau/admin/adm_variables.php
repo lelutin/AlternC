@@ -36,8 +36,8 @@ if (!$admin->enabled) {
 
 $conf = variable_init();
 foreach ($conf as $name => $val) {
-  if (isset($$name)) {
-    variable_set($name, $$name);
+  if (isset($_REQUEST[$name])) {
+    variable_set($name, $_REQUEST[$name]);
   }
 }
 
@@ -64,7 +64,7 @@ while ($db->next_record()) {
 
  <tr class="lst<?php echo $col; ?>">
  <td><?php echo $vars['name']; ?></td>
- <td><input type="text" name="<?php echo $vars['name']?>" value="<?php echo $vars['value']?>" /></td>
+ <td><input type="text" name="<?php echo $vars['name']?>" value="<?php echo addslashes($vars['value']); ?>" /></td>
  <td><?php echo $vars['comment']; ?></td>
  </tr>
 <? } ?>

@@ -31,38 +31,57 @@ require_once("../class/config.php");
 
 include_once("head.php");
 
-if (!$id) {
-	$error=_("No Statistics selected!");
-} else {
-	$r=$sta2->get_stats_details_raw($id);
-	if (!$r) {
-		$error=$err->errstr();
+$fields = array (
+	"id"       => array ("request", "integer", 0),
+	"hostname" => array ("request", "string", ""),
+	"folder"   => array ("request", "string", ""),
+);
+getFields($fields);
+
+if (!$id)
+{
+	$error = _("No Statistics selected!");
+}
+else
+{
+	$r = $sta2->get_stats_details_raw($id);
+	if (!$r)
+	{
+		$error = $err->errstr();
 	}
 }
 
 ?>
 <h3><?php __("Change the Raw Statistics"); ?></h3>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p>";
-		include_once("foot.php");
-		exit();
-	}
+
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p>";
+	include_once ("foot.php");
+	exit();
+}
+
 ?>
 <form method="post" action="sta2_doedit_raw.php" id="main" name="main">
 <table border="1" cellspacing="0" cellpadding="4">
-<tr><th><input type="hidden" name="id" value="<?php echo $id ?>" />
-        <?php __("Domain name"); ?></th><td>
-	<?php echo $r["hostname"]; ?>
-</td></tr>
-<tr><th><label for="folder"><?php __("Folder"); ?></label></th><td><input type="text" class="int" name="folder" id="folder" value="<?php echo $r["folder"]; ?>" size="20" maxlength="255" />
-<script type="text/javascript">
-<!--
-  document.write("&nbsp;<input type=\"button\" name=\"bff\" onclick=\"browseforfolder('main.folder');\" value=\" ... \" class=\"inb\" />");
-//  -->
-</script>
-</td></tr>
-<tr><td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Change those Raw Statistics."); ?>" /></td></tr>
+	<tr>
+		<th><input type="hidden" name="id" value="<?php echo $id ?>" /><?php __("Domain name"); ?></th>
+		<td><?php echo $r["hostname"]; ?></td>
+	</tr>
+	<tr>
+		<th><label for="folder"><?php __("Folder"); ?></label></th>
+		<td><input type="text" class="int" name="folder" id="folder" value="<?php echo $r["folder"]; ?>" size="20" maxlength="255" />
+		<script type="text/javascript">
+		<!--
+		document.write("&nbsp;<input type=\"button\" name=\"bff\" onclick=\"browseforfolder('main.folder');\" value=\" ... \" class=\"inb\" />");
+		//  -->
+		</script>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Change those Raw Statistics."); ?>" /></td>
+	</tr>
 </table>
 </form>
 <?php include_once("foot.php"); ?>

@@ -29,14 +29,24 @@
 */
 require_once("../class/config.php");
 
-$r=$aws->add_stats($hostname,$awsusers);
-if (!$r) {
-	$error=$err->errstr();
-	include("aws_add.php");
-	exit();
-} else {
-	$error=_("The statistics has been successfully created");
-	include("aws_list.php");
+$fields = array (
+	"hostname" => array ("request", "string", ""),
+	"awsusers" => array ("request", "array", array()),
+);
+getFields($fields);
+
+$r = $aws->add_stats($hostname, $awsusers);
+if (!$r)
+{
+	$error = $err->errstr();
+	include ("aws_add.php");
 	exit();
 }
+else
+{
+	$error = _("The statistics has been successfully created");
+	include ("aws_list.php");
+	exit();
+}
+
 ?>

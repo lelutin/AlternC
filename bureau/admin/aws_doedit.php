@@ -29,18 +29,31 @@
 */
 require_once("../class/config.php");
 
-if (!$id) {
-	$error=_("No Statistics selected!");
-} else {
-	$r=$aws->put_stats_details($id,$awsusers);
-	if (!$r) {
-		$error=$err->errstr();
-		include("aws_edit.php");
+$fields = array (
+	"id"       => array ("request", "integer", 0),
+	"awsusers" => array ("request", "array", array()),
+);
+getFields($fields);
+
+if (!$id)
+{
+	$error = _("No Statistics selected!");
+}
+else
+{
+	$r = $aws->put_stats_details($id, $awsusers);
+	if (!$r)
+	{
+		$error = $err->errstr();
+		include ("aws_edit.php");
 		exit();
-	} else {
-		$error=_("The Statistics has been successfully changed");
-		include("aws_list.php");
+	}
+	else
+	{
+		$error = _("The Statistics has been successfully changed");
+		include ("aws_list.php");
 		exit();
 	}
 }
+
 ?>

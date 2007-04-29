@@ -71,13 +71,17 @@ function dnsoff() {
 <h3><?php __("Subdomains"); ?></h3>
 <table cellspacing="0" cellpadding="3">
 <?php
-$col=1;
-for($i=0;$i<$r["nsub"];$i++) {
-	$col=3-$col;
+
+$col = 1;
+for ($i = 0; $i < $r["nsub"] ; $i++)
+{
+	$col = 3 - $col;
+	$altImg = ($i % 2 == 0 ? "" : "alt");
+
 ?>
 	<tr class="lst<?php echo $col; ?>">
 		<td class="center">
-			<a href="dom_subedit.php?domain=<?php echo urlencode($r["name"]) ?>&amp;sub=<?php  echo urlencode($r["sub"][$i]["name"]) ?>"><img src="images/edit.png" alt="<?php __("Edit"); ?>" /></a>&nbsp;<a href="dom_subdel.php?domain=<?php echo urlencode($r["name"]) ?>&amp;sub=<?php  echo urlencode($r["sub"][$i]["name"]) ?>"><img src="images/delete.png" alt="<?php __("Delete"); ?>" /></a>
+			<a href="dom_subedit.php?domain=<?php echo urlencode($r["name"]) ?>&amp;sub=<?php  echo urlencode($r["sub"][$i]["name"]) ?>"><img src="images/edit<?php echo $altImg; ?>.png" alt="<?php __("Edit"); ?>" /></a>&nbsp;<a href="dom_subdel.php?domain=<?php echo urlencode($r["name"]) ?>&amp;sub=<?php  echo urlencode($r["sub"][$i]["name"]) ?>"><img src="images/delete<?php echo $altImg; ?>.png" alt="<?php __("Delete"); ?>" /></a>
 		</td>
 		<td><a href="http://<?php ecif($r["sub"][$i]["name"],$r["sub"][$i]["name"]."."); echo $r["name"] ?>" target="_blank"><?php ecif($r["sub"][$i]["name"],$r["sub"][$i]["name"]."."); echo $r["name"] ?></a></td>
 		<td><?php echo $r["sub"][$i]['type'] === '0' ? '<a href="bro_main.php?R='.urlencode($r["sub"][$i]["dest"]).'">'.htmlspecialchars($r["sub"][$i]["dest"]).'</a>' : htmlspecialchars($r["sub"][$i]["dest"]); ?>&nbsp;</td>
@@ -134,7 +138,7 @@ for($i=0;$i<$r["nsub"];$i++) {
 		 modification des parametres dns
  -->
 <?php
-if (!$r[noerase]) {
+if (!$r["noerase"]) {
 ?>
 
 <hr />

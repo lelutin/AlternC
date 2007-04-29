@@ -30,22 +30,30 @@
 require_once("../class/config.php");
 
 $fields = array (
-	"id" => array ("request", "integer", 0),
+	"id"       => array ("request", "integer", 0),
+	"hostname" => array ("request", "string", ""),
 );
 getFields($fields);
 
-if (!$id && !$quota->cancreate("aws")) {
-	$error=_("You cannot add any new statistics, your quota is over.");
+if (!$id && !$quota->cancreate("aws"))
+{
+	$error = _("You cannot add any new statistics, your quota is over.");
 }
 
 include_once("head.php");
+
 ?>
 <h3><?php if (!$id) { __("New Statistics"); } else { __("Edit Statistics"); } ?></h3>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p></body></html>";
-		exit();
-	}
+
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p>";
+	echo "</body>";
+	echo "</html>";
+	exit();
+}
+
 ?>
 <form method="post" action="<?php if (!$id) echo "aws_doadd.php"; else echo "aws_doedit"; ?>" id="main" name="main">
 <table border="1" cellspacing="0" cellpadding="4">

@@ -31,68 +31,105 @@
 */
 require_once("../class/config.php");
 
-if (!$admin->enabled) {
+if (!$admin->enabled)
+{
 	__("This page is restricted to authorized staff");
 	exit();
 }
 
-if($_POST["action"] == "add") {
-  $type = $_POST['type'];
+$fields = array (
+	"action"      => array ("request", "string", ""),
+	"type"        => array ("request", "string", ""),
+	"del_confirm" => array ("request", "string", ""),
+);
+getFields($fields);
 
-  if($quota->addtype($type)) {
-    $error=_("Account type"). " \"$type\" "._("added");
-  } else {
-    $error=_("Account type"). " \"$type\" "._("could not be added");
-  }
-  include("adm_defquotas.php");
-} else if($_POST["action"] == "delete") {
-  if($_POST["del_confirm"] == "y"){
-    if($_POST['type']) {
-      if($quota->deltype($_POST['type'])) {
-        $error=_("Account type"). " \"$type\" "._("deleted");
-      } else {
-        $error=_("Account type"). " \"$type\" "._("could not be deleted");
-      }
-    }
-    include("adm_defquotas.php");
-  }else{
-    include_once("head.php");
-    ?>
-    <h3><?php printf(_("Deleting quota %s"),$_POST["type"]); ?> : </h3>
-
-    <form action="adm_dodefquotas.php" method="post">
-      <input type="hidden" name="action" value="delete" />
-      <input type="hidden" name="type" value="<?php echo $_POST["type"] ?>" />
-      <input type="hidden" name="del_confirm" value="y" />
-      <p class="error"><?php __("WARNING : Confirm the deletion of the quota"); ?></p>
-      <p><?php echo $_POST["type"]; ?></p>
-      <blockquote>
-        <input type="submit" class="inb" name="confirm" value="<?php __("Yes"); ?>" />&nbsp;&nbsp;
-        <input type="button" class="inb" name="cancel" value="<?php __("No"); ?>" onclick="document.location='adm_defquotas.php';" />
-      </blockquote>
-    </form>
-		<script type="text/javascript">
-		deploy("menu-adm");
-		</script>
-		<?php include_once("foot.php"); ?>
-    <?php
-  }
-} else if($_POST["action"] == "modify") {
-  reset($_POST);
-  $c=array();
-  foreach($_POST as $key => $val) {
-    if($key == "action")
-      continue;
-
-    list($type, $q) = explode(":", $key, 2);
-    $c[$type][$q] = abs(intval($val));
-  }
-
-  if($quota->setdefaults($c)) {
-    $error=_("Default quotas successfully changed");
-  } else {
-    $error=_("Default quotas could not be set.");
-  }
-  include("adm_panel.php");
+if ($action == "add")
+{
+	if($quota->addtype($type))
+	{
+		$error = _("Account type"). " \"" . $type . "\" " . _("added");
+	}
+	else
+	{
+		$error = _("Account type"). " \"" . $type . "\" " . _("could not be added");
+	}
+	include("adm_defquotas.php");
+	exit();
 }
+else if ($action == "delete")
+{
+	if (empty($type))
+	{
+		include("adm_defquotas.php");
+		exit();
+	}
+
+	if ($del_confirm == "y")
+	{
+		if($type)
+		{
+			if($quota->deltype($type))
+			{
+				$error = _("Account type"). " \"" . $type . "\" " . _("deleted");
+			}
+			else
+			{
+				$error = _("Account type") . " \"" . $type . "\" " . _("could not be deleted");
+			}
+		}
+		include("adm_defquotas.php");
+		exit();
+	}
+	else
+	{
+		include_once("head.php");
+?>
+<h3><?php printf(_("Deleting quota %s"), $type); ?></h3>
+
+<form action="adm_dodefquotas.php" method="post">
+<input type="hidden" name="action" value="delete" />
+<input type="hidden" name="type" value="<?php echo $type ?>" />
+<input type="hidden" name="del_confirm" value="y" />
+<p class="error"><?php __("WARNING : Confirm the deletion of the quota"); ?></p>
+<p><?php echo $type; ?></p>
+<blockquote>
+	<input type="submit" class="inb" name="confirm" value="<?php __("Yes"); ?>" />&nbsp;&nbsp;
+	<input type="button" class="inb" name="cancel" value="<?php __("No"); ?>" onclick="document.location='adm_defquotas.php';" />
+</blockquote>
+</form>
+<script type="text/javascript">
+deploy("menu-adm");
+</script>
+<?php
+
+		include_once("foot.php");
+		exit();
+  }
+}
+else if ($action == "modify")
+{
+	reset($_POST);
+	$c = array();
+	foreach ($_POST as $key => $val)
+	{
+		if($key == "action")
+		continue;
+
+		list($type, $q) = explode(":", $key, 2);
+		$c[$type][$q] = abs(intval($val));
+	}
+
+	if ($quota->setdefaults($c))
+	{
+		$error = _("Default quotas successfully changed");
+	}
+	else
+	{
+		$error = _("Default quotas could not be set.");
+	}
+	include("adm_defquotas.php");
+	exit();
+}
+
 ?>

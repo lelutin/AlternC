@@ -36,6 +36,12 @@ if (!$admin->enabled) {
 
 include_once ("head.php");
 
+$fields = array (
+	"tld"      => array ("request", "string", ""),
+	"mode"     => array ("request", "integer", 0),
+);
+getFields($fields);
+
 ?>
 <h3><?php __("Manage allowed domains (TLD)"); ?></h3>
 <?php

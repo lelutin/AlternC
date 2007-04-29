@@ -29,109 +29,217 @@
 */
 require_once("../class/config.php");
 
-if ($submit) {
+$fields = array (
+	"submit"          => array ("request", "string", ""),
+	"editsizex"       => array ("request", "string", ""),
+	"editsizey"       => array ("request", "string", ""),
+	"listmode"        => array ("request", "string", ""),
+	"showicons"       => array ("request", "string", ""),
+	"downfmt"         => array ("request", "string", ""),
+	"createfile"      => array ("request", "string", ""),
+	"showtype"        => array ("request", "string", ""),
+	"editor_font"     => array ("request", "string", ""),
+	"editor_size"     => array ("request", "string", ""),
+	"golastdir"       => array ("request", "string", ""),
+);
+getFields($fields);
+
+if ($submit)
+{
 	$bro->SetPrefs($editsizex, $editsizey, $listmode, $showicons, $downfmt, $createfile, $showtype, $editor_font, $editor_size, $golastdir);
-	$error=_("Your preferences have been updated.");
-	include("bro_main.php");
+	$error = _("Your preferences have been updated.");
+	include ("bro_main.php");
 	exit;
 }
-$p=$bro->GetPrefs();
+
+$p = $bro->GetPrefs();
 
 include_once("head.php");
 
+if ($error)
+	echo "<p class=\"error\">" . $error . "</p>";
+
 ?>
-<?php if ($error) echo "<font color=\"red\">$error</font><br />"; ?>
 <h3><?php __("File editor preferences"); ?></h3>
 <form action="bro_pref.php" method="post">
-
 <table cellpadding="6" border="1" cellspacing="0">
-<tr><td colspan="2"><h4><?php __("File editor preferences"); ?></h4></td></tr>
-<tr><td><?php __("Horizontal window size"); ?></td><td><select class="inl" name="editsizex">
+	<tr>
+		<td colspan="2"><h4><?php __("File editor preferences"); ?></h4></td>
+	</tr>
+	<tr>
+		<td><?php __("Horizontal window size"); ?></td>
+		<td><select class="inl" name="editsizex">
 <?php
-for($i=10;$i<=200;$i+=10) {
-	echo "<option";
-	if ($p["editsizex"]==$i) echo " selected";
-	echo ">$i";
+
+for ($i = 400; $i <= 1000; $i += 100)
+{
+	echo "<option value=\"" . $i . "\"";
+	if ($p["editsizex"] == $i) echo " selected=\"selected\"";
+	echo ">" . $i . "</option>";
 }
-?></select></td></tr>
-<tr><td><?php __("Vertical window size"); ?></td><td><select class="inl" name="editsizey">
+
+?>
+</select></td>
+</tr>
+<tr>
+<td><?php __("Vertical window size"); ?></td>
+<td><select class="inl" name="editsizey">
 <?php
-for($i=4;$i<=60;$i+=2) {
-	echo "<option";
-	if ($p["editsizey"]==$i) echo " selected";
-	echo ">$i";
+
+for ($i = 200; $i <= 500; $i += 50)
+{
+	echo "<option value=\"" . $i . "\"";
+	if ($p["editsizey"] == $i)
+		echo " selected=\"selected\"";
+	echo ">" . $i . "</option>";
 }
-?></select></td></tr>
-<tr><td><?php __("File editor font name"); ?></td><td><select class="inl" name="editor_font">
+
+?>
+</select></td>
+</tr>
+<tr>
+<td><?php __("File editor font name"); ?></td>
+<td><select class="inl" name="editor_font">
 <?php
-for($i=0;$i<count($bro->l_editor_font);$i++) {
-	echo "<option";
-	if ($p["editor_font"]==$bro->l_editor_font[$i]) echo " selected";
-	echo ">"._($bro->l_editor_font[$i]);
+
+for ($i = 0; $i < count($bro->l_editor_font); $i++)
+{
+	echo "<option value=\"" . $bro->l_editor_font[$i] . "\"";
+	if ($p["editor_font"] == $bro->l_editor_font[$i])
+		echo " selected=\"selected\"";
+	echo ">" . _($bro->l_editor_font[$i]) . "</option>";
 }
-?></select></td></tr>
-<tr><td><?php __("File editor font size"); ?></td><td><select class="inl" name="editor_size">
+
+?>
+</select></td>
+</tr>
+<tr>
+<td><?php __("File editor font size"); ?></td>
+<td><select class="inl" name="editor_size">
 <?php
-for($i=0;$i<count($bro->l_editor_size);$i++) {
-	echo "<option";
-	if ($p["editor_size"]==$bro->l_editor_size[$i]) echo " selected";
-	echo ">"._($bro->l_editor_size[$i]);
+
+for ($i = 0; $i < count($bro->l_editor_size); $i++)
+{
+	echo "<option value=\"" . $bro->l_editor_size[$i] . "\"";
+	if ($p["editor_size"] == $bro->l_editor_size[$i])
+		echo " selected=\"selected\"";
+	echo ">" . _($bro->l_editor_size[$i]) . "</option>";
 }
-?></select></td></tr>
+
+?>
+</select>
+</td>
+</tr>
 </table>
+
 <p>&nbsp;</p>
 
 <table cellpadding="6" border="1" cellspacing="0">
-<tr><td colspan="2"><h4><?php __("File browser preferences"); ?></h4></td></tr>
-<tr><td><?php __("File list view"); ?></td><td><select class="inl" name="listmode">
+	<tr>
+		<td colspan="2"><h4><?php __("File browser preferences"); ?></h4></td>
+	</tr>
+	<tr>
+		<td><?php __("File list view"); ?></td>
+		<td><select class="inl" name="listmode">
 <?php
-for($i=0;$i<count($bro->l_mode);$i++) {
-	echo "<option";
-	if ($p["listmode"]==$i) echo " selected";
-	echo " value=\"$i\">"._($bro->l_mode[$i])."</option>";
-}
-?></select></td></tr>
-<tr><td><?php __("Downloading file format"); ?></td><td><select class="inl" name="downfmt">
-<?php
-for($i=0;$i<count($bro->l_tgz);$i++) {
-	echo "<option";
-	if ($p["downfmt"]==$i) echo " selected";
-	echo " value=\"$i\">"._($bro->l_tgz[$i])."</option>";
-}
-?></select></td></tr>
-<tr><td><?php __("What to do after creating a file"); ?></td><td><select class="inl" name="createfile">
-<?php
-for($i=0;$i<count($bro->l_createfile);$i++) {
-	echo "<option";
-	if ($p["createfile"]==$i) echo " selected";
-	echo " value=\"$i\">"._($bro->l_createfile[$i])."</option>";
-}
-?></select></td></tr>
-<tr><td><?php __("Show icons?"); ?></td><td><select class="inl" name="showicons">
-<?php
-for($i=0;$i<count($bro->l_icons);$i++) {
-	echo "<option";
-	if ($p["showicons"]==$i) echo " selected";
-	echo " value=\"$i\">"._($bro->l_icons[$i])."</option>";
-}
-?></select></td></tr>
-<tr><td><?php __("Show file types?"); ?></td><td><select class="inl" name="showtype">
-<?php
-for($i=0;$i<count($bro->l_icons);$i++) {
-	echo "<option";
-	if ($p["showtype"]==$i) echo " selected";
-	echo " value=\"$i\">"._($bro->l_icons[$i])."</option>";
-}
-?></select></td></tr>
-<tr><td><?php __("Remember last visited directory?"); ?></td><td><select class="inl" name="golastdir">
-<?php
-for($i=0;$i<count($bro->l_icons);$i++) {
-	echo "<option";
-	if ($p["golastdir"]==$i) echo " selected";
-	echo " value=\"$i\">"._($bro->l_icons[$i])."</option>";
-}
-?></select></td></tr>
 
+for ($i = 0; $i < count($bro->l_mode); $i++)
+{
+	echo "<option value=\"" . $i . "\"";
+	if ($p["listmode"] == $i)
+		echo " selected=\"selected\"";
+	echo ">" . _($bro->l_mode[$i]) . "</option>";
+}
+
+?>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td><?php __("Downloading file format"); ?></td>
+		<td><select class="inl" name="downfmt">
+<?php
+
+for($i = 0; $i <count($bro->l_tgz); $i++)
+{
+	echo "<option value=\"" . $i . "\"";
+	if ($p["downfmt"] == $i)
+		echo " selected=\"selected\"";
+	echo ">" . _($bro->l_tgz[$i]) . "</option>";
+}
+
+?>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td><?php __("What to do after creating a file"); ?></td>
+		<td><select class="inl" name="createfile">
+<?php
+
+for($i = 0; $i < count($bro->l_createfile); $i++)
+{
+	echo "<option value=\"" . $i . "\"";
+	if ($p["createfile"] == $i)
+		echo " selected=\"selected\"";
+	echo ">" . _($bro->l_createfile[$i]) . "</option>";
+}
+
+?>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td><?php __("Show icons?"); ?></td>
+		<td><select class="inl" name="showicons">
+<?php
+
+for($i = 0; $i < count($bro->l_icons); $i++)
+{
+	echo "<option value=\"" . $i . "\"";
+	if ($p["showicons"] == $i)
+		echo " selected=\"selected\"";
+	echo ">" . _($bro->l_icons[$i]) . "</option>";
+}
+
+?>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td><?php __("Show file types?"); ?></td>
+		<td><select class="inl" name="showtype">
+<?php
+
+for($i = 0; $i < count($bro->l_icons); $i++)
+{
+	echo "<option value=\"" . $i . "\"";
+	if ($p["showtype"] == $i)
+		echo " selected=\"selected\"";
+	echo ">" . _($bro->l_icons[$i]) . "</option>";
+}
+
+?>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td><?php __("Remember last visited directory?"); ?></td>
+		<td><select class="inl" name="golastdir">
+<?php
+
+for($i = 0; $i < count($bro->l_icons); $i++)
+{
+	echo "<option value=\"" . $i . "\"";
+	if ($p["golastdir"] == $i)
+		echo " selected=\"selected\"";
+	echo ">" . _($bro->l_icons[$i]) . "</option>";
+}
+
+?>
+			</select>
+		</td>
+	</tr>
 </table>
 <p><input type="submit" name="submit" class="inb" value="<?php __("Change my settings"); ?>" /></p>
 

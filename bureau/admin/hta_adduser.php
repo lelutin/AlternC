@@ -38,11 +38,13 @@ getFields($fields);
 ?>
 <h3><?php printf(_("Adding a username in %s"),$dir); ?></h3>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p>";
-	}
-?>
 
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p>";
+}
+
+?>
 <form method="post" action="hta_doadduser.php">
 <table border="1" cellspacing="0" cellpadding="4">
 	<tr>

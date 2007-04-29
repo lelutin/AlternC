@@ -52,7 +52,8 @@ if ($newlogin) {
 	// Add an account
 	if ($dom->add_slave_account($newlogin,$newpass)) {
 		$error=_("The requested account address has been created. It is now allowed.");
-		unset($newlogin); unset($newpass);
+		$newlogin = "";
+		$newpass = "";
 	}
 }
 

@@ -45,7 +45,7 @@ if (!$dom->del_sub_domain($domain,$sub)) {
 $dom->unlock();
 
 ?>
-<h3>Suppression du sous-domaine http://<?php ecif($sub,$sub."."); echo $domain; ?> : </h3>
+<h3>Suppression du sous-domaine http://<?php ecif($sub,$sub."."); echo $domain; ?></h3>
 <?php
 	if ($error) {
 		echo "<p class=\"error\">$error</p>";

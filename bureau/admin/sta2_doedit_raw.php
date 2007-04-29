@@ -29,18 +29,31 @@
 */
 require_once("../class/config.php");
 
-if (!$id) {
-	$error=_("No Statistics selected!");
-} else {
-	$r=$sta2->put_stats_details_raw($id,$folder);
-	if (!$r) {
-		$error=$err->errstr();
-		include("sta2_edit_raw.php");
+$fields = array (
+	"id"       => array ("request", "integer", 0),
+	"folder"   => array ("request", "string", ""),
+);
+getFields($fields);
+
+if (!$id)
+{
+	$error = _("No Statistics selected!");
+}
+else
+{
+	$r = $sta2->put_stats_details_raw($id, $folder);
+	if (!$r)
+	{
+		$error = $err->errstr();
+		include ("sta2_edit_raw.php");
 		exit();
-	} else {
-		$error=_("The Statistics has been successfully changed");
-		include("sta2_list.php");
+	}
+	else
+	{
+		$error = _("The Statistics has been successfully changed");
+		include ("sta2_list.php");
 		exit();
 	}
 }
+
 ?>

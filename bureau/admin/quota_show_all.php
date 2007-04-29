@@ -47,6 +47,8 @@ else
 	$user_list[] = $mem->user;
 }
 
+$class = "";
+
 $class = ($class== 'lst1' ? 'lst2' : 'lst1');
 echo "<table><tr class=\"$class\">";
 $ql = $quota->qlist();
@@ -78,8 +80,16 @@ foreach ($u as $uid => $login)
 	{
 		$error = $err->errstr();
 	}
+	$quota_utilise = array();
+	$tot = array();
 	foreach($sequence as $key)
 	{
+		if (!isset($quota_utilise[$key]))
+			$quota_utilise[$key] = 0;
+
+		if (!isset($tot[$key]))
+			$tot[$key] = 0;
+
 		$q = $quots[$key];
 		if ($q['u'] > $q['t'])
 		{

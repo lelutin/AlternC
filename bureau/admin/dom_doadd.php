@@ -32,7 +32,7 @@ include_once("head.php");
 
 $fields = array (
 	"newdomain"    => array ("post", "string", ""),
-	"dns"          => array ("post", "string", ""),
+	"dns"          => array ("post", "integer", 0),
 );
 getFields($fields);
 
@@ -49,19 +49,28 @@ $dom->unlock();
 ?>
 <h3><?php __("Add a domain"); ?></h3>
 <p>
-<?php printf(_("Your new domain %s has been successfully installed"),$newdomain); ?><br />
-<a href="main.php" target="_top"><?php __("Click here to continue"); ?></a><br />
-<?php $mem->show_help("add_domain"); ?>
-<br />
-<?php
-	if (is_array($dom->dns)) {
-		echo "<br />"._("Whois result on the domain")." : <pre>";
-		reset($dom->dns);
-		while (list($key,$val)=each($dom->dns)) {
-			echo "nameserver: $val\n";
-		}
-		echo "</pre>";
-	}
-?>
+<?php printf(_("Your new domain %s has been successfully installed"),$newdomain); ?>
 </p>
-<?php include_once("foot.php"); ?>
+<p>
+<a href="main.php" target="_top"><?php __("Click here to continue"); ?></a>
+</p>
+<?php $mem->show_help("add_domain"); ?>
+<?php
+
+if (is_array($dom->dns))
+{
+	echo "<p>";
+	echo _("Whois result on the domain") . " : <pre>";
+	reset($dom->dns);
+	while (list($key, $val) = each($dom->dns))
+	{
+		echo "nameserver: " . $val . "\n";
+	}
+	echo "</pre>";
+	echo "</p>";
+}
+
+
+include_once("foot.php");
+
+?>

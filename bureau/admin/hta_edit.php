@@ -35,25 +35,31 @@ $fields = array (
 );
 getFields($fields);
 
-if (!$dir) {
-	$error=_("No folder selected!");
-} else {
-	$r=$hta->get_hta_detail($dir);
-	if (!$r) {
-		$error=$err->errstr();
+if (!$dir)
+{
+	$error = _("No folder selected!");
+}
+else
+{
+	$r = $hta->get_hta_detail($dir);
+	if (!$r)
+	{
+		$error = $err->errstr();
 	}
 }
 
 ?>
 <h3><?php printf(_("List of authorized user in folder %s"),$dir); ?></h3>
 <?php
-	if (!count($r)) {
-		echo "<p class=\"error\">".sprintf(_("No authorized user in %s"),$dir)."</p>";
-		echo "<a href=\"hta_adduser.php?dir=$dir\">"._("Add a username")."</a><br />";
-		echo "<br /><small><a href=\"bro_main.php?R=$dir\">"._("File browser")."</a><br /></small>";
-		include_once("foot.php");
-		exit();
-	}
+
+if (!count($r))
+{
+	echo "<p class=\"error\">" . sprintf(_("No authorized user in %s"), $dir) . "</p>";
+	echo "<a href=\"hta_adduser.php?dir=" . urlencode($dir) . "\">" . _("Add a username") . "</a><br />";
+	echo "<br /><small><a href=\"bro_main.php?R=" . urlencode($dir) . "\">" . _("File browser") . "</a><br /></small>";
+	include_once("foot.php");
+	exit();
+}
 reset($r);
 
 ?>
@@ -64,27 +70,34 @@ reset($r);
 		<th><?php __("Username"); ?></th>
 	</tr>
 <?php
-$col=1;
 
-for($i=0;$i<count($r);$i++){
-	$col=3-$col;
+$col=1;
+for ($i = 0; $i < count($r); $i++)
+{
+	$col = 3 - $col;
+	$altImg = ($i % 2 == 0 ? "" : "alt");
+
 ?>
 	<tr class="lst<?php echo $col; ?>">
 		<td align="center"><input type="checkbox" class="inc" name="d[]"" value="<?php echo $r[$i]?>" /></td>
-		<td><a href="hta_edituser.php?user=<?php echo $r[$i]?>&amp;dir=<?php echo $dir?>"><img src="images/edit.png" alt="<?php __("Edit"); ?>" /></a></td>
+		<td><a href="hta_edituser.php?user=<?php echo $r[$i]?>&amp;dir=<?php echo $dir?>"><img src="images/edit<?php echo $altImg; ?>.png" alt="<?php __("Edit"); ?>" /></a></td>
 		<td><?php echo $r[$i]; ?></td>
 	</tr>
 <?php
+
 }
+
 ?>
-<tr><td colspan="3"><input type="submit" class="inb" name="submit" value="<?php __("Delete the checked users"); ?>" /></td></tr>
+	<tr>
+		<td colspan="3"><input type="submit" class="inb" name="submit" value="<?php __("Delete the checked users"); ?>" /></td>
+	</tr>
 </table>
 </form>
 
 <p>
-<a href="hta_adduser.php?dir=<?php echo $dir ?>"><?php __("Add a username"); ?></a>
+<a href="hta_adduser.php?dir=<?php echo urlencode($dir) ?>"><?php __("Add a username"); ?></a>
 </p>
 <p>
-<small><a href="bro_main.php?R=<?php echo $dir ?>"><?php __("File browser"); ?></a></small>
+<small><a href="bro_main.php?R=<?php echo urlencode($dir) ?>"><?php __("File browser"); ?></a></small>
 </p>
 <?php include_once("foot.php"); ?>

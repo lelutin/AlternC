@@ -31,25 +31,43 @@
 */
 require_once("../class/config.php");
 
-if (!$admin->enabled) {
+$fields = array (
+	"login"      => array ("request", "string", ""),
+	"pass"       => array ("request", "string", ""),
+	"passconf"   => array ("request", "string", ""),
+	"canpass"    => array ("request", "integer", 1),
+	"prenom"     => array ("request", "string", ""),
+	"nom"        => array ("request", "string", ""),
+	"nmail"      => array ("request", "string", ""),
+	"create_dom" => array ("request", "string", ""),
+	"type"       => array ("request", "string", ""),
+);
+getFields($fields);
+
+if (!$admin->enabled)
+{
 	__("This page is restricted to authorized staff");
 	exit;
 }
 
-if ($pass != $passconf) {
+if ($pass != $passconf)
+{
 	$error = _("Passwords do not match");
-	include("adm_add.php");
+	include ("adm_add.php");
 	exit();
 }
-if (!($u=$admin->add_mem($login, $pass, $nom, $prenom, $nmail, $canpass, $type))) {
-	$error=$err->errstr();
+
+if (!($u = $admin->add_mem($login, $pass, $nom, $prenom, $nmail, $canpass, $type)))
+{
+	$error = $err->errstr();
 	include ("adm_add.php");
 	exit;
-} else {
-
+}
+else
+{
   // Add here all what you want when an account is created !
   $mem->su($u);
-  
+
   /*
    * 0 = pas d'hébergement dns, en effet, pas besoin vu que les
    * domaines *.koumbit.net sont bien sur le serveur
@@ -59,22 +77,28 @@ if (!($u=$admin->add_mem($login, $pass, $nom, $prenom, $nmail, $canpass, $type))
    *
    * 1 = force = ne tient pas compte du whois ou des droits de tld
    */
-  if ($create_dom) {
-    if (variable_get("hosting_tld")) {
-      # make sure we don't have multiple dots there
-      $dom->lock();
-      $dom->add_domain($login.".".preg_replace("/^\.\.*/", "", variable_get("hosting_tld")),0,1,1);
-      $dom->unlock();
-    } else {
-      $err->log("no 'hosting_tld' variable defined in `variables` table, not creating domain");
-    }
-  }
-  $ftp->add_ftp($login,"",$pass,"/");
-  $mem->unsu();
- 
- $error=_("The new member has been successfully created");
+	if ($create_dom)
+	{
+		if (variable_get("hosting_tld"))
+		{
+			# make sure we don't have multiple dots there
+			$dom->lock();
+			$dom->add_domain($login . "." . preg_replace("/^\.\.*/", "", variable_get("hosting_tld")), 0, 1, 1);
+			$dom->unlock();
+		}
+		else
+		{
+			$err->log("no 'hosting_tld' variable defined in `variables` table, not creating domain");
+		}
+	}
 
- include("adm_list.php");
- exit;
+	$ftp->add_ftp($login, "", $pass, "/");
+	$mem->unsu();
+
+	$error = _("The new member has been successfully created");
+
+	include("adm_list.php");
+	exit;
 }
+
 ?>

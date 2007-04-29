@@ -29,16 +29,22 @@
 */
 require_once("../class/config.php");
 
+$fields = array (
+	"dbn" => array ("request", "string", ""),
+);
+getFields($fields);
 
-if (!$quota->cancreate("mysql")) {
-	$error=_("err_mysql_1");
-	include("sql_add.php");
+if (!$quota->cancreate("mysql"))
+{
+	$error = _("err_mysql_1");
+	include ("sql_add.php");
 	exit;
 }
 
-if (!$mysql->add_db($dbn)) {
-  $error=$err->errstr();
-  include("sql_add.php");
+if (!$mysql->add_db($dbn))
+{
+  $error = $err->errstr();
+  include ("sql_add.php");
   exit;
 }
 

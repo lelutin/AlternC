@@ -43,7 +43,7 @@ if (!$r=$dom->get_sub_domain_all($domain,$sub)) {
 $dom->unlock();
 
 ?>
-<h3><?php printf(_("Deleting subdomain %s"),"http://".ife($sub,$sub.".").$domain); ?> : </h3>
+<h3><?php printf(_("Deleting subdomain %s"),"http://".ife($sub,$sub.".").$domain); ?></h3>
 <?php
 	if ($error) {
 		echo "<p class=\"error\">$error</p>";

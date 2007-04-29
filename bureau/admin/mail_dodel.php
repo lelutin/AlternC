@@ -29,10 +29,17 @@
 */
 require_once("../class/config.php");
 
+$fields = array (
+	"d"    => array ("request", "array", array()),
+);
+getFields($fields);
+
 if (!is_array($d))
 {
-	$d[] = $d;
+	$tmp = array($d);
+	$d = $tmp;
 }
+reset($d);
 
 include_once("head.php");
 
@@ -41,17 +48,16 @@ include_once("head.php");
 <p>
 <?php
 
-reset($d);
 while (list($key, $val) = each($d))
 {
 	if (!$mail->del_mail($val))
 	{
-		$error .= sprintf(_("The mailbox <b>%s</b> does not exist!") . "<br />", $val);
+		$error = sprintf(_("The mailbox <b>%s</b> does not exist!") . "<br />", $val);
 		echo $error;
 	}
 	else
 	{
-		$error .= sprintf(_("The mailbox <b>%s</b> has been deleted!") . "<br />", $val);
+		$error = sprintf(_("The mailbox <b>%s</b> has been deleted!") . "<br />", $val);
 		echo $error;
 	}
 

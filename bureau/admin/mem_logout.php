@@ -41,7 +41,6 @@ $mem->del_session();
 </head>
 <body>
 <h3 style="text-align: center"><?php __("Disconnected"); ?></h3>
-
 <?php __("You have been logged out of your administration desktop."); ?><br />
 <a href="index.php"><?php __("Click here to log in"); ?></a>
 </body>

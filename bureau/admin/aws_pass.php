@@ -36,17 +36,22 @@ $fields = array (
 
 getFields($fields);
 
-if (!$aws->login_exists($login)) {
-	$error=$err->errstr();
+if (!$aws->login_exists($login))
+{
+	$error = $err->errstr();
 	include("aws_users.php");
 	exit();
 }
 
-if ($pass) {
-	if (!$aws->change_pass($login,$pass)) {
-		$error=$err->errstr();
-	} else {
-		include("aws_users.php");
+if ($pass)
+{
+	if (!$aws->change_pass($login, $pass))
+	{
+		$error = $err->errstr();
+	}
+	else
+	{
+		include ("aws_users.php");
 		exit();
 	}
 }
@@ -56,19 +61,34 @@ include_once("head.php");
 ?>
 <h3><?php __("Change a user's password"); ?></h3>
 <?php
-if ($error) {
+
+if ($error)
+{
+
 ?>
 <p class="error"><?php echo $error ?></p>
-<?php } ?>
+<?php
 
+}
+
+?>
 <form method="post" action="aws_pass.php" name="main">
 <table border="1" cellspacing="0" cellpadding="4">
-<tr><th>
-<?php __("Username"); ?></th><td>
-	<code><?php echo $login; ?></code> <input type="hidden" name="login" value="<?php echo $login; ?>" />
-</td></tr>
-<tr><th><label for="pass"><?php __("New Password"); ?></label></th><td><input type="text" class="int" name="pass" id="pass" value="<?php echo $pass; ?>" size="20" maxlength="64" /></td></tr>
-<tr><td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Change this user's password"); ?>" /></td></tr>
+	<tr>
+		<th><?php __("Username"); ?></th>
+		<td><code><?php echo $login; ?></code> <input type="hidden" name="login" value="<?php echo $login; ?>" /></td>
+	</tr>
+	<tr>
+		<th><label for="pass"><?php __("New Password"); ?></label></th>
+		<td><input type="password" class="int" name="pass" id="pass" value="<?php echo $pass; ?>" size="20" maxlength="64" /></td>
+	</tr>
+	<tr>
+		<td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Change this user's password"); ?>" /></td>
+	</tr>
 </table>
 </form>
-<?php include_once("foot.php"); ?>
+<?php
+
+include_once("foot.php");
+
+?>

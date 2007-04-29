@@ -31,7 +31,11 @@ require_once("../class/config.php");
 
 include_once("head.php");
 
-if (!isset($dns)) $dns="1";
+$fields = array (
+	"newdomain"  => array ("request", "string", ""),
+	"dns"        => array ("request", "integer", 1),
+);
+getFields($fields);
 
 ?>
 <h3><?php __("Domain hosting"); ?></h3>
@@ -68,7 +72,6 @@ if ($error) echo "<p class=\"error\">$error</p>";
 	}
 ?>
 <script type="text/javascript">
-document.forms['main'].newdomain.focus();
 deploy("menu-dom");
 </script>
 <?php include_once("foot.php"); ?>

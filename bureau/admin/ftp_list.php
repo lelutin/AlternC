@@ -65,15 +65,19 @@ if ($error) {
 <table cellspacing="0" cellpadding="4">
 <tr><th colspan="2">&nbsp;</th><th><?php __("Username"); ?></th><th><?php __("Folder"); ?></th></tr>
 <?php
+
 reset($r);
-$col=1;
-while (list($key,$val)=each($r))
-	{
-	$col=3-$col;
+$col = 1;
+$i = 0;
+while (list($key, $val) = each($r))
+{
+	$col = 3 - $col;
+	$altImg = ($i % 2 == 0 ? "" : "alt");
+	$i++;
 ?>
 	<tr class="lst<?php echo $col; ?>">
 		<td align="center"><input type="checkbox" class="inc" id="del_<?php echo $val["id"]; ?>" name="del_<?php echo $val["id"]; ?>" value="<?php echo $val["id"]; ?>" /></td>
-		<td class="center"><a href="ftp_edit.php?id=<?php echo $val["id"] ?>"><img src="images/edit.png" alt="<?php __("Edit"); ?>" /></a></td>
+		<td class="center"><a href="ftp_edit.php?id=<?php echo $val["id"] ?>"><img src="images/edit<?php echo $altImg; ?>.png" alt="<?php __("Edit"); ?>" /></a></td>
 		<td><label for="del_<?php echo $val["id"]; ?>"><?php echo $val["login"] ?></label></td>
 		<td><code>/<?php echo $val["dir"] ?></code></td>
 	</tr>
@@ -88,9 +92,12 @@ while (list($key,$val)=each($r))
 <p>
 <a href="ftp_add.php"><?php __("Create a new ftp account"); ?></a>
 </p>
-<?php  	}
+<?php
+
+}
 
 $mem->show_help("ftp_list");
+
 ?>
 <script type="text/javascript">
 deploy("menu-ftp");

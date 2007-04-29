@@ -29,7 +29,6 @@
 */
 require_once("../class/config.php");
 
-$error="";
 // On parcours les POST_VARS et on repere les del_.
 reset($_POST);
 while (list($key,$val)=each($_POST)) {

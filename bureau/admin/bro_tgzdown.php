@@ -29,8 +29,14 @@
 */
 require_once("../class/config.php");
 
-$p=$bro->GetPrefs();
-switch ($p["downfmt"]) {
+$fields = array (
+	"dir"     => array ("request", "string", ""),
+);
+getFields($fields);
+
+$p = $bro->GetPrefs();
+switch ($p["downfmt"])
+{
 	case 0:
 		$bro->DownloadTGZ($dir);
 		break;
@@ -44,4 +50,5 @@ switch ($p["downfmt"]) {
 		$bro->DownloadZ($dir);
 		break;
 }
+
 ?>

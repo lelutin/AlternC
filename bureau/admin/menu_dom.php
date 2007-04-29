@@ -36,14 +36,16 @@ if ($q["t"] > 0)
 
 ?>
 <div class="menu-box">
-<div class="menu-title" id="test" onclick="javascript:deploy('menu-dom');">
+<div class="menu-top"></div>
+<div class="menu-title" onclick="javascript:deploy('menu-dom');">
 <script type="text/javascript">
 <!--
-	document.write('<img src="images/plus.png" alt="" style="float: right; padding: 4px; border: 0px;" id="img-menu-dom" />');
+	document.write('<img src="images/plus.png" alt="" class="imgDeploy" id="img-menu-dom" />');
 //-->
 </script>
 <img src="images/dom.png" alt="<?php __("Domains"); ?>" />&nbsp;<?php __("Domains"); ?> (<?= $q["u"]; ?>/<?= $q["t"]; ?>)</div>
-<div class="menu-content" id="menu-dom">
+<div class="menu-bottom"></div>
+<div class="menu-content" id="menu-dom" style="display: none;">
 <ul>
 <?php if ($quota->cancreate("dom")) { ?>
 	<li><a href="dom_add.php"><img src="images/new.png" alt="<?php __("Add a domain"); ?>" /><?php __("Add a domain"); ?></a></li>

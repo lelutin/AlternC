@@ -29,13 +29,19 @@
 */
 require_once("../class/config.php");
 
+include_once ("head.php");
+
+$fields = array (
+	"d"    => array ("request", "array", array()),
+);
+getFields($fields);
+
 if (!is_array($d))
 {
-	$d[] = $d;
+	$tmp = array($d);
+	$d = $tmp;
 }
 reset($d);
-
-include_once ("head.php");
 
 ?>
 <h3><?php __("Deleting mail accounts"); ?></h3>
@@ -56,6 +62,7 @@ while (list($key,$val) = each($d))
 </p>
 <p><input type="submit" class="inb" name="submit" value="<?php __("Delete the selected mailboxes"); ?>" /> - <input type="button" name="cancel" id="cancel" onclick="window.history.go(-1);" class="inb" value="<?php __("Don't delete accounts and go back to the mail list"); ?>"/>
 </p>
+</form>
 
 <script type="text/javascript">
 deploy("menu-mail");

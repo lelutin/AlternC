@@ -34,20 +34,23 @@ $fields = array (
 );
 getFields($fields);
 
-if (!$id) {
-	$error=_("No Statistics selected!");
-} else {
-	$r=$aws->get_stats_details($id);
-	if (!$r) {
-		$error=$err->errstr();
+if (!$id)
+{
+	$error = _("No Statistics selected!");
+}
+else
+{
+	$r = $aws->get_stats_details($id);
+	if (!$r)
+	{
+		$error = $err->errstr();
 	}
 }
 
-$id=$r["id"];
-$hostname=$r["hostname"];
-$awsusers=$r["users"];
+$_REQUEST["id"] = $r["id"];
+$_REQUEST["hostname"] = $r["hostname"];
 
-include("aws_add.php");
+include ("aws_add.php");
 exit();
 
 ?>

@@ -29,24 +29,43 @@
 */
 require_once("../class/config.php");
 
-if ($pass != $passconf) {
+$fields = array (
+	"domain"    => array ("request", "string", ""),
+	"many"      => array ("request", "integer", 0),
+
+	"email"     => array ("request", "string", ""),
+	"pop"       => array ("request", "integer", 0),
+	"pass"      => array ("request", "string", ""),
+	"passconf"  => array ("request", "string", ""),
+	"alias"     => array ("request", "string", ""),
+);
+getFields($fields);
+
+if ($pass != $passconf)
+{
 	$error = _("Passwords do not match");
 	include("mail_add.php");
 	exit();
 }
 
-if (!$mail->add_mail($domain,$email,$pop,$pass,$alias)) {
-	$error=$err->errstr();
-        $addok=0;
+if (!$mail->add_mail($domain, $email, $pop, $pass, $alias))
+{
+	$error = $err->errstr();
+	$addok = 0;
 	include ("mail_add.php");
-} else {
-	$addok=1;
-	$error=sprintf (_("The mailbox <b>%s</b> has been successfully created"),"$email@$domain");
-	if ($many) {
-		unset($email,$pass,$alias);
-		include("mail_add.php");
- 	} else {
-		include("mail_list.php");
+}
+else
+{
+	$addok = 1;
+	$error = sprintf (_("The mailbox <b>%s</b> has been successfully created"),"$email@$domain");
+	if ($many)
+	{
+		unset($_REQUEST["email"], $_REQUEST["pop"], $_REQUEST["pass"], $_REQUEST["passconf"], $_REQUEST["alias"]);
+		include ("mail_add.php");
+ 	}
+	else
+	{
+		include ("mail_list.php");
 	}
 	exit();
 }

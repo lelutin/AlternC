@@ -29,6 +29,17 @@
 */
 require_once("../class/config.php");
 
+$fields = array (
+	"domain"        => array ("request", "string", ""),
+	"sub"           => array ("request", "string", ""),
+	"type"          => array ("request", "integer", 0),
+	"sub_local"     => array ("request", "string", ""),
+	"sub_url"       => array ("request", "string", ""),
+	"sub_ip"        => array ("request", "string", ""),
+	"action"        => array ("request", "string", ""),
+);
+getFields($fields);
+
 $dom->lock();
 
 switch ($type) {

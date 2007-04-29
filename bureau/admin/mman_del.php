@@ -29,22 +29,47 @@
 */
 require_once("../class/config.php");
 
-$stchange=(!$quota->cancreate("mailman"));
+$stchange = (!$quota->cancreate("mailman"));
 
-$error="";
-// On parcours les POST_VARS et on repere les del_.
-reset($_POST);
-while (list($key,$val)=each($_POST)) {
-	if (substr($key,0,4)=="del_") {
-		// Effacement de la ml $val
-		$r=$mailman->delete_lst($val);
-		if (!$r) {
-			$error.=$err->errstr()."<br>";
-		} else {
-			$error.=sprintf(_("The list %s has been successfully deleted."),$r)."<br>";
-		}
-	}
+$fields = array (
+	"d"    => array ("request", "array", array()),
+);
+getFields($fields);
+
+if (!is_array($d))
+{
+	$tmp = array($d);
+	$d = $tmp;
 }
-include("mman_list.php");
+reset($d);
+
+if (empty($d))
+{
+	include ("mman_list.php");
+	exit();
+}
+
+include_once ("head.php");
+
+?>
+<h3><?php __("Deleting mailman lists"); ?></h3>
+<p><?php __("Please confirm the deletion of the following mailman lists:"); ?></p>
+<form action="mman_dodel.php" method="post">
+<?php
+
+foreach ($d as $id)
+{
+	echo "<input type=\"hidden\" name=\"d[]\" value=\"" . $id . "\" />";
+	echo $mailman->get_lst($id) . "<br />";
+}
+
+?>
+<p><input type="submit" class="inb" name="confirm" value="<?php __("Delete the selected mailman lists"); ?>" /> - <input type="submit" name="cancel" id="cancel" class="inb" value="<?php __("Don't delete lists and go back to the mailman list"); ?>" />
+</p>
+</form>
+<?php
+
+include_once ("foot.php");
 exit();
+
 ?>

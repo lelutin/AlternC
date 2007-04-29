@@ -38,7 +38,13 @@ if (!$admin->enabled) {
 }
 
 $fields = array (
+	"login"     => array ("request", "string", ""),
+	"pass"      => array ("request", "string", ""),
+	"passconf"  => array ("request", "string", ""),
 	"canpass"   => array ("request", "integer", 1),
+	"prenom"    => array ("request", "string", ""),
+	"nom"       => array ("request", "string", ""),
+	"nmail"     => array ("request", "string", ""),
 );
 getFields($fields);
 
@@ -51,60 +57,72 @@ if ($error) {
 ?>
 <form method="post" action="adm_doadd.php">
 <table border="1" cellspacing="0" cellpadding="4">
-<tr><th><label for="login"><?php __("Username"); ?></label></th><td>
-	<input type="text" class="int" name="login" id="login" value="<?php echo $login; ?>" size="20" maxlength="64" />
-</td></tr>
-<tr>
-	<th><label for="pass"><?php __("Initial password"); ?></label></th>
-	<td><input type="password" id="pass" name="pass" class="int" value="<?php echo $pass; ?>" size="20" maxlength="64" /></td>
-</tr>
-<tr>
-	<th><label for="passconf"><?php __("Confirm password"); ?></label></th>
-	<td><input type="password" id="passconf" name="passconf" class="int" value="<?php echo $passconf; ?>" size="20" maxlength="64" /></td>
-</tr>
-<tr>
-	<th><label for="canpass"><?php __("Can he change its password"); ?></label></th>
-	<td><select class="inl" name="canpass" id="canpass">
-	<?php
-	for($i=0;$i<count($bro->l_icons);$i++) {
-	  echo "<option";
-	  if ($canpass==$i) echo " selected=\"selected\"";
-	  echo " value=\"$i\">"._($bro->l_icons[$i])."</option>";
-	}
-?></select>
-	</td>
-</tr>
-<tr>
-	<th><label for="nom"><?php echo _("Surname")."</label> / <label for=\"prenom\">"._("First Name"); ?></label></th>
-	<td><input class="int" type="text" id="nom" name="nom" value="<?php echo $nom; ?>" size="20" maxlength="128" />&nbsp;/&nbsp;<input type="text" name="prenom" id="prenom" value="<?php echo $prenom; ?>" class="int" size="20" maxlength="128" /></td>
-</tr>
-<tr>
-	<th><label for="nmail"><?php __("Email address"); ?></label></th>
-	<td><input type="text" name="nmail" id="nmail" class="int" value="<?php echo $nmail; ?>" size="30" maxlength="128" /></td>
-</tr>
-<tr>
-	<th><label for="type"><?php __("Account type"); ?></label></th>
-	<td><select name="type" id="type" class="inl">
-	<?php
-	$db->query("SELECT distinct(type) FROM defquotas ORDER by type");
-	while($db->next_record()) {
-	  $type = $db->f("type");
-	  echo "<option value=\"$type\"";
-	  if($type == 'default')
-	    echo " selected";
-	  echo ">$type</option>";
-	}
-?></select>
-</tr>
-<? if (variable_get('hosting_tld')) { ?>
-<tr>
-	<th colspan="2"><label><input type="checkbox" name="create_dom" value="1" />
-	<?php print _("Create the domain username.").variable_get('hosting_tld'); ?></label></th>
+	<tr>
+		<th><label for="login"><?php __("Username"); ?></label></th>
+		<td><input type="text" class="int" name="login" id="login" value="<?php echo $login; ?>" size="20" maxlength="64" /></td>
 	</tr>
-<tr>
-<? } ?>
-	<td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Create a new member"); ?>" /></td>
+	<tr>
+		<th><label for="pass"><?php __("Initial password"); ?></label></th>
+		<td><input type="password" id="pass" name="pass" class="int" value="<?php echo $pass; ?>" size="20" maxlength="64" /></td>
+	</tr>
+	<tr>
+		<th><label for="passconf"><?php __("Confirm password"); ?></label></th>
+		<td><input type="password" id="passconf" name="passconf" class="int" value="<?php echo $passconf; ?>" size="20" maxlength="64" /></td>
+	</tr>
+	<tr>
+		<th><label for="canpass"><?php __("Can he change its password"); ?></label></th>
+		<td>
+			<select class="inl" name="canpass" id="canpass">
+<?php
+
+for($i = 0; $i < count($bro->l_icons); $i++)
+{
+	echo "<option value=\"" . $i . "\"";
+	if ($canpass == $i)
+		echo " selected=\"selected\"";
+	echo ">" . _($bro->l_icons[$i]) . "</option>";
+}
+
+?>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th><label for="nom"><?php echo _("Surname")."</label> / <label for=\"prenom\">"._("First Name"); ?></label></th>
+		<td><input class="int" type="text" id="nom" name="nom" value="<?php echo $nom; ?>" size="20" maxlength="128" />&nbsp;/&nbsp;<input type="text" name="prenom" id="prenom" value="<?php echo $prenom; ?>" class="int" size="20" maxlength="128" /></td>
+	</tr>
+	<tr>
+		<th><label for="nmail"><?php __("Email address"); ?></label></th>
+		<td><input type="text" name="nmail" id="nmail" class="int" value="<?php echo $nmail; ?>" size="30" maxlength="128" /></td>
+	</tr>
+	<tr>
+		<th><label for="type"><?php __("Account type"); ?></label></th>
+		<td>
+			<select name="type" id="type" class="inl">
+<?php
+
+$db->query("SELECT DISTINCT(type) FROM defquotas ORDER BY type");
+while($db->next_record())
+{
+	$type = $db->f("type");
+	echo "<option value=\"" . $type . "\"";
+	if ($type == "default")
+		echo " selected=\"selected\"";
+	echo ">" . $type . "</option>";
+}
+
+?>
+			</select>
+		</td>
 </tr>
+<?php if (variable_get("hosting_tld")) { ?>
+	<tr>
+		<th colspan="2"><label><input type="checkbox" name="create_dom" value="1" /><?php print _("Create the domain username.") . variable_get("hosting_tld"); ?></label></th>
+		</tr>
+	<tr>
+<?php } ?>
+		<td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Create a new member"); ?>" /></td>
+	</tr>
 </table>
 </form>
 <script type="text/javascript">

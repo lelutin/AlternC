@@ -1,0 +1,26 @@
+.mainBox {padding: 0px; margin: 0px; border-collapse: collapse; border: 0px;}
+.mainBox .boxTopLeft, .mainBox .boxTop, .mainBox .boxTopRight, .mainBox .boxLeft, .mainBox .boxRight, .mainBox .boxBottomRight, .mainBox .boxBottom, .mainBox .boxBottomRight {margin: 0px; padding: 0px;}
+.mainBox .boxTopLeft, .mainBox .tr, .mainBox .bl, .mainBox .br {width: 10px; height: 10px; background-repeat: no-repeat;}
+.mainBox .boxTop {background: #F1F8FD url(../images/boxes/mainBox-dot.png) top left repeat-x; height: 10px;}
+.mainBox .boxBottom {background: #F1F8FD url(../images/boxes/mainBox-dot.png) bottom left repeat-x; height: 10px;}
+.mainBox .boxLeft {background: #F1F8FD url(../images/boxes/mainBox-dot.png) top left repeat-y; width: 10px;}
+.mainBox .boxRight {background: #F1F8FD url(../images/boxes/mainBox-dot.png) top right repeat-y; width: 10px;}
+.mainBox .boxBottomLeft {background-image: url(../images/boxes/mainBox-bl.png);}
+.mainBox .boxBottomRight {background-image: url(../images/boxes/mainBox-br.png);}
+.mainBox .boxTopLeft {background-image: url(../images/boxes/mainBox-tl.png);}
+.mainBox .boxTopRight {background-image: url(../images/boxes/mainBox-tr.png);}
+.mainBox .boxContent {background-color: #F1F8FD; margin: 0px; padding: 0px;}
+
+
+.menuBox {padding: 0px; margin: 0px; border-collapse: collapse; border: 0px; width: 200px;}
+.menuBox .boxTopLeft, .menuBox .boxTop, .menuBox .boxTopRight, .menuBox .boxLeft, .menuBox .boxRight, .menuBox .boxBottomRight, .menuBox .boxBottom, .menuBox .boxBottomRight {margin: 0px; padding: 0px;}
+.menuBox .boxTopLeft, .menuBox .tr, .menuBox .bl, .menuBox .br {width: 5px; height: 5px; margin: 0px; padding: 0px; background-repeat: no-repeat;}
+.menuBox .boxTop {background: #C0DCF0 url(../images/boxes/menuBox-dot.png) top left repeat-x; height: 5px;}
+.menuBox .boxBottom {background: #C0DCF0 url(../images/boxes/menuBox-dot.png) bottom left repeat-x; height: 5px;}
+.menuBox .boxLeft {background: #C0DCF0 url(../images/boxes/menuBox-dot.png) top left repeat-y; width: 5px;}
+.menuBox .boxRight {background: #C0DCF0 url(../images/boxes/menuBox-dot.png) top right repeat-y; width: 5px;}
+.menuBox .boxBottomLeft {background-image: url(../images/boxes/menuBox-bl.png);}
+.menuBox .boxBottomRight {background-image: url(../images/boxes/menuBox-br.png);}
+.menuBox .boxTopLeft {background-image: url(../images/boxes/menuBox-tl.png);}
+.menuBox .boxTopRight {background-image: url(../images/boxes/menuBox-tr.png);}
+.menuBox .boxContent {background-color: #C0DCF0; margin: 0px; padding: 0px;}

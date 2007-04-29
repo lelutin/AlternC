@@ -33,13 +33,15 @@
 require_once("../class/config.php");
 include_once("head.php");
 
-if (!$admin->enabled) {
+if (!$admin->enabled)
+{
 	__("This page is restricted to authorized staff");
 	exit();
 }
 
 $fields = array (
 	"show"    => array ("request", "string", ""),
+	"letter"  => array ("request", "string", ""),
 );
 getFields($fields);
 
@@ -49,14 +51,15 @@ if ($show && $cuid != 2000)
 	exit();
 }
 
-$r=$admin->get_list($show ? 1 : 0);
+$r = $admin->get_list($show ? 1 : 0, $letter);
 
 ?>
 <h3><?php __("Member list"); ?></h3>
 <?php
-	if ($error) {
-	  echo "<p class=\"error\">$error</p>";
-	}
+
+if ($error)
+	  echo "<p class=\"error\">" . $error . "</p>";
+
 ?>
 <p>
 <?php __("Here is the list of hosted members"); ?>
@@ -65,11 +68,10 @@ $r=$admin->get_list($show ? 1 : 0);
 
 if ($cuid == 2000)
 {
-	if (!$show) {
-		echo '<a href="adm_list.php?show=all">' . _('List all the accounts') . '</a>';
-	} else {
-		echo '<a href="adm_list.php">' . _('List only my accounts') . '</a>';
-	}
+	if (!$show)
+		echo "<a href=\"adm_list.php?show=all\">" . _("List all the accounts") . "</a>";
+	else
+		echo "<a href=\"adm_list.php\">" . _("List only my accounts") . "</a>";
 }
 
 ?>
@@ -78,36 +80,56 @@ if ($cuid == 2000)
 <a href="adm_add.php"><?php __("Create a new member"); ?></a>
 </p>
 <?php
-if (!is_array($r)) {
-  echo "<p class=\"error\">"._("No account defined for now")."</p>";
-} else {
-?>
 
+if (!is_array($r))
+{
+  echo "<p class=\"error\">" . _("No account defined for now") . "</p>";
+}
+else
+{
+	$letters = $admin->get_letters();
+
+	for ($i = 0; $i < count($letters); $i++)
+	{
+		$val = $letters[$i];
+		echo "<a class=\"letter" . ($letter == $val ? " letterover" : "") . "\" href=\"adm_list.php?letter=" . $val . "\">" . strtoupper($val) . "</a>&nbsp;";
+	}
+	echo "<a class=\"letter" . (empty($letter) ? " letterover" : "") . "\" href=\"adm_list.php\">" . sprintf(_("All")) . "</a>";
+
+?>
 <form method="post" action="adm_dodel.php">
 <?php
 
 // Depending on the admin's choice, let's show a short list or a long list.
 
 if ($mem->user["admlist"]==0) { // Normal (large) mode
+
 ?>
 <table cellspacing="0" cellpadding="4">
-<tr>
-<th colspan="5">&nbsp;</th>
-<th><?php __("Username"); ?></th>
-<th><?php echo _("Surname")." "._("First Name")."<br />("._("Email address").")"; ?></th>
-<th><?php __("Account type") ?></th>
-<th><?php __("Last login"); ?></th>
-<th><?php __("Last fail"); ?></th>
-<th><?php __("Last ip"); ?></th>
-<th><?php __('Expiry') ?></th>
-</tr>
+	<tr>
+		<th colspan="4">&nbsp;</th>
+		<th><?php __("Username"); ?></th>
+		<th><?php echo _("Surname")." "._("First Name")."<br />("._("Email address").")"; ?></th>
+		<th><?php __("Account type") ?></th>
+		<th><?php __("Last login"); ?></th>
+		<th><?php __("Last fail"); ?></th>
+		<th><?php __("Last ip"); ?></th>
+		<th><?php __('Expiry') ?></th>
+	</tr>
 <?php
 reset($r);
 
+/*
+ 		<td align="center"><a href="adm_deactivate.php?uid=<?php echo $val["uid"] ?>"><img src="images/enabled<?php echo $altImg; ?>.png" alt="<?php __("Deactivate"); ?>" /></a></td>
+*/
+
 $col=1;
+$i = 0;
 while (list($key,$val)=each($r))
 	{
 	$col=3-$col;
+	$altImg = ($i % 2 == 0 ? "" : "alt");
+	$i++;
 ?>
 	<tr class="lst<?php echo $col; ?>">
 <?php if ($val["su"]) { ?>
@@ -115,16 +137,16 @@ while (list($key,$val)=each($r))
 <?php } else { ?>
  <td align="center"><input type="checkbox" class="inc" name="d[]" value="<?php echo $val["uid"]; ?>" /></td>
 <?php } ?>
-		<td align="center"><a href="adm_edit.php?uid=<?php echo $val["uid"] ?>"><?php __("Edit"); ?></a></td>
-		<td align="center"><a href="adm_quotaedit.php?uid=<?php echo $val["uid"] ?>"><?php __("Quotas"); ?></a></td>
-		<td align="center"><a href="adm_deactivate.php?uid=<?php echo $val["uid"] ?>"><?php __("Deactivate"); ?></a></td>
+		<td align="center"><a href="adm_edit.php?uid=<?php echo $val["uid"] ?>"><img src="images/edit<?php echo $altImg; ?>.png" alt="<?php echo _("Edit"); ?>" /></a></td>
+		<td align="center"><a href="adm_quotaedit.php?uid=<?php echo $val["uid"] ?>"><img src="images/quota<?php echo $altImg; ?>.png" alt="<?php echo _("Quotas"); ?>" /></a></td>
 		<td align="center"><?php
 		if (!$val["enabled"])
-			echo "<img src=\"icon/encrypted.png\" width=\"16\" height=\"16\" alt=\""._("Locked Account")."\" />";
-		else {
+			echo "<img src=\"images/lock" . $altImg . ".png\" alt=\"" . _("Locked Account") . "\" />";
+		else
+		{
 		  if($admin->checkcreator($val['uid'])) {
 		?>
-			<a href="adm_login.php?id=<?php echo $val["uid"];?>" target="_parent"><?php __("Connect as"); ?></a>
+			<a href="adm_login.php?id=<?php echo $val["uid"];?>" target="_parent"><img src="images/connect<?php echo $altImg; ?>.png" alt="<?php __("Connect as"); ?>" /></a>
 		<?php } } ?>
 		</td>
 		<td <?php if ($val["su"]) echo "style=\"color: red\""; ?>><?php echo $val["login"] ?></td>
@@ -236,6 +258,7 @@ if (is_array($val)) {
 <tr><td colspan="9"><input type="submit" class="inb" name="submit" value="<?php __("Delete checked accounts"); ?>" /></td></tr>
 </table>
 </form>
+<?php printf("<p>" . _("%s account(s)") . "</p>", count($r)); ?>
 <?php } ?>
 <script type="text/javascript">
 deploy("menu-adm");

@@ -67,14 +67,15 @@ include_once("head.php");
 <h3><?php __("Member login"); ?></h3>
 <?php
 
-	if ($error)
-	{
-		echo "<p class=\"error\">$error</p>";
-		include_once("foot.php");
-		exit();
-	}
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p>";
+	include_once ("foot.php");
+	exit();
+}
+
 ?>
 <script type="text/javascript">
-deploy("menu-ftp");
+deploy("menu-adm");
 </script>
 <?php include_once("foot.php"); ?>

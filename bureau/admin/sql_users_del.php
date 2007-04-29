@@ -29,21 +29,36 @@
 */
 require_once("../class/config.php");
 
-if ($confirm=="y") {
-  reset($_POST);
-  while (list($key,$val)=each($_POST)) {
-    if (substr($key,0,4)=="del_") {
-      // Effacement de la base $val
-      $r=$mysql->del_user($val);
-      if (!$r) {
-	$error.=$err->errstr()."<br />";
-      } else {
-	$error.=sprintf(_("The user %s has been successfully deleted"),$mem->user["login"]."_$val")."<br />";
-      }
-    }
-  }
-  include("sql_users_list.php");
-  exit();
+$fields = array (
+	"confirm"           => array ("request", "string", ""),
+	"cancel"            => array ("request", "string", ""),
+	"d"                 => array ("request", "array", array()),
+);
+getFields($fields);
+
+if ($cancel)
+{
+	include ("sql_users_list.php");
+	exit();
+}
+
+if ($confirm == "y")
+{
+	foreach ($d as $val)
+	{
+		$r = $mysql->del_user($val);
+		if (!$r)
+		{
+			$error .= $err->errstr() . "<br />";
+		}
+		else
+		{
+			$error .= sprintf(_("The user %s has been successfully deleted"), $mem->user["login"] . "_" . $val) . "<br />";
+		}
+	}
+
+	include ("sql_users_list.php");
+	exit();
 }
 
 include_once("head.php");
@@ -56,16 +71,13 @@ include_once("head.php");
 <p>
 <input type="hidden" name="confirm" value="y" />
 <?php
-reset($_POST);
-while (list($key,$val)=each($_POST)) {
-  if (substr($key,0,4)=="del_") {
-    echo "<input type=\"hidden\" name=\"$key\" value=\"$val\" />".$mem->user["login"]."_$val<br />\n";
-  }
-}
+
+foreach ($d as $val)
+	echo "<input type=\"hidden\" name=\"d[]\" value=\"" . $val . "\" />" . $mem->user["login"] . "_" . $val . "<br />\n";
 
 ?>
 <br />
-<input type="submit" class="inb" name="sub" value="<?php __("Yes"); ?>" /> - <input type="button" class="inb" name="non" value="<?php __("No"); ?>" onclick="history.back()" />
+<input type="submit" class="inb" name="sub" value="<?php __("Yes"); ?>" /> - <input type="submit" class="inb" name="cancel" value="<?php __("No"); ?>" />
 </p>
 </form>
 <script type="text/javascript">

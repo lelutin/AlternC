@@ -29,16 +29,24 @@
 */
 require_once("../class/config.php");
 
+$fields = array (
+	"usern"        => array ("request", "string", ""),
+	"password"     => array ("request", "string", ""),
+	"passwordconf" => array ("request", "string", ""),
+);
+getFields($fields);
 
-if (!$quota->cancreate("mysql_users")) {
-//	$error=_("err_mysql_1");
-	include("sql_users_add.php");
+if (!$quota->cancreate("mysql_users"))
+{
+// 	$error=_("err_mysql_1");
+	include ("sql_users_add.php");
 	exit;
 }
 
-if (!$mysql->add_user($usern,$password,$passconf)) {
-  $error=$err->errstr();
-  include("sql_users_add.php");
+if (!$mysql->add_user($usern, $password, $passconf))
+{
+  $error = $err->errstr();
+  include ("sql_users_add.php");
   exit;
 }
 

@@ -31,7 +31,7 @@ require_once("../class/config.php");
 include_once("head.php");
 
 ?>
-<h3><?php __("Account's quotas"); ?> : </h3>
+<h3><?php __("Account's quotas"); ?></h3>
 <?php
 $q=$quota->getquota();
 if (!is_array($q)) {

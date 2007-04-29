@@ -29,6 +29,16 @@
 */
 require_once("../class/config.php");
 
+$fields = array (
+	"id"         => array ("request", "integer", 0),
+	"prefixe"    => array ("request", "string", ""),
+	"login"      => array ("request", "string", ""),
+	"pass"       => array ("request", "string", ""),
+	"passconf"   => array ("request", "string", ""),
+	"rep"        => array ("request", "string", ""),
+);
+getFields($fields);
+
 if (!$id) {
 	$error=_("No account selected!");
 } else {
@@ -55,9 +65,11 @@ include_once("head.php");
 ?>
 <div align="center"><h3><?php __("Editing an FTP account"); ?></h3></div>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p>";
-	}
+
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p>";
+}
 ?>
 <script type="text/javascript">
 deploy("menu-ftp");

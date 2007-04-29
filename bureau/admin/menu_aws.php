@@ -35,6 +35,8 @@ if (isset($q["t"]) && isset($r["u"]) && $q["t"] > 0 && $r["u"] > 0) {
 
 ?>
 <div class="menu-box">
+<div class="menu-top"></div>
 <div class="menu-title"><img src="images/stat.png" alt="<?php __("Web Statistics"); ?>" />&nbsp;<a href="aws_list.php"><?php __("Web Statistics"); ?></a> (<?= $q["u"]; ?>/<?= $q["t"]; ?>)</div>
+<div class="menu-bottom"></div>
 </div>
 <?php } ?>

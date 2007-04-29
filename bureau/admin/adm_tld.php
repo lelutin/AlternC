@@ -29,19 +29,29 @@
 */
 require_once("../class/config.php");
 
-if (!$admin->enabled) {
+if (!$admin->enabled)
+{
 	__("This page is restricted to authorized staff");
 	exit();
 }
 
-if (is_array($sel)) {
-	$error="";
-	for($i=0;$i<count($sel);$i++) {
-		if (!$admin->deltld($sel[$i])) {
-			$error.=_("Some TLD cannot be deleted...")." : ".$sel[$i]."<br />";
+$fields = array (
+	"sel"        => array ("request", "array", array()),
+);
+getFields($fields);
+
+if (is_array($sel) && !empty($sel))
+{
+	$error = "";
+	for ($i = 0; $i < count($sel); $i++)
+	{
+		if (!$admin->deltld($sel[$i]))
+		{
+			$error .= _("Some TLD cannot be deleted...")." : " . $sel[$i] . "<br />";
 		}
 	}
-	if (!$error) $error=_("The requested TLD has been deleted");
+	if (!$error)
+		$error = _("The requested TLD has been deleted");
 }
 
 include_once("head.php");
@@ -49,11 +59,13 @@ include_once("head.php");
 ?>
 <h3><?php __("Manage allowed domains (TLD)"); ?></h3>
 <?php
-	if ($error) {
-	  echo "<p class=\"error\">$error</p>";
-	}
 
-$c=$admin->listtld();
+if ($error)
+{
+  echo "<p class=\"error\">" .$error . "</p>";
+}
+
+$c = $admin->listtld();
 
 ?>
 <p>
@@ -62,22 +74,32 @@ $c=$admin->listtld();
 <p><a href="adm_tldadd.php"><?php __("Add a new TLD"); ?></a></p>
 <form method="post" action="adm_tld.php">
 <table border="0" cellpadding="4" cellspacing="0">
-<tr><th><?php __("Action"); ?></th><th><?php __("TLD"); ?></th><th><?php __("Allowed Mode"); ?></th></tr>
+	<tr>
+		<th><?php __("Action"); ?></th>
+		<th><?php __("TLD"); ?></th>
+		<th><?php __("Allowed Mode"); ?></th>
+	</tr>
 <?php
-$col=1;
-for($i=0;$i<count($c);$i++) {
- $col=3-$col;
+
+$col = 1;
+for ($i = 0; $i < count($c); $i++)
+{
+	$col = 3 - $col;
+	$altImg = ($i % 2 == 0 ? "" : "alt");
 ?>
-
-<tr class="lst<?php echo $col; ?>">
-<td><input id="sel<?php echo $i; ?>" type="checkbox" name="sel[]" class="inc" value="<?php echo $c[$i]["tld"]; ?>" />&nbsp;<a href="adm_tldedit.php?tld=<?php echo urlencode($c[$i]["tld"]); ?>"><img style="padding-bottom: 5px" src="images/edit.png" alt="<?php __("Edit"); ?>" /></a></td>
-<td><label for="sel<?php echo $i; ?>"><?php echo $c[$i]["tld"]; ?></label></td>
-<td><?php __($admin->tldmode[$c[$i]["mode"]]); ?></td></tr>
-
+	<tr class="lst<?php echo $col; ?>">
+		<td><input id="sel<?php echo $i; ?>" type="checkbox" name="sel[]" class="inc" value="<?php echo $c[$i]["tld"]; ?>" />&nbsp;<a href="adm_tldedit.php?tld=<?php echo urlencode($c[$i]["tld"]); ?>"><img style="padding-bottom: 5px" src="images/edit<?php echo $altImg; ?>.png" alt="<?php __("Edit"); ?>" /></a></td>
+		<td><label for="sel<?php echo $i; ?>"><?php echo $c[$i]["tld"]; ?></label></td>
+		<td><?php __($admin->tldmode[$c[$i]["mode"]]); ?></td>
+</tr>
 <?php
+
 }
+
 ?>
-<tr><td colspan="3"><input type="submit" class="inb" value="<?php __("Delete the checked TLD"); ?>" /></td></tr>
+	<tr>
+		<td colspan="3"><input type="submit" class="inb" value="<?php __("Delete the checked TLD"); ?>" /></td>
+	</tr>
 </table>
 </form>
 <p><a href="adm_tldadd.php"><?php __("Add a new TLD"); ?></a></p>

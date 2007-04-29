@@ -29,14 +29,25 @@
 */
 require_once("../class/config.php");
 
-$r=$sta2->add_stats_raw($hostname,$folder);
-if (!$r) {
-	$error=$err->errstr();
-	include("sta2_add_raw.php");
-	exit();
-} else {
-	$error=_("The statistics has been successfully created");
-	include("sta2_list.php");
+$fields = array (
+	"hostname" => array ("request", "string", ""),
+	"folder"   => array ("request", "string", ""),
+);
+getFields($fields);
+
+$r = $sta2->add_stats_raw($hostname, $folder);
+
+if (!$r)
+{
+	$error = $err->errstr();
+	include ("sta2_add_raw.php");
 	exit();
 }
+else
+{
+	$error = _("The statistics has been successfully created");
+	include ("sta2_list.php");
+	exit();
+}
+
 ?>

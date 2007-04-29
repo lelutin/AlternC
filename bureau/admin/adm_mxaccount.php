@@ -34,6 +34,14 @@ if (!$admin->enabled) {
 	exit();
 }
 
+$fields = array (
+	"delaccount"   => array ("request", "string", ""),
+
+	"newlogin"   => array ("request", "string", ""),
+	"newpass"    => array ("request", "string", ""),
+);
+getFields($fields);
+
 if ($delaccount) {
 	// Delete an account
 	if ($mail->del_slave_account($delaccount)) {
@@ -44,7 +52,8 @@ if ($newlogin) {
 	// Add an account
 	if ($mail->add_slave_account($newlogin,$newpass)) {
 		$error=_("The requested account address has been created. It is now allowed.");
-		unset($newlogin); unset($newpass);
+		$newlogin = "";
+		$newpass = "";
 	}
 }
 

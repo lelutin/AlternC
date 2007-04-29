@@ -30,10 +30,16 @@
 require_once("../class/config.php");
 include_once("head.php");
 
-$nologin=false;
-if (!$r=$aws->list_login()) {
-	$nologin=true;
-	$error=$err->errstr();
+$fields = array (
+	"prefixe" => array ("request", "string", ""),
+);
+getFields($fields);
+
+$nologin = false;
+if (!$r = $aws->list_login())
+{
+	$nologin = true;
+	$error = $err->errstr();
 }
 
 ?>
@@ -41,34 +47,49 @@ if (!$r=$aws->list_login()) {
 
 <form method="post" action="aws_useradd.php" name="main">
 <table border="1" cellspacing="0" cellpadding="4">
-<tr><th>
-<label for="login"><?php __("Username"); ?></label></th><td>
-	<select class="inl" name="prefixe"><?php $aws->select_prefix_list($prefixe); ?></select>&nbsp;<b>_</b>&nbsp;<input type="text" class="int" name="login" id="login" value="" size="20" maxlength="64" />
-</td></tr>
-<tr><th><label for="pass"><?php __("Password"); ?></label></th><td><input type="text" class="int" name="pass" id="pass" value="" size="20" maxlength="64" /></td></tr>
-<tr><td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Create this new awstat account."); ?>" /></td></tr>
+	<tr>
+		<th><label for="login"><?php __("Username"); ?></label></th>
+		<td>
+			<select class="inl" name="prefixe"><?php $aws->select_prefix_list($prefixe); ?></select>&nbsp;<b>_</b>&nbsp;<input type="text" class="int" name="login" id="login" value="" size="20" maxlength="64" />
+		</td>
+	</tr>
+	<tr>
+		<th><label for="pass"><?php __("Password"); ?></label></th>
+		<td><input type="password" class="int" name="pass" id="pass" value="" size="20" maxlength="64" /></td>
+	</tr>
+	<tr>
+		<td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Create this new awstat account."); ?>" /></td>
+	</tr>
 </table>
 </form>
-
 <?php
 
+if ($error)
+{
 
-if ($error) {
 ?>
 <p class="error"><?php echo $error ?></p>
-<?php }
 
-if (!$nologin) {
+<?php
+
+}
+
+if (!$nologin)
+{
+
 ?>
-
-
 <form method="post" action="aws_userdel.php">
 <table cellspacing="0" cellpadding="4">
-<tr><th colspan="2">&nbsp;</th><th><?php __("Username"); ?></th></tr>
+	<tr>
+		<th colspan="2">&nbsp;</th>
+		<th><?php __("Username"); ?></th>
+	</tr>
 <?php
-$col=1;
-foreach ($r as $val) {
-	$col=3-$col;
+
+$col = 1;
+foreach ($r as $val)
+{
+	$col = 3 - $col;
 ?>
 	<tr class="lst<?php echo $col; ?>">
 		<td align="center"><input type="checkbox" class="inc" id="del_<?php echo $val; ?>" name="del_<?php echo $val; ?>" value="<?php echo $val; ?>" /></td>
@@ -76,12 +97,19 @@ foreach ($r as $val) {
 		<td><label for="del_<?php echo $val; ?>"><?php echo $val ?></label></td>
 	</tr>
 <?php
-	}
+
+}
+
 ?>
-<tr><td colspan="5"><input type="submit" name="submit" class="inb" value="<?php __("Delete checked accounts"); ?>" /></td></tr>
+	<tr>
+		<td colspan="5"><input type="submit" name="submit" class="inb" value="<?php __("Delete checked accounts"); ?>" /></td>
+	</tr>
 </table>
 </form>
 <?php
- }
+
+}
+
+include_once("foot.php");
+
 ?>
-<?php include_once("foot.php"); ?>

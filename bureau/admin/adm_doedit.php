@@ -31,26 +31,47 @@
 */
 require_once("../class/config.php");
 
-if (!$admin->enabled) {
-  __("This page is restricted to authorized staff");
-  exit();
-}
-if (!$admin->checkcreator($uid)) {
+if (!$admin->enabled)
+{
   __("This page is restricted to authorized staff");
   exit();
 }
 
-if ($pass != $passconf) {
-  $error = _("Passwords do not match");
-  include("adm_edit.php");
+$fields = array (
+	"uid"        => array ("request", "integer", 0),
+	"enabled"    => array ("request", "integer", 0),
+	"pass"       => array ("request", "string", ""),
+	"passconf"   => array ("request", "string", ""),
+	"canpass"    => array ("request", "integer", 1),
+	"prenom"     => array ("request", "string", ""),
+	"nom"        => array ("request", "string", ""),
+	"nmail"      => array ("request", "string", ""),
+	"duration"   => array ("request", "integer", 0),
+);
+getFields($fields);
+
+if (!$admin->checkcreator($uid))
+{
+  __("This page is restricted to authorized staff");
   exit();
 }
 
-if (!$admin->update_mem($uid, $nmail, $nom, $prenom, $pass, $enabled, $canpass, $type, $duration)){
-  $error=$err->errstr();
-  include("adm_edit.php");
-} else {
-  $error=_("The member has been successfully edited");
-  include("adm_list.php");
+if ($pass != $passconf)
+{
+	$error = _("Passwords do not match");
+	include ("adm_edit.php");
+	exit();
 }
+
+if (!$admin->update_mem($uid, $nmail, $nom, $prenom, $pass, $enabled, $canpass, $type, $duration))
+{
+	$error = $err->errstr();
+	include ("adm_edit.php");
+}
+else
+{
+	$error = _("The member has been successfully edited");
+	include ("adm_list.php");
+}
+
 ?>

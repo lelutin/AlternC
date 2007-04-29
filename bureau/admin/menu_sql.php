@@ -31,14 +31,16 @@ $q = $quota->getquota("mysql");
 if ($q["t"]) {
 ?>
 <div class="menu-box">
+<div class="menu-top"></div>
 <div class="menu-title" onclick="javascript:deploy('menu-sql');">
 <script type="text/javascript">
 <!--
-	document.write('<img src="images/plus.png" alt="" style="float: right; padding: 4px; border: 0px;" id="img-menu-sql" />');
+	document.write('<img src="images/plus.png" alt="" class="imgDeploy" id="img-menu-sql" />');
 //-->
 </script>
 <img src="images/mysql.png" alt="MySQL" />&nbsp;MySQL (<?= $q["u"]; ?>/<?= $q["t"]; ?>)</div>
-<div class="menu-content" id="menu-sql">
+<div class="menu-bottom"></div>
+<div class="menu-content" id="menu-sql" style="display: none;">
 <ul>
 <li><a href="sql_users_list.php"><?php __("MySQL Users") ?></a></li>
 <li><a href="sql_list.php"><?php __("Databases"); ?></a></li>

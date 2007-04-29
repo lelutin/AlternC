@@ -13,7 +13,7 @@ function browseforfolder(caller) {
     w=window.open("browseforfolder.php?caller="+caller+"&file="+file,"browseforfolder","width=300,height=400,scrollbars,left=100,top=100");
 }
 
-requires : ife($test,$iftrue,$iffalse) function : 
+requires : ife($test,$iftrue,$iffalse) function :
 
 function ife($test,$true,$false="") {
 	if ($test)
@@ -42,10 +42,10 @@ function _subbrowse($curdir,$pos,$level) {
 	$nextstr=substr($curdir,$pos+1,$next-$pos-1);
 	$c=opendir($root.$rot);
 	$i=0; $tmp = array();
-	while ($r=readdir($c)) { 
+	while ($r=readdir($c)) {
 		if (is_dir($root.$rot."/".$r) && $r!="." && $r!="..") { $tmp[$i++]=$r; }
 	}
- 	sort($tmp);	
+ 	sort($tmp);
 	foreach ($tmp as $r) {
 			/* Ajout */
 			$brlist[]=array("dir"=>$r,"level"=>$level,"put"=> ife($curdir==$rot."/".$r."/","",$rot."/".$r));
@@ -66,6 +66,14 @@ function browseforfolder($curdir) {
 
 $root="/var/alternc/html/".substr($mem->user["login"],0,1)."/".$mem->user["login"]."/";
 // pour utiliser 'la ou est browseforfolder', mettre dirname($HTTP_SERVER_VARS["PATH_TRANSLATED"]);
+
+$fields = array (
+	"file"   => array ("request", "string", ""),
+	"caller" => array ("request", "string", ""),
+	"select" => array ("request", "string", ""),
+	"curdir" => array ("request", "string", ""),
+);
+getFields($fields);
 
 if (substr($file,0,1)!="/") $file="/".$file;
 if (substr($file,-1)!="/") $file.="/";

@@ -37,21 +37,44 @@ $fields = array (
 getFields($fields);
 
 ?>
-<h3><?php printf(_("Editing user %s in the protected folder %s"),$user,$dir); ?></h3>
+<h3><?php printf(_("Editing user %s in the protected folder %s"), $user, $dir); ?></h3>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p>";
-	}
+
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p>";
+}
+
 ?>
 <form method="post" action="hta_doedituser.php">
 <table border="1" cellspacing="0" cellpadding="4">
-<tr><td><input type="hidden" name="dir" value="<?php echo $dir ?>">
-<input type="hidden" name="user" value="<?php echo $user ?>">
-<?php __("Folder"); ?></td><td><code><?php echo $dir; ?></code></td></tr>
-<tr><td><?php __("User"); ?></td><td><code><?php echo $user; ?></code></td></tr>
-<tr><td><label for="newpass"><?php __("New password"); ?></label></td><td><input type="password" class="int" name="newpass" id="newpass" value="" size="20" maxlength="64" /></td></tr>
-<tr><td><label for="newpassconf"><?php __("Confirm password"); ?></label></td><td><input type="password" class="int" name="newpassconf" id="newpassconf" value="" size="20" maxlength="64" /></td></tr>
-<tr><td colspan="2"><input type="submit" class="inb" value="<?php __("Change the password"); ?>" /></td></tr>
+	<tr>
+		<td>
+			<input type="hidden" name="dir" value="<?php echo $dir ?>">
+			<input type="hidden" name="user" value="<?php echo $user ?>">
+			<?php __("Folder"); ?>
+		</td>
+		<td><code><?php echo $dir; ?></code></td>
+	</tr>
+	<tr>
+		<td><?php __("User"); ?></td>
+		<td><code><?php echo $user; ?></code></td>
+	</tr>
+	<tr>
+		<td><label for="newpass"><?php __("New password"); ?></label></td>
+		<td><input type="password" class="int" name="newpass" id="newpass" value="" size="20" maxlength="64" /></td>
+	</tr>
+	<tr>
+		<td><label for="newpassconf"><?php __("Confirm password"); ?></label></td>
+		<td><input type="password" class="int" name="newpassconf" id="newpassconf" value="" size="20" maxlength="64" /></td>
+	</tr>
+	<tr>
+		<td colspan="2"><input type="submit" class="inb" value="<?php __("Change the password"); ?>" /></td>
+	</tr>
 </table>
 </form>
-<?php include_once("foot.php"); ?>
+<?php
+
+include_once("foot.php");
+
+?>

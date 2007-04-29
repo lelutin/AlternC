@@ -34,50 +34,73 @@ include_once("head.php");
 ?>
 <h3><?php __("Statistics List"); ?></h3>
 <?php
-	if ($quota->cancreate("sta2")) { ?>
+
+if ($quota->cancreate("sta2"))
+{
+
+?>
 <p>
 		- <a href="sta2_add_raw.php"><?php __("Create new Raw Statistics (apache)"); ?></a>
 </p>
-<?php  	}
+<?php
 
-	if ($error) {
-		echo "<p class=\"error\">$error</p>";
-	}
+}
 
-if (!$r=$sta2->get_list_raw()) {
-        $error=$err->errstr();
-	echo "<p class=\"error\">$error</p>";
-} else {
+if ($error)
+{
+	echo "<p class=\"error\">" . $error . "</p>";
+}
+
+if (!$r = $sta2->get_list_raw())
+{
+	$error = $err->errstr();
+	echo "<p class=\"error\">" . $error . "</p>";
+}
+else
+{
 
 ?>
-
 <form method="post" action="sta2_del_raw.php">
 <table cellspacing="0" cellpadding="4">
-<tr><th colspan="2">&nbsp;</th><th><?php __("Domain name"); ?></th><th><?php __("Folder"); ?></th><th><?php __("View"); ?></th></tr>
+	<tr>
+		<th colspan="2">&nbsp;</th>
+		<th><?php __("Domain name"); ?></th>
+		<th><?php __("Folder"); ?></th>
+		<th><?php __("View"); ?></th>
+	</tr>
 <?php
-reset($r);
-$col=1;
-while (list($key,$val)=each($r))
-        {
-        $col=3-$col;
-?>
-        <tr class="lst<?php echo $col; ?>">
-                <td><input type="checkbox" class="inc" name="del_<?php echo $val["id"]; ?>" value="<?php echo $val["id"]; ?>" /></td>
-                <td><a href="sta2_edit_raw.php?id=<?php echo $val["id"] ?>"><img src="images/edit.png" alt="<?php __("Edit"); ?>" alt="<?php __("Edit"); ?>" /></a></td>
-                <td><?php echo $val["hostname"] ?></td>
-                <td><code>/<?php echo $val["folder"] ?></code></td>
-                <td><?php
-        if ($uv=$bro->viewurl($val["folder"], $val["hostname"].'.log')) echo "<a href=\"$uv\">"._("View")."</a>";
-?>&nbsp;</td>
-        </tr>
-<?php
-        }
-?>
 
-<tr><td colspan="5"><input type="submit" class="inb" name="submit" value="<?php __("Delete the checked Raw Statistics (apache)"); ?>" /></td></tr>
+reset($r);
+$col = 1;
+$i = 0;
+while (list($key,$val)=each($r))
+{
+	$col = 3 - $col;
+	$altImg = ($i % 2 == 0 ? "" : "alt");
+	$i++;
+
+?>
+	<tr class="lst<?php echo $col; ?>">
+		<td><input type="checkbox" class="inc" name="d[]" value="<?php echo $val["id"]; ?>" /></td>
+		<td><a href="sta2_edit_raw.php?id=<?php echo $val["id"] ?>"><img src="images/edit<?php echo $altImg; ?>.png" alt="<?php __("Edit"); ?>" alt="<?php __("Edit"); ?>" /></a></td>
+		<td><?php echo $val["hostname"] ?></td>
+		<td><code>/<?php echo $val["folder"] ?></code></td>
+		<td><?php if ($uv = $bro->viewurl($val["folder"], $val["hostname"] . '.log')) echo "<a href=\"" . $uv . "\">" . _("View") . "</a>"; ?>&nbsp;</td>
+	</tr>
+<?php
+
+}
+
+?>
+	<tr>
+		<td colspan="5"><input type="submit" class="inb" name="submit" value="<?php __("Delete the checked Raw Statistics (apache)"); ?>" /></td>
+	</tr>
 </table>
 </form>
+<?php
 
+}
 
-<?php } ?>
-<?php include_once("foot.php"); ?>
+include_once("foot.php");
+
+?>

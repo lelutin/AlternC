@@ -29,21 +29,33 @@
 */
 require_once("../class/config.php");
 
-$error="";
+$fields = array (
+	"d"    => array ("request", "array", array()),
+);
+getFields($fields);
+
+if (!is_array($d))
+{
+	$tmp = array($d);
+	$d = $tmp;
+}
+reset($d);
+
 // On parcours les POST_VARS et on repere les del_.
-reset($_POST);
-while (list($key,$val)=each($_POST)) {
-	if (substr($key,0,4)=="del_") {
-		// Effacement du jeu de stats $val
-		$r=$sta2->delete_stats_raw($val);
-		if (!$r) {
-			$error.=$err->errstr()."<br />";
-		} else {
-			$error.=sprintf(_("The statistics %s has been successfully deleted (the stats files must be manually deleted)"),$r)."<br />";
-		}
+while (list($key, $val) = each($d))
+{
+	$r = $sta2->delete_stats_raw($val);
+	if (!$r)
+	{
+		$error .= $err->errstr() . "<br />";
+	}
+	else
+	{
+		$error .= sprintf(_("The statistics %s has been successfully deleted (the stats files must be manually deleted)"), $r) . "<br />";
 	}
 }
 
-include("sta2_list.php");
+include ("sta2_list.php");
 exit();
+
 ?>

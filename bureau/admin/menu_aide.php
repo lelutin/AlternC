@@ -29,5 +29,7 @@
 */
 ?>
 <div class="menu-box">
+<div class="menu-top"></div>
 <div class="menu-title"><img src="images/help.png" alt="<?php __("Online help"); ?>" />&nbsp;<a href="http://doc.alternc.org/user/" target="help"><?php __("Online help"); ?></a></div>
+<div class="menu-bottom"></div>
 </div>
