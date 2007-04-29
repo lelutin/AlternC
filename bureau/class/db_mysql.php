@@ -123,6 +123,7 @@ class DB_Sql {
   * @return the $Query_ID class variable (null if fails)
   */
   function query($Query_String) {
+    global $queryCount;
     /* No empty queries, please, since PHP4 chokes on them. */
     if ($Query_String == "")
       /* The empty query string is passed on from the constructor,
@@ -136,7 +137,7 @@ class DB_Sql {
     };
 
     # New query, discard previous result.
-    if ($this->Query_ID) {
+    if (is_resource($this->Query_ID)) {
       $this->free();
     }
 
@@ -152,6 +153,7 @@ class DB_Sql {
     }
 
     # Will return nada if it fails. That's fine.
+    $queryCount++;
     return $this->Query_ID;
   }
 

@@ -127,6 +127,26 @@ class m_admin {
   }
 
   /* ----------------------------------------------------------------- */
+  /** Retourne la liste des lettres pour lesquelles un utilisateur a
+   * des membres
+   * Retourne un tableau indexé où se trouvent les lettres
+   * @return array Tableau de lettres ou FALSE si erreur
+   */
+  function get_letters() {
+    global $err,$mem,$cuid,$db;
+    $err->log("admin","get_letters");
+    if ($mem->user["uid"]==2000)
+    	$db->query("SELECT LEFT(login,1) as letter FROM membres GROUP BY letter ORDER BY letter;");
+    else
+    	$db->query("SELECT LEFT(login,1) as letter FROM membres where uid='$cuid' GROUP BY letter ORDER BY letter;");
+    $res=array();
+    while($db->next_record()) {
+      $res[]=$db->f("letter");
+    }
+    return $res;
+  }
+
+  /* ----------------------------------------------------------------- */
   /**
    * Returns the list of the hosted accounts
    * Retourne la liste des membres hébergés
@@ -146,7 +166,7 @@ class m_admin {
    *  produite.
    *
    */
-  function get_list($all=0) {
+  function get_list($all=0, $letter = "") {
     // PATCHBEN pour ne voir que les comptes que l'on a créé (sauf admin)
     global $err,$mem,$cuid;
     $err->log("admin","get_list");
@@ -155,10 +175,13 @@ class m_admin {
       return false;
     }
     $db=new DB_System();
-    if ($mem->user[uid]==2000 || $all) {
-      $db->query("SELECT uid FROM membres ORDER BY login;");
+    $letterQuery = "";
+    if ($letter)
+    	$letterQuery = "&& login LIKE '" . $letter . "%'";
+    if ($mem->user["uid"]==2000 || $all) {
+      $db->query("SELECT uid FROM membres WHERE 1" . $letterQuery . " ORDER BY login;");
     } else {
-      $db->query("SELECT uid FROM membres WHERE creator='".$cuid."' ORDER BY login;");
+      $db->query("SELECT uid FROM membres WHERE creator = '" . $cuid . "'" . $letterQuery . " ORDER BY login;");
     }
     if ($db->num_rows()) {
       while ($db->next_record()) {
@@ -342,7 +365,7 @@ class m_admin {
     }
     if (($db->query("UPDATE local SET nom='$nom', prenom='$prenom' WHERE uid='$uid';"))
 	&&($db->query("UPDATE membres SET mail='$mail', canpass='$canpass', enabled='$enabled', type='$type' $ssq WHERE uid='$uid';"))){
-      if($_POST['reset_quotas'] == "on")
+      if(isset($_POST['reset_quotas']) && $_POST["reset_quotas"] == "on")
 	$quota->addquotas();
       $this->renew_update($uid, $duration);
       return true;
@@ -572,7 +595,7 @@ class m_admin {
    */
   function renew_get_expiring_accounts() {
     global $db;
-
+		$res = array();
     if(!$db->query("SELECT *, m.renewed + INTERVAL duration MONTH 'expiry'," .
 		   " CASE WHEN m.duration IS NULL THEN 0" .
 		   " WHEN m.renewed + INTERVAL m.duration MONTH <= NOW() THEN 3" .

@@ -42,15 +42,17 @@
  */
 function variable_init($conf = array()) {
   global $db;
+  $variables = array();
   $result = $db->query('SELECT * FROM `variable`');
   while ($db->next_record($result)) {
     /* maybe the data is *not* serialized, in that case, take it verbatim */
     $variable = $db->Record;
-    if (($variables[$variable['name']] = unserialize($variable['value'])) === FALSE) {
-      $variables[$variable['name']] = $variable['value'];
-    }
+
+//     if (($variables[$variable['name']] = unserialize($variable['value'])) === FALSE) {
+//       $variables[$variable['name']] = $variable['value'];
+//     }
   }
-  
+
   foreach ($conf as $name => $value) {
     $variables[$name] = $value;
   }
@@ -103,9 +105,9 @@ function variable_set($name, $value) {
   global $conf, $db;
 
   $conf[$name] = $value;
-  if (is_object($value) || is_array($value)) {
-    $value = serialize($value);
-  }
+//   if (is_object($value) || is_array($value)) {
+//     $value = serialize($value);
+//   }
   @$db->query("INSERT IGNORE INTO `variable` (name, value) VALUES ('".$name."', '".$value."')");
   if ($db->affected_rows() < 1) {
     $db->query("UPDATE `variable` SET value = '".$value."' WHERE name = '".$name."'");

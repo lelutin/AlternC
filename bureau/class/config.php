@@ -44,6 +44,7 @@ Merci de revenir plus tard.";
   exit();
 }
 */
+error_reporting(E_ALL);
 
 // 1. Get a semaphore id for the alternc magic number (18577)
 $alternc_sem = sem_get ( 18577 );
@@ -67,21 +68,28 @@ if (ini_get("safe_mode")) {
   exit();
 }
 
+$error = "";
+
 /* PHPLIB inclusions : */
 $root="/var/alternc/bureau/";
 /* Server Domain Name */
 $host=getenv("HTTP_HOST");
+
+/* Custom PHP debugger */
+require_once($root."class/error_handler.php");
+$queryCount = 0;
 
 /* Global variables (AlternC configuration) */
 require_once($root."class/local.php");
 
 require_once($root."class/db_mysql.php");
 require_once($root."class/functions.php");
-require_once($root."class/functions2.php");
 require_once($root."class/variables.php");
 
+$tempsDebut = microtimeFloat();
+
 // Redirection si appel https://(!fqdn)/
-if ($_SERVER["HTTPS"] == "on" && $host != $L_FQDN)
+if ((empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != "on") && $host == $L_FQDN)
 {
 	header("Location: https://$L_FQDN/");
 }
@@ -115,16 +123,17 @@ $db= new DB_system();
 $cuid=0;
 
 
-$classes=array();
+$classes = array();
 /* CLASSES PHP4 : automatic include : */
-$c=opendir($root."class/");
-while ($di=readdir($c)) {
-  if (ereg("^m_(.*)\\.php$",$di,$match)) { // $
-    $name1="m_".$match[1];
-    $name2=$match[1];
-    $classes[]=$name2;
-    require_once($root."class/".$name1.".php");
-  }
+$c = opendir($root . "class/");
+while ($di=readdir($c))
+{
+	if (ereg("^m_(.*)\\.php$",$di,$match)) { // $
+		$name1="m_".$match[1];
+		$name2=$match[1];
+		$classes[]=$name2;
+		require_once($root."class/".$name1.".php");
+	}
 }
 closedir($c);
 /* THE DEFAULT CLASSES ARE :
@@ -135,28 +144,39 @@ closedir($c);
 /* Language */
 bindtextdomain("alternc", "/var/alternc/bureau/locales");
 
-if (!$do_not_set_lang_env) {
+if (!isset($do_not_set_lang_env)) {
   include("lang_env.php");
 }
 
-$mem=new m_mem();
-$err=new m_err();
+$mem = new m_mem();
+$err = new m_err();
 
 /* Check the User identity (if required) */
-if (!defined('NOCHECK')) {
-  if (!$mem->checkid()) {
-    $error=$err->errstr();
-    include("index.php");
-    exit();
-  }
+if (!defined('NOCHECK'))
+{
+	$fields = array (
+		"username"  => array ("request", "string", ""),
+		"password"  => array ("request", "string", ""),
+		"restrictip" => array ("request", "integer", 0),
+	);
+	getFields($fields);
+
+	if (!$mem->checkid($username, $password, $restrictip))
+	{
+		$error = $err->errstr();
+		include("index.php");
+		exit();
+	}
 }
 
-for($i=0;$i<count($classes);$i++) {
-  if ($classes[$i]!="mem" && $classes[$i]!="err") {
-    $name2=$classes[$i];
-    $name1="m_".$name2;
-    $$name2= new $name1();
-  }
+for ($i = 0; $i < count($classes); $i++)
+{
+	if ($classes[$i] != "mem" && $classes[$i] != "err")
+	{
+		$name2 = $classes[$i];
+		$name1 = "m_" . $name2;
+		$$name2 = new $name1();
+	}
 }
 
 ?>

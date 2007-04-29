@@ -127,6 +127,7 @@ class m_bro {
    */
   function filelist($dir="") {
     global $db,$cuid;
+    $c = array();
     $db->query("UPDATE browser SET lastdir='$dir' WHERE uid='$cuid';");
     $absolute=$this->convertabsolute($dir,0);
     if ($dir = @opendir($absolute)) {
@@ -392,7 +393,7 @@ class m_bro {
    * @param string $R Dossier dans lequel on upload le fichier
    */
   function UploadFile($R) {
-    global $_FILES,$err;
+    global $err;
     $absolute=$this->convertabsolute($R,0);
     if (!$absolute) {
       $err->raise("bro",1);
@@ -423,6 +424,8 @@ class m_bro {
    * @return string le code HTML ainsi obtenu.
    */
   function PathList($path,$action) {
+    $c = "";
+    $R = "";
     $path=$this->convertabsolute($path,1);
     $a=explode("/",$path);
     if (!is_array($a)) $a=array($a);
@@ -481,7 +484,7 @@ class m_bro {
     // Is it in cache ?
     if (substr($dir,0,1)=="/") $dir=substr($dir,1);
     if (substr($dir,-1)=="/") $dir=substr($dir,0,-1);
-    if (!$this->cacheurl["d".$dir]) {
+    if (!isset($this->cacheurl["d".$dir])) {
       // On parcours $dir en remontant les /
       $end="";	$beg=$dir;	$tofind=true;
       while ($tofind) {
@@ -506,7 +509,7 @@ class m_bro {
 	}
       }
     }
-    if ($this->cacheurl["d".$dir] && $this->cacheurl["d".$dir]!="-") {
+    if (isset($this->cacheurl["d".$dir]) && $this->cacheurl["d".$dir]!="-") {
       return $this->cacheurl["d".$dir]."/".$name;
     } else {
       return false;

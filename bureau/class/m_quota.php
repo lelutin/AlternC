@@ -129,13 +129,18 @@ class m_quota {
       return array("t"=>0, "u"=>0);
     } else {
       while ($db->next_record()) {
-	$ttmp[]=$db->Record;
+			$ttmp[]=$db->Record;
       }
       foreach ($ttmp as $tt) {
 	$g=array("t"=>$tt["total"],"u"=>0);
-	if (method_exists($GLOBALS[$this->clquota[$tt["name"]]],"alternc_get_quota")) {
-	  $g["u"]=$GLOBALS[$this->clquota[$tt["name"]]]->alternc_get_quota($tt["name"]);
-	}
+	if (isset($this->disk[$tt["name"]]))
+		continue;
+
+		if (method_exists($GLOBALS[$this->clquota[$tt["name"]]],"alternc_get_quota"))
+		{
+			$g["u"]=$GLOBALS[$this->clquota[$tt["name"]]]->alternc_get_quota($tt["name"]);
+		}
+
 	$this->quotas[$tt["name"]]=$g;
       }
     }
@@ -143,7 +148,11 @@ class m_quota {
     while (list($key,$val)=each($this->disk)) {
       $a=array();
       exec("/usr/lib/alternc/quota_get ".$cuid." ".$val,$a);
-      $this->quotas[$val]=array("t"=>$a[1],"u"=>$a[0]);
+			if (isset($a[0]) && isset($a[1]))
+      	$this->quotas[$val] = array("t"=>$a[1],"u"=>$a[0]);
+			else
+      	$this->quotas[$val] = array("t" => "", "u" => "");
+
     }
 
     if ($ressource) {
@@ -162,12 +171,12 @@ class m_quota {
     global $err,$db,$cuid;
     $err->log("quota","setquota",$ressource."/".$size);
     if (intval($size)==0) $size="0";
-    if ($this->disk[$ressource]) {
+    if (isset($this->disk[$ressource])) {
       // It's a disk resource, update it with shell command
       exec("/usr/lib/alternc/quota_edit $cuid $size");
       // Now we check that the value has been written properly :
       exec("/usr/lib/alternc/quota_get ".$cuid,$a);
-      if ($size!=$a[1]) {
+      if (isset($a[1]) && $size != $a[1]) {
 				$err->raise("quota",1);
 				return false;
       }

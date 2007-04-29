@@ -95,7 +95,7 @@ class m_hta {
     }
     for ($i=0;$i<count($sortie);$i++){
       preg_match("/^\/var\/alternc\/html\/.\/[^\/]*\/(.*)\/\.htpasswd/", $sortie[$i], $matches);
-      $r[$i]=$matches[1]."/";
+      $r[$i] = (isset($matches[1]) ? $matches[1] : "") . "/";
     }
     return $r;
   }
@@ -204,7 +204,7 @@ class m_hta {
 	}
       }
       fseek($file,SEEK_END);
-      if (substr($t[1],-1)!="\n") {
+      if (isset($t[1]) && substr($t[1],-1)!="\n") {
 	fwrite($file,"\n");
       }
       fwrite($file, "$user:"._md5cr($password)."\n");

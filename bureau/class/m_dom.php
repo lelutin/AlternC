@@ -571,7 +571,7 @@ No match for "dronefdasfsa.ws".
     $r["dns"]=$db->Record["gesdns"];
     $r["mail"]=$db->Record["gesmx"];
     $r["mx"]=$db->Record["mx"];
-    $r[noerase]=$db->Record[noerase];
+    $r["noerase"]=$db->Record["noerase"];
     $db->free();
     $db->query("select count(*) as cnt from sub_domaines where compte='$cuid' and domaine='$dom'");
     $db->next_record();

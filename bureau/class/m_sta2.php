@@ -30,13 +30,13 @@
 
 /**
 * This class manages raw Apache log file for the end users.
-* 
-* This class allow each AlternC's account to get its raw apache log 
+*
+* This class allow each AlternC's account to get its raw apache log
 * file put in its user space every day. <br>
 * The file is stored in the user space and will grow from time to time...
-* 
+*
 * @copyright    AlternC's Team 2002-2005 http://alternc.org/
-* 
+*
 */
 class m_sta2 {
 
@@ -49,17 +49,17 @@ class m_sta2 {
 
   /* ----------------------------------------------------------------- */
   /** Hook function that returns the quota names for this class
-   * 
+   *
    * @return string the quota names for this class
    */
   function alternc_quota_names() {
     return "sta2";
-  } 
+  }
 
 
   /* ----------------------------------------------------------------- */
   /** Returns the list of domains and/or subdomains for this account
-   * 
+   *
    * @return array returns an array with all the domains / subdomains for this account.
    */
   function host_list() {
@@ -78,7 +78,7 @@ class m_sta2 {
 
   /* ----------------------------------------------------------------- */
   /** Draw option html tags of ths allowed domains / subdomains for the account.
-   * 
+   *
    * @param $current string The current selected value in the list
    */
   function select_host_list($current) {
@@ -108,7 +108,7 @@ class m_sta2 {
   function alternc_del_domain($dom) {
     global $db,$err,$cuid;
     $err->log("sta2","del_dom",$dom);
-    // Suppression des stats apache brutes : 
+    // Suppression des stats apache brutes :
     $db->query("SELECT * FROM stats2 WHERE mid='$cuid' AND hostname like '%$dom'");
     $cnt=0;
     $t=array();
@@ -117,7 +117,7 @@ class m_sta2 {
       $t[]=$db->f("hostname");
     }
     // on détruit les jeux de stats associés au préfixe correspondant :
-    for($i=0;$i<cnt;$i++) {
+    for($i=0;$i<$cnt;$i++) {
       $db->query("DELETE FROM stats2 WHERE mid='$cuid' AND hostname='".$t[$i]."';");
     }
     return true;
@@ -125,11 +125,11 @@ class m_sta2 {
 
   /* ----------------------------------------------------------------- */
   /** Returns an array with the user's raw stat list
-   * The returned array is as follow : 
+   * The returned array is as follow :
    * $r[0-n]["id"] = Id of the raw stat set.
    * $r[0-n]["hostname"]= Domain
    * $r[0-n]["folder"]= Destination's folder (in the user space)
-   * 
+   *
    * @return array Returns the array or FALSE if an error occured.
    */
   function get_list_raw() {
@@ -156,9 +156,9 @@ class m_sta2 {
 
   /* ----------------------------------------------------------------- */
   /** Get the details of a raw statistic set.
-   * 
+   *
    * This function returns the details of a raw statistic set (raw logs)
-   * The returned value is an associative array as follow : 
+   * The returned value is an associative array as follow :
    * $ret["id"] = raw stat id.
    * $ret["hostname"] = the domain we get the raw log.
    * $ret["folder"] = the destination folder for the logs (inside the user space)
@@ -187,7 +187,7 @@ class m_sta2 {
 
   /* ----------------------------------------------------------------- */
   /** Edit a raw statistic set.
-   * 
+   *
    * This function edit a raw statistic set.
    * $folder is the new destination folder inside the user space where the log
    * file will be put.
@@ -217,7 +217,7 @@ class m_sta2 {
 
   /* ----------------------------------------------------------------- */
   /** Delete a raw statistic set
-   * 
+   *
    * This function erase the raw statistic set pointed to by $id.
    * The raw log files that may be present in the folder will NOT be deleted.
    * @param $id integer is the set that has to be deleted.
@@ -232,16 +232,17 @@ class m_sta2 {
       return false;
     }
     $db->next_record();
+    $hostname = $db->f("hostname");
     $db->query("DELETE FROM stats2 WHERE id='$id'");
-    return true;
+    return $hostname;
   }
 
   /* ----------------------------------------------------------------- */
   /** Create a new raw statistic set (raw log)
    * This function create a new raw log set for the current user.
-   * The raw statistics allow any user to get its raw apache log put daily in 
+   * The raw statistics allow any user to get its raw apache log put daily in
    * one of its folders in its user space.
-   * @param $hostname string this is the domain name (hosted by the current user) 
+   * @param $hostname string this is the domain name (hosted by the current user)
    *  for which we want raw logs
    * @param $dir string this is the folder where we will put the raw log files.
    * @return boolean TRUE if the set has been created, or FALSE if an error occured.
@@ -288,7 +289,7 @@ class m_sta2 {
   /**
    * Exporte toutes les informations states brutes du compte.
    * @access private
-   * EXPERIMENTAL 'sid' function ;) 
+   * EXPERIMENTAL 'sid' function ;)
    */
   function alternc_export($tmpdir) {
     global $db,$err;

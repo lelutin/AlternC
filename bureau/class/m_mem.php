@@ -32,7 +32,7 @@ class m_mem {
 
   /** Original uid for the temporary uid swapping (for administrators) */
   var $olduid=0;
-  
+
   /** This array contains the Tableau contenant les champs de la table "membres" du membre courant
    * Ce tableau est utilisable globalement par toutes les classes filles.
    */
@@ -66,12 +66,12 @@ class m_mem {
    * @param $password string User Password.
    * @return boolean TRUE if the user has been successfully connected, or FALSE if an error occured.
    */
-  function login($username,$password,$restrictip=0) {
-    global $db,$session,$err,$cuid;
-    $err->log("mem","login",$username);
+  function login($username, $password, $restrictip = 0) {
+    global $db, $err, $cuid;
+    $err->log("mem", "login", $username);
     //    $username=addslashes($username);
     //    $password=addslashes($password);
-    $db->query("select * from membres where login='$username';");
+    $db->query("SELECT * FROM membres WHERE login = '" . $username . "';");
     if ($db->num_rows()==0) {
       $err->raise("mem",1);
       return false;
@@ -81,7 +81,7 @@ class m_mem {
       $db->query("UPDATE membres SET lastfail=lastfail+1 WHERE uid='".$db->f("uid")."';");
       $err->raise("mem",1);
       return false;
-    } 
+    }
     if (!$db->f("enabled")) {
       $err->raise("mem",2);
       return false;
@@ -94,7 +94,7 @@ class m_mem {
     /* Close sessions that are more than 2 days old. */
     $db->query("DELETE FROM sessions WHERE DATE_ADD(ts,INTERVAL 2 DAY)<NOW();");
     /* Open the session : */
-    $session=md5(uniqid(mt_rand()));
+    $session = md5(uniqid(mt_rand()));
     $db->query("insert into sessions (sid,ip,uid) values ('$session',$ip,'$cuid');");
     setcookie("session",$session,0,"/");
     $err->error=0;
@@ -112,12 +112,12 @@ class m_mem {
    * This function is not the same as su. setid connect the current user in the destination
    * account (for good), and su allow any user to become another account for some commands only.
    * (del_user, add_user ...) and allow to bring back admin rights with unsu
-   * 
+   *
    * @param $id integer User id where we will connect to.
    * @return boolean TRUE if the user has been successfully connected, FALSE else.
    */
   function setid($id) {
-    global $db,$session,$err,$cuid;
+    global $db,$err,$cuid;
     $err->log("mem","setid",$username);
     $db->query("select * from membres where uid='$id';");
     if ($db->num_rows()==0) {
@@ -161,42 +161,46 @@ class m_mem {
    * @global string $username/password le login/pass de l'utilisateur
    * @return TRUE si la session est correcte, FALSE sinon.
    */
-  function checkid() {
-    global $db,$err,$session,$username,$password,$cuid,$restrictip;
-    if ($username && $password) {
-      return $this->login($username,$password,$restrictip);
-    }
-    $session=addslashes($session);
-    if (strlen($session)!=32) {
-      $err->raise("mem",3);
-      return false;
-    }
-    $ip=getenv("REMOTE_ADDR");
-    $db->query("select uid,INET_ATON('$ip') as me,ip from sessions where sid='$session'");
-    if ($db->num_rows()==0) {
-      $err->raise("mem",4);
-      return false;
-    }
-    $db->next_record();
-    if ($db->f("ip")) {
-      if ($db->f("me")!=$db->f("ip")) {
-	$err->raise("mem",5);
-	return false;
-      }
-    }
-    $cuid=$db->f("uid");
-    $db->query("select * from membres where uid='$cuid';");
-    $db->next_record();
-    $this->user=$db->Record;
-    $err->error=0;
-    /* Remplissage de $local */
-    $db->query("SELECT * FROM local WHERE uid='$cuid';");
-    if ($db->num_rows()) {
-      $db->next_record();
-      $this->local=$db->Record;
-    }
-    return true;
-  }
+  function checkid($username, $password, $restrictip) {
+		global $db, $err, $cuid;
+
+		if ($username && $password)
+		{
+			return $this->login($username, $password, $restrictip);
+		}
+
+		$session = isset($_COOKIE["session"]) ? addslashes($_COOKIE["session"]) : "";
+		if (strlen($session) != 32)
+		{
+			$err->raise("mem", 3);
+			return false;
+		}
+		$ip = getenv("REMOTE_ADDR");
+		$db->query("SELECT uid, INET_ATON('" . $ip . "') AS me, ip FROM sessions WHERE sid='" . $session . "'");
+		if ($db->num_rows()==0) {
+			$err->raise("mem",4);
+			return false;
+		}
+		$db->next_record();
+		if ($db->f("ip")) {
+			if ($db->f("me")!=$db->f("ip")) {
+				$err->raise("mem",5);
+				return false;
+			}
+		}
+		$cuid=$db->f("uid");
+		$db->query("select * from membres where uid='$cuid';");
+		$db->next_record();
+		$this->user=$db->Record;
+		$err->error=0;
+		/* Remplissage de $local */
+		$db->query("SELECT * FROM local WHERE uid='$cuid';");
+		if ($db->num_rows()) {
+			$db->next_record();
+			$this->local=$db->Record;
+		}
+		return true;
+	}
 
   /* ----------------------------------------------------------------- */
   /** Change l'identité d'un utilisateur temporairement.
@@ -237,9 +241,9 @@ class m_mem {
    * @return boolean TRUE si la session a bien été détruite, FALSE sinon.
    */
   function del_session() {
-    global $db,$session,$user,$err,$cuid;
+    global $db,$user,$err,$cuid;
     $err->log("mem","del_session");
-    $session=addslashes($session);
+    $session = isset($_COOKIE["session"]) ? addslashes($_COOKIE["session"]) : "";
     setcookie("session","",0,"/");
     if ($session=="") {
       $err->error=0;
@@ -354,7 +358,7 @@ Mot de passe : ".$db->f("pass")."
 
 Note : si vous n'avez pas fait cette demande, cela signifie que
 quelqu'un l'a faite pour vous. Vous pouvez donc ignorer ce message.
-Si cela se reproduit, n'hésitez pas à contacter l'administrateur 
+Si cela se reproduit, n'hésitez pas à contacter l'administrateur
 de votre serveur.
 
 Cordialement.
@@ -465,7 +469,7 @@ Cordialement.
      */
   function show_help($file) {
     global $err;
-    $err->log("mem","show_help",$show);
+    $err->log("mem","show_help");
     if ($this->user["show_help"]) {
       $hlp=_("hlp_$file");
       if ($hlp!="hlp_$file") {
@@ -486,7 +490,7 @@ Cordialement.
   /**
    * Exports all the personnal user related information for an account.
    * @access private
-   * EXPERIMENTAL 'sid' function ;) 
+   * EXPERIMENTAL 'sid' function ;)
    */
   function alternc_export($tmpdir) {
     global $db,$err;

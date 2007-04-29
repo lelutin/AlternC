@@ -98,10 +98,10 @@ class m_ftp {
 	$lg[1]="";
       }
       return array(
-		   "id"=>$db->f("id"),
-		   "prefixe"=> $lg[0],
-		   "login"=>$lg[1],
-		   "dir"=>$match[1]
+		   "id"      => $db->f("id"),
+		   "prefixe" => $lg[0],
+		   "login"   => isset($lg[1]) ? $lg[1] : "",
+		   "dir"     => $match[1]
 		   );
     } else {
       $err->raise("ftp",2);
@@ -310,9 +310,9 @@ class m_ftp {
   }
 
   /* ----------------------------------------------------------------- */
-  /** 
+  /**
    * Returns the used quota for the $name service for the current user.
-   * @param $name string name of the quota 
+   * @param $name string name of the quota
    * @return integer the number of service used or false if an error occured
    * @access private
    */
@@ -331,7 +331,7 @@ class m_ftp {
   /**
    * Exporte toutes les informations ftp du compte AlternC
    * @access private
-   * EXPERIMENTAL 'sid' function ;) 
+   * EXPERIMENTAL 'sid' function ;)
    */
   function alternc_export() {
     global $db,$err;
@@ -348,8 +348,8 @@ class m_ftp {
     $str.="</ftp>\n";
     return $str;
   }
-  
-  
+
+
 } /* Class m_ftp */
 
 ?>

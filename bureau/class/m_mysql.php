@@ -516,7 +516,7 @@ class m_mysql {
       if ($db->next_record())
         $r[]=array("db"=>$dblist[$i]["name"], "select"=>$db->f("Select_priv"), "insert"=>$db->f("Insert_priv"),	"update"=>$db->f("Update_priv"), "delete"=>$db->f("Delete_priv"), "create"=>$db->f("Create_priv"), "drop"=>$db->f("Drop_priv"), "references"=>$db->f("References_priv"), "index"=>$db->f("Index_priv"), "alter"=>$db->f("Alter_priv"), "create_tmp"=>$db->f("Create_tmp_table_priv"), "lock"=>$db->f("Lock_tables_priv"));
       else
-        $r[]=array("db"=>$dblist[$i]["name"], "select"=>"N", "insert"=>"N", "update"=>"N", "delete"=>"N", "create"=>"N", "drop"=>"N", "references"=>"N", "index"=>"N", "alter"=>"N", "Create_tmp"=>"N", "lock"=>"N" );
+        $r[]=array("db"=>$dblist[$i]["name"], "select"=>"N", "insert"=>"N", "update"=>"N", "delete"=>"N", "create"=>"N", "drop"=>"N", "references"=>"N", "index"=>"N", "alter"=>"N", "create_tmp"=>"N", "lock"=>"N" );
     }
 
     return $r;
@@ -524,7 +524,7 @@ class m_mysql {
 
   function set_user_rights($user,$dbn,$rights) {
     global $mem, $db;
-
+    $strrights = "";
     $usern=addslashes($mem->user["login"].($user?"_":"").$user);
     $dbname=addslashes($mem->user["login"].($dbn?"_":"").$dbn);
     // On génère les droits en fonction du tableau de droits

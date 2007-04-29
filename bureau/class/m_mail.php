@@ -181,6 +181,7 @@ class m_mail {
       $login=str_replace("@","_",$db->f("mail"));
       $account=str_replace($login,"",$db->f("alias"));
     } else {
+    	$login = "";
       $account=$db->f("alias");
     }
     return array("mail" => $mail, "login" => $login, "alias" => $account, "pop" => $pop);
