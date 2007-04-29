@@ -208,7 +208,7 @@ class m_admin {
     }
     $db->query("SELECT creator FROM membres WHERE uid='$uid';");
     $db->next_record();
-    if ($db->Record[creator]!=$cuid) {
+    if ($db->Record["creator"]!=$cuid) {
       $err->raise("admin",1);
       return false;
     }
