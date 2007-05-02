@@ -1,6 +1,6 @@
 <?php
 
-$customErrorHandler = true;
+$customErrorHandler = false;
 $phpErrorList = array();
 
 function phpErrorHandler($errno, $errstr, $errfile, $errline, $errcontext)
