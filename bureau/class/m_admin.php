@@ -138,7 +138,7 @@ class m_admin {
     if ($mem->user["uid"]==2000)
     	$db->query("SELECT LEFT(login,1) as letter FROM membres GROUP BY letter ORDER BY letter;");
     else
-    	$db->query("SELECT LEFT(login,1) as letter FROM membres where uid='$cuid' GROUP BY letter ORDER BY letter;");
+    	$db->query("SELECT LEFT(login,1) as letter FROM membres WHERE creator='$cuid' GROUP BY letter ORDER BY letter;");
     $res=array();
     while($db->next_record()) {
       $res[]=$db->f("letter");
