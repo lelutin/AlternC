@@ -34,6 +34,9 @@ $currentPage = end(explode("/", $_SERVER["PHP_SELF"]));
 if (ereg("^(dom|mail|ftp|sql|adm)", $currentPage, $regs))
 	$currentMenu = "menu-" . $regs[1];
 
+// On redemande les quotas pour etre sur qu'ils sont a jour
+$quota->getquota("", true);
+
 ?>
 <h3>Menu <?php echo $mem->user["login"]; ?></h3>
 
