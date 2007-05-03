@@ -209,10 +209,10 @@ class m_bro {
     else
       $ext=$t[count($t)-1];
     // Now seek the extension
-    if (!$bro_icon[$ext]) {
-	return "file.png";
+    if (!isset($bro_icon[$ext])) {
+			return "file.png";
     } else {
-	return $bro_icon[$ext].".png";
+			return $bro_icon[$ext].".png";
     }
   }
 
@@ -234,7 +234,7 @@ class m_bro {
     else
       $ext=$t[count($t)-1];
     // Now seek the extension
-    if (!$bro_type[$ext]) {
+    if (!isset($bro_type[$ext])) {
 	return _("File");
     } else {
 	return _($bro_type[$ext]);
