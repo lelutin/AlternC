@@ -43,7 +43,7 @@ getFields($fields);
 	}
 ?>
 
-<form method="post" action="hta_doadduser.php">
+<form method="post" action="hta_doadduser.php" name="main" id="main">
 <table border="1" cellspacing="0" cellpadding="4">
 	<tr>
 		<td><input type="hidden" name="dir" value="<?php echo $dir ?>" /><?php __("Folder"); ?></td>
@@ -66,4 +66,7 @@ getFields($fields);
 	</tr>
 </table>
 </form>
+<script type="text/javascript">
+document.forms['main'].user.focus();
+</script>
 <?php include_once("foot.php"); ?>

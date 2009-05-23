@@ -42,7 +42,7 @@ include_once("head.php");
 		exit;
 	}
 ?>
-<form method="post" action="hta_doadd.php" name="main">
+<form method="post" action="hta_doadd.php" name="main" id="main">
 <table border="1" cellspacing="0" cellpadding="4">
 <tr>
 	<td><label for="dir"><?php __("Folder"); ?></label></td>
@@ -56,4 +56,7 @@ include_once("head.php");
 <tr><td colspan="2"><input type="submit" class="inb" value="<?php __("Protect this folder"); ?>" /></td></tr>
 </table>
 </form>
+<script type="text/javascript">
+document.forms['main'].dir.focus();
+</script>
 <?php include_once("foot.php"); ?>

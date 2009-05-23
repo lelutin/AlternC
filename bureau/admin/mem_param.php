@@ -58,7 +58,7 @@ if (!$mem->user["canpass"]) {
 
  __("help_chg_passwd"); ?>
 </p>
-<form method="post" action="mem_passwd.php">
+<form method="post" action="mem_passwd.php" name="main" id="main">
 <table border="1" cellspacing="0" cellpadding="4">
 <tr><th><?php __("Old password"); ?></th><td><input type="password" class="int" name="oldpass" value="<?php echo $oldpass; ?>" size="20" maxlength="128" /></td></tr>
 <tr><th><?php __("New password"); ?> (1)</th><td><input type="password" class="int" name="newpass" value="<?php echo $newpass; ?>" size="20" maxlength="60" /></td></tr>
@@ -108,4 +108,8 @@ if ($mem->user["su"]) {
 <p>&nbsp;</p>
 <?php } ?>
 <hr />
+<script type="text/javascript">
+document.forms['main'].oldpass.focus();
+</script>
+
 <?php include_once("foot.php"); ?>

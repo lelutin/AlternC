@@ -33,7 +33,7 @@ require_once("../class/config.php");
 <h3>Menu <?php echo $mem->user["login"]; ?></h3>
 
 <div class="menu-box">
-	<div class="menu-title"><img src="images/home.png" alt="Accueil / Informations" />&nbsp;<a href="main.php">Accueil / Informations</a></div>
+    <div class="menu-title"><img src="images/home.png" alt="<?php  __("Home / Information"); ?>" />&nbsp;<a href="main.php"><?php  __("Home / Information"); ?></a></div>
 </div>
 <?php
 

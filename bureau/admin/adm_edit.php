@@ -58,7 +58,7 @@ if (!$r=$admin->get($uid)) {
 		echo "<p class=\"error\">$error</p>";
 	}
 ?>
-<form method="post" action="adm_doedit.php">
+<form method="post" action="adm_doedit.php" name="main" id="main">
 <table border="1" cellspacing="0" cellpadding="4">
 <tr>
 	<th><input type="hidden" name="uid" value="<?php echo $uid ?>" />
@@ -178,4 +178,7 @@ printf(_("Account created by %s"),$c["login"]);
 ?>
 </p>
 <p><a href="adm_list.php"><?php __("Back to the account list"); ?></a></p>
+<script type="text/javascript">
+document.forms['main'].pass.focus();
+</script>
 <?php include_once("foot.php"); ?>

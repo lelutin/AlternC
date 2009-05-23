@@ -86,7 +86,7 @@ for($i=0;$i<count($r);$i++) {
   echo "<p>"._("help_sql_list_no")."</p>";
 
 ?>
-<form method="post" action="sql_addmain.php">
+<form method="post" action="sql_addmain.php" name="main" id="main">
 <table cellspacing="0" cellpadding="4">
 	<tr class="lst2">
 		<th><?php __("Username"); ?></th>
@@ -110,4 +110,7 @@ for($i=0;$i<count($r);$i++) {
 </table>
 </form>
 <?php } ?>
+<script type="text/javascript">
+document.forms['main'].pass.focus();
+</script>
 <?php include_once("foot.php"); ?>

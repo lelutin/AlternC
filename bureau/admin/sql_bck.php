@@ -105,4 +105,7 @@ __("You currently have no database defined");
  echo "</p>";
 	}
 ?>
+<script type="text/javascript">
+document.forms['main'].bck_mode.focus();
+</script>
 <?php include_once("foot.php"); ?>

@@ -46,7 +46,7 @@ if (!$quota->cancreate("ftp")) {
 		}
 	}
 ?>
-<form method="post" action="ftp_doadd.php" name="main">
+<form method="post" action="ftp_doadd.php" name="main" id="main">
 <table><thead><?php __("Create a new ftp account"); ?></thead>
 <tr><th><input type="hidden" name="id" value="<?php echo $id ?>" />
 <label for="login"><?php __("Username"); ?></label></th><td>
@@ -65,4 +65,7 @@ if (!$quota->cancreate("ftp")) {
 </table>
 </form>
 <?php $mem->show_help("ftp_add"); ?>
+<script type="text/javascript">
+document.forms['main'].login.focus();
+</script>
 <?php include_once("foot.php"); ?>

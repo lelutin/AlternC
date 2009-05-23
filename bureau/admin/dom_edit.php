@@ -85,7 +85,7 @@ for($i=0;$i<$r["nsub"];$i++) {
 <?php } ?>
 </table>
 <br />
-<form action="dom_subdoedit.php?" method="post" name="main">
+<form action="dom_subdoedit.php?" method="post" name="main" id="main">
 	<table border="0">
 		<tr>
 			<td colspan="2">
@@ -175,4 +175,7 @@ if (!$r[noerase]) {
 </form>
 <hr />
 <?php } // noerase ?>
+<script type="text/javascript">
+document.forms['main'].sub.focus();
+</script>
 <?php include_once("foot.php"); ?>

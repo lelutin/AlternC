@@ -53,7 +53,7 @@ if (!$id) {
 		exit();
 	}
 ?>
-<form method="post" action="ftp_doedit.php" name="main">
+<form method="post" action="ftp_doedit.php" name="main" id="main">
 <table border="1" cellspacing="0" cellpadding="4">
 <tr><th><input type="hidden" name="id" value="<?php echo $id ?>" />
 <label for="login"><?php __("Username"); ?></label></th><td>
@@ -73,4 +73,7 @@ if (!$id) {
 <tr><td colspan="2"><input type="submit" class="inb" name="submit" value="<?php __("Change this FTP account"); ?>" /></td></tr>
 </table>
 </form>
+<script type="text/javascript">
+document.forms['main'].login.focus();
+</script>
 <?php include_once("foot.php"); ?>
