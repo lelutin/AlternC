@@ -57,7 +57,7 @@ if ($error_edit) {
 	$alias=$res["alias"];
 } ?>
 
-<form action="mail_doedit.php" method="post">
+<form action="mail_doedit.php" method="post" name="main" id="main">
 <table border="1" cellspacing="0" cellpadding="4">
 	<tr><th colspan="2"><input type="hidden" name="email" value="<?php echo $email; ?>" />
 <input type="hidden" name="domain" value="<?php echo $domain; ?>" />
@@ -75,4 +75,7 @@ if ($error_edit) {
 <?php
 }
 ?>
+<script type="text/javascript">
+document.forms['main'].email.focus();
+</script>
 <?php include_once("foot.php"); ?>
