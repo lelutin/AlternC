@@ -190,7 +190,9 @@ msgstr ""
 
 #. There is no MX record pointing to this server, and you are asking us to host the Mail here 
 msgid "err_dom_25"
-msgstr "Il n'y a pas de MX pointant vers ce serveur, alors que vous nous demandez d'héberger le mail ici."
+msgstr ""
+"Il n'y a pas de MX pointant vers ce serveur, alors que vous nous demandez "
+"d'héberger le mail ici."
 
 #. - Entrez le nom du domaine que vous souhaitez héberger. Le nom de domaine 
 #. doit être complet, mais <b>sans le www.</b><br /> IMPORTANT : Si vous voulez 
@@ -688,6 +690,62 @@ msgstr "Répertoire ou fichier incorrect !"
 msgid "err_bro_2"
 msgstr "Vous ne pouvez pas déplacer un fichier dans le même répertoire !"
 
+#. If we manage your DNS <br />You can manage your mails elsewhere if you want 
+#. (MX field).<br />Write <b><code>%s</code></b> in this field if your mail 
+#. must be managed by %s<br />or put the IP address or name of the mail server 
+#. used to manage your mails.<small>Warning : if you put nothing in this field, 
+#. your mails will be unavailable</small>
+msgid "help_dns_mx %s %s"
+msgstr ""
+
+#. If we don't manage the DNS for this domain <br />do we manage your mails?
+#, fuzzy
+msgid "help_dns_mail"
+msgstr ""
+"- Entrez le nom du domaine que vous souhaitez héberger. Le nom de domaine "
+"doit être complet, mais <b>sans le www.</b><br /> IMPORTANT : Si vous voulez "
+"un hébergement réel de domaine, il faut que les DNS de votre domaine "
+"pointent vers nos serveurs DNS. Contacter votre hébergeur pour plus "
+"d'information.<br /> Exemples : globenet.org / demo.com / test.eu.org etc."
+"<br />Plus d'info sur la gestion des domaines dans l'aide en ligne "
+"HELPID_200<br />"
+
+#. If you want to delete the domain %s, click the button below.Warning : this 
+#. delete all the ftp, mails, mailing-lists ... associated with thisdomain and 
+#. all its subdomains!
+#, fuzzy
+msgid "help_domain_del %s"
+msgstr ""
+"Cliquez sur le lien ci-dessus. Vous pourrez ensuite accéder aux paremètres "
+"du domaine dans le menu à gauche.2 liens vont apparaitre : <br />- un "
+"premier pour modifier les paramètres d'hébergement du domaine (sous-"
+"domaines, redirections, hébergement mails ...) <br />- un second pour gérer "
+"les comptes emails du domaine (si vous souhaitez créer des boites aux "
+"lettres).<br />Plus d'info sur la gestion des domaines dans l'aide en ligne "
+"HELPID_200<br />"
+
+#. You can create various databases<br />Click on 'SQL Admin' in the menu to 
+#. manage them<br />or use the table below to backup, retrieve or delete them:
+#, fuzzy
+msgid "help_sql_list_ok"
+msgstr ""
+"Vous n'avez actuellement aucun Compte FTP de disponible. Cliquez sur "
+"'Création d'un compte ftp' pour en créer un.<br />Pour pouvoir accéder à vos "
+"fichiers avec un logiciel de ftp, vous devez créer au moins un compte.  "
+"Chaque compte est associé à un répertoire, et n'aura donc accès qu'aux "
+"fichiers situés dans ce répertoire ou en dessous. <br />Plus d'info sur le "
+"FTP dans l'aide en ligne HELPID_100<br />"
+
+#. Your haven't created your main database yet, please enter a password to create it.
+#, fuzzy
+msgid "help_sql_list_no"
+msgstr ""
+"Vous n'avez actuellement aucun Compte FTP de disponible. Cliquez sur "
+"'Création d'un compte ftp' pour en créer un.<br />Pour pouvoir accéder à vos "
+"fichiers avec un logiciel de ftp, vous devez créer au moins un compte.  "
+"Chaque compte est associé à un répertoire, et n'aura donc accès qu'aux "
+"fichiers situés dans ce répertoire ou en dessous. <br />Plus d'info sur le "
+"FTP dans l'aide en ligne HELPID_100<br />"
 
 # $d,$m,$y,$h,$i,$hh,$am
 #  1  2  3  4  5  6   7
@@ -718,25 +776,22 @@ msgstr "%1$d/%2$d/%3$d %4$d:%5$d"
 #~ msgid "err_stats_7"
 #~ msgstr "Le fichier .htaccess n'existe pas"
 
-msgid "1 column, detailed"
-msgstr "1 colonne, détaillée"
+#~ msgid "1 column, detailed"
+#~ msgstr "1 colonne, détaillée"
 
-msgid "2 columns, short"
-msgstr "2 colonnes, court"
+#~ msgid "2 columns, short"
+#~ msgstr "2 colonnes, court"
 
-msgid "3 columns, short"
-msgstr "3 colonnes, court"
+#~ msgid "3 columns, short"
+#~ msgstr "3 colonnes, court"
 
-msgid "Go back to the file manager" 
-msgstr "Retourner au gestionnaire de fichiers"
+#~ msgid "Go back to the file manager"
+#~ msgstr "Retourner au gestionnaire de fichiers"
 
-msgid "Edit the newly created file"
-msgstr "Editer le nouveau fichier"
+#~ msgid "Edit the newly created file"
+#~ msgstr "Editer le nouveau fichier"
 
-#. - Vous pouvez aussi consulter l'aide en ligne sur l'accueil du panneau de contrôle
-#. HELPID_300<br />
-msgid "hlp_login"
-msgstr ""
-"Vous pouvez aussi consulter l'aide en ligne sur l'accueil du panneau de contrôle "
-"HELPID_300<br />"
-
+#~ msgid "hlp_login"
+#~ msgstr ""
+#~ "Vous pouvez aussi consulter l'aide en ligne sur l'accueil du panneau de "
+#~ "contrôle HELPID_300<br />"
