@@ -28,23 +28,20 @@
  ----------------------------------------------------------------------
 */
 require_once("../class/config.php");
+include_once("head.php");
 
-include("head.php");
 ?>
-
-</head>
-<body>
 <h3><?php __("Protect a folder"); ?></h3>
 <p>
 <?php __("The folder must exists."); ?>
 </p>
 <?php
 	if ($error) {
-		echo "<p class=\"error\">$error</p></body></html>";
+		echo "<p class=\"error\">$error</p>";
+		include_once("foot.php");
 		exit;
 	}
 ?>
-
 <form method="post" action="hta_doadd.php" name="main">
 <table border="1" cellspacing="0" cellpadding="4">
 <tr>
@@ -56,10 +53,7 @@ include("head.php");
 //  -->
 </script></td>
 </tr>
-<tr><td class="add" colspan="2"><input type="submit" class="inb" value="<?php __("Protect this folder"); ?>" /></td></tr>
+<tr><td colspan="2"><input type="submit" class="inb" value="<?php __("Protect this folder"); ?>" /></td></tr>
 </table>
 </form>
-
-</body>
-</html>
-
+<?php include_once("foot.php"); ?>
