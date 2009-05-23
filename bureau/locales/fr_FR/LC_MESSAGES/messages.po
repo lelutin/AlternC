@@ -49,7 +49,6 @@ msgstr "Ajout d'un membre"
 #: ../admin/sql_passchg.php:51 ../admin/sql_users_add.php:54
 #: ../admin/sql_users_list.php:95 ../admin/adm_list.php:76
 #: ../admin/ftp_add.php:54 ../admin/ftp_list.php:68 ../admin/index.php:74
-#: ../admin/ftp_list.php:79
 msgid "Username"
 msgstr "Nom"
 
@@ -92,13 +91,12 @@ msgstr "Adresse Email"
 msgid "Account type"
 msgstr "Type de compte"
 
-#: ../admin/adm_add.php:102 ../admin/adm_add.php:104
+#: ../admin/adm_add.php:102
 #, php-format
 msgid "Create the domain <b>username.%s</b>"
 msgstr "Installer le domaine <b>login.%s</b>"
 
 #: ../admin/adm_add.php:106 ../admin/adm_list.php:62 ../admin/adm_list.php:59
-#: ../admin/adm_add.php:119
 msgid "Create a new member"
 msgstr "Créer un nouveau membre"
 
@@ -148,7 +146,7 @@ msgstr "Modifier les quotas par défaut"
 msgid "Passwords do not match"
 msgstr "Les mots de passe ne correspondent pas"
 
-#: ../admin/adm_doadd.php:75 ../admin/adm_doadd.php:73
+#: ../admin/adm_doadd.php:75
 msgid "The new member has been successfully created"
 msgstr "Le membre a été ajouté avec succès"
 
@@ -367,7 +365,7 @@ msgstr "Expiration"
 #: ../admin/adm_list.php:96 ../admin/adm_tld.php:75 ../admin/dom_edit.php:77
 #: ../admin/ftp_list.php:70 ../admin/hta_edit.php:68 ../admin/hta_list.php:76
 #: ../admin/mail_list.php:97 ../admin/sta2_list.php:67
-#: ../admin/adm_list.php:95 ../admin/ftp_list.php:83
+#: ../admin/adm_list.php:95
 msgid "Edit"
 msgstr "Modifier"
 
@@ -395,8 +393,7 @@ msgstr "Q"
 msgid "C"
 msgstr "C"
 
-#: ../admin/adm_list.php:218 ../admin/ftp_list.php:77 ../admin/ftp_list.php:66
-#: ../admin/ftp_list.php:90
+#: ../admin/adm_list.php:218 ../admin/ftp_list.php:77
 msgid "Delete checked accounts"
 msgstr "Supprimer les comptes cochés"
 
@@ -718,7 +715,6 @@ msgstr "Fichier"
 #: ../admin/sta2_edit_raw.php:58 ../admin/sta2_list.php:57
 #: ../admin/bro_main.php:136 ../admin/bro_main.php:135
 #: ../admin/bro_main.php:153 ../admin/ftp_add.php:59 ../admin/ftp_list.php:69
-#: ../admin/ftp_list.php:82
 msgid "Folder"
 msgstr "Répertoire"
 
@@ -736,9 +732,8 @@ msgid "all/none"
 msgstr "tous/aucun"
 
 #: ../admin/bro_main.php:142 ../admin/bro_main.php:180
-#, fuzzy
 msgid "Move"
-msgstr "Déplacer vers"
+msgstr "Déplacer"
 
 #: ../admin/bro_main.php:177 ../admin/bro_main.php:348
 #: ../admin/sta2_list.php:57 ../admin/sta2_list.php:71
@@ -1010,7 +1005,6 @@ msgstr "Redirection vers une ip"
 
 #: ../admin/dom_edit.php:122 ../admin/dom_subedit.php:83
 #: ../class/m_dom.php:551 ../class/m_dom.php:594 ../class/m_dom.php:559
-#: ../class/m_dom.php:550
 msgid "Webmail access"
 msgstr "Accès au webmail"
 
@@ -1077,7 +1071,7 @@ msgstr ""
 "Vous avez atteint votre quota de comptes ftp, vous ne pouvez plus en créer."
 
 #: ../admin/ftp_add.php:40 ../admin/ftp_list.php:47 ../admin/ftp_list.php:83
-#: ../admin/ftp_add.php:51 ../admin/ftp_list.php:82 ../admin/ftp_list.php:60
+#: ../admin/ftp_add.php:51 ../admin/ftp_list.php:82
 msgid "Create a new ftp account"
 msgstr "Création d'un compte ftp"
 
@@ -1546,11 +1540,11 @@ msgstr "Modifier mes préférences d'administration"
 msgid "Your password has been successfully changed."
 msgstr "Votre mot de passe a été changé avec succès."
 
-#: ../admin/menu_adm.php:39 ../admin/menu_adm.php:37
+#: ../admin/menu_adm.php:39
 msgid "Manage the members"
 msgstr "Gérer les membres"
 
-#: ../admin/menu_adm.php:41 ../admin/menu_adm.php:39
+#: ../admin/menu_adm.php:41
 msgid "General SQL Admin"
 msgstr "Admin SQL Général"
 
@@ -1566,7 +1560,7 @@ msgstr "Domaines"
 msgid "FTP accounts"
 msgstr "Comptes FTP"
 
-#: ../admin/menu_mail.php:37 ../admin/menu_mail.php:36
+#: ../admin/menu_mail.php:37
 msgid "Mailboxes"
 msgstr "Comptes Mails"
 
@@ -1574,7 +1568,7 @@ msgstr "Comptes Mails"
 msgid "Settings"
 msgstr "Configuration"
 
-#: ../admin/menu_mem.php:33 ../admin/menu_mem.php:34 ../admin/menu.php:53
+#: ../admin/menu_mem.php:33 ../admin/menu_mem.php:34
 msgid "Logout"
 msgstr "Se déconnecter"
 
@@ -1591,7 +1585,7 @@ msgstr "Afficher les quotas"
 msgid "MySQL Users"
 msgstr "Utilisateurs MySQL"
 
-#: ../admin/menu_sql.php:36 ../admin/menu_sql.php:35 ../admin/menu_sql.php:34
+#: ../admin/menu_sql.php:36 ../admin/menu_sql.php:35
 msgid "Databases"
 msgstr "Bases de données"
 
@@ -1600,7 +1594,6 @@ msgid "SQL Admin"
 msgstr "Admin SQL"
 
 #: ../admin/menu_sta2.php:37 ../admin/menu_sta2.php:36
-#: ../admin/menu_sta2.php:39
 msgid "Raw web statistics"
 msgstr "Statistiques web brutes"
 
@@ -1977,8 +1970,7 @@ msgid "Domain can be installed, force NO DNS hosting)"
 msgstr "Le domaine peut être installé, (ne gère pas les DNS cependant)"
 
 #: ../class/m_err.php:64 ../class/m_err.php:90 ../class/m_err.php:107
-#: ../class/m_err.php:91 ../class/m_err.php:93 ../class/m_err.php:66
-#: ../class/m_err.php:94 ../class/m_err.php:96
+#: ../class/m_err.php:91 ../class/m_err.php:93
 #, php-format
 msgid "err_"
 msgstr "err_"
@@ -2288,45 +2280,33 @@ msgid "extracting..."
 msgstr ""
 
 #: ../admin/bro_main.php:122
-#, fuzzy
 msgid "failed"
-msgstr "Fichier"
+msgstr "échec"
 
 #: ../admin/bro_main.php:124
 msgid "done"
-msgstr ""
+msgstr "terminé"
 
 #: ../admin/bro_main.php:186 ../admin/bro_main.php:237
 msgid "Permissions"
-msgstr ""
+msgstr "Permissions"
 
 #: ../admin/bro_main.php:216
-#, fuzzy
 msgid "Change permissions"
-msgstr "Modifier mes préférences"
-
-#: ../admin/bro_main.php:239
-msgid "Copy to"
-msgstr "Copier vers"
+msgstr "Modifier les permissions"
 
 #: ../admin/bro_main.php:283
 msgid "Extract"
-msgstr "Extraire l'archive"
+msgstr "Extraire"
 
 #: ../admin/dom_editdns.php:57
-#, fuzzy, php-format
+# ,php-format
 msgid "The domain %s has been changed."
-msgstr "Le domaine %s a été effacé avec succès."
+msgstr "Le domaine %s a été modifié avec succès."
 
 #: ../admin/dom_editdns.php:62 ../admin/dom_subdodel.php:54
-#, fuzzy
-msgid "The modifications will take effect at %time.  Server time is %now."
-msgstr "Les modifications seront prises en comptes dans 5 minutes."
-
-#: ../admin/dom_subdoedit.php:57
-#, fuzzy
 msgid "The modifications will take effect at %time. Server time is %now."
-msgstr "Les modifications seront prises en comptes dans 5 minutes."
+msgstr "Les modifications seront prises en comptes à %time. L'heure du serveur est %now."
 
 #: ../admin/mail_edit.php:58
 msgid "WARNING: turning POP off will DELETE the mailbox and its content"
@@ -2335,53 +2315,6 @@ msgstr ""
 #: ../admin/main.php:62
 msgid "Latest news"
 msgstr ""
-
-#: ../admin/menu_adm.php:36
-#, fuzzy
-msgid "Administration"
-msgstr "Administration de"
-
-#: ../admin/menu_adm.php:38
-msgid "AlternC configuration"
-msgstr ""
-
-#: ../admin/menu_brouteur.php:33
-#, fuzzy
-msgid "Files and directories"
-msgstr "Effacer des fichiers ou des répertoires"
-
-#: ../admin/menu_lang.php:31
-msgid "Languages"
-msgstr ""
-
-#: ../admin/menu_mem.php:31
-#, fuzzy
-msgid "Other"
-msgstr "Entrer"
-
-#: ../admin/menu_mem.php:33
-msgid "Messages"
-msgstr ""
-
-#: ../admin/menu_sql.php:35
-#, fuzzy
-msgid "Users"
-msgstr "Utilisateur"
-
-#: ../admin/menu_sta2.php:32
-#, fuzzy
-msgid "Web statistics"
-msgstr "Statistiques web brutes"
-
-#: ../admin/dom_subedit.php:42
-#, fuzzy
-msgid "Edition du sous-domaine"
-msgstr "Edition du domaine %s"
-
-#: ../admin/dom_subedit.php:53
-#, fuzzy
-msgid "Sous-domaine"
-msgstr "Sous-domaines"
 
 #~ msgid "Create the domain username."
 #~ msgstr "Installer le domaine login."
@@ -2408,3 +2341,29 @@ msgstr "Sous-domaines"
 
 #~ msgid "<-No Password->"
 #~ msgstr "<-Aucun mot de passe->"
+
+
+msgid "Copy"
+msgstr "Copier Vers"
+
+msgid "write"
+msgstr "écriture"
+
+msgid "Warning: Deleting a mailbox will destroy all the emails it contains! You will <b>NOT</b> be able to get it back!"
+msgstr "Attention: L'effacement d'une boite aux lettres détruit tout son contenu ! Vous ne pourrez <b>PLUS</b> retrouver les mails ainsi effacés !"
+
+msgid "ctrl+click or shift+click and drag to resize the editing zone"
+msgstr "ctrl+clic ou shift+clic et déplacer pour redimensionner la zone d'édition"
+
+msgid "Webmail Access"
+msgstr "Accès au webmail"
+
+msgid "Email Address"
+msgstr "Adresse Email"
+
+msgid "If you want to read your mail, enter your Email address and password in the following form and click 'Enter'"
+msgstr "Si vous souhaitez <b>accéder à votre messagerie en ligne</b>, entrez votre adresse email et votre mot de passe dans le formulaire ci-contre et cliquez sur 'Entrer'"
+
+msgid "To connect to the hosting control panel, enter your AlternC's login and password in the following form and click 'Enter'"
+msgstr "Pour vous connecter au <b>bureau de gestion de votre hébergement</b>, entrez votre nom d'utilisateur AlternC et votre mot de passe dans le formulaire ci-contre et cliquez sur 'Entrer'"
+
