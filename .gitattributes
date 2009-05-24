@@ -1,4 +1,5 @@
 * text=auto !eol
+/.svnignore -text
 /COPYING -text
 /README.en -text
 /README.fr -text
@@ -304,6 +305,7 @@ bureau/locales/fr_FR/LC_MESSAGES/messages.po -text
 bureau/locales/manual.pot -text
 bureau/locales/messages.pot -text
 bureau/locales/pt_BR/LC_MESSAGES/messages.po -text
+debian/.svnignore -text
 debian/NEWS -text
 debian/README.Debian -text
 debian/alternc-slave.config -text
@@ -397,6 +399,7 @@ install/upgrades/README -text
 man/alternc-admintools.8 -text
 man/alternc-admintools.fr.8 -text
 man/alternc.install.8 -text
+man/alternc.install.fr.8 -text
 man/get_account_by_domain.8 -text
 man/get_domains_by_account.8 -text
 man/top_ftp_users.8 -text
@@ -406,6 +409,7 @@ man/top_http_users.fr.8 -text
 man/top_mysql_users.8 -text
 man/top_mysql_users.fr.8 -text
 po/alternc-admintools.pot -text
+po/fr/LC_MESSAGES/.svnignore -text
 po/fr/LC_MESSAGES/alternc-admintools.po -text
 /quota_delete -text
 /quota_init -text

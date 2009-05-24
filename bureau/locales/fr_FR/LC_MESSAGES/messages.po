@@ -261,7 +261,7 @@ msgstr "Domaine verrouillé"
 
 #: ../admin/adm_dorenew.php:46
 msgid "The member has been successfully renewed"
-msgstr "Le compte a été renouvellé avec succès"
+msgstr "Le compte a été renouvelé avec succès"
 
 #: ../admin/adm_edit.php:51 ../admin/adm_edit.php:55
 msgid "Member Edition"
@@ -269,7 +269,7 @@ msgstr "Modification d'un membre"
 
 #: ../admin/adm_edit.php:65 ../admin/adm_edit.php:69
 msgid "Account Enabled ?"
-msgstr "Compte Actif ? "
+msgstr "Compte Actif&nbsp;? "
 
 #: ../admin/adm_edit.php:70 ../admin/dom_dodel.php:55
 #: ../admin/dom_edit.php:144 ../admin/dom_edit.php:156
@@ -315,7 +315,7 @@ msgstr "Mot de passe"
 
 #: ../admin/adm_edit.php:117 ../admin/adm_edit.php:125
 msgid "Reset quotas to default ?"
-msgstr "Réinitialiser les quotas de ce compte ?"
+msgstr "Réinitialiser les quotas de ce compte&nbsp;?"
 
 #: ../admin/adm_edit.php:120 ../admin/adm_edit.php:128
 msgid "Period"
@@ -327,7 +327,7 @@ msgstr "Modifier le compte"
 
 #: ../admin/adm_edit.php:136 ../admin/adm_edit.php:144
 msgid "Renew for"
-msgstr "Renouveller pour"
+msgstr "Renouveler pour"
 
 #: ../admin/adm_edit.php:137 ../admin/adm_edit.php:145
 msgid "period(s)"
@@ -335,7 +335,7 @@ msgstr "période(s)"
 
 #: ../admin/adm_edit.php:140 ../admin/adm_edit.php:148
 msgid "Renew"
-msgstr "Renouveller"
+msgstr "Renouveler"
 
 #: ../admin/adm_edit.php:153 ../admin/adm_edit.php:161
 msgid "This account is a super-admin account"
@@ -346,7 +346,7 @@ msgid ""
 "There is only one administrator account, you cannot turn this account back "
 "to normal"
 msgstr ""
-"Il n'y a qu'un seul compte administrateur, vous ne pouvez pas transformer ce "
+"Il n'y a qu'un seul compte Administrateur, vous ne pouvez pas transformer ce "
 "compte Administrateur en compte Normal"
 
 #: ../admin/adm_edit.php:158 ../admin/adm_edit.php:166
@@ -355,7 +355,7 @@ msgstr "Transformer ce compte Administrateur en compte Normal"
 
 #: ../admin/adm_edit.php:161 ../admin/adm_edit.php:169
 msgid "Make this account a super admin one"
-msgstr "Transformer ce compte en compte d'Administrateur"
+msgstr "Transformer ce compte en compte Administrateur"
 
 #: ../admin/adm_edit.php:169 ../admin/adm_edit.php:177
 #, php-format
