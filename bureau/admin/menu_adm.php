@@ -35,11 +35,11 @@
 if ($mem->checkRight()) { ?>
 <div class="menu-box">
 <div class="menu-title">
-<img src="images/admin.png" alt="Administration" />&nbsp;<span style="color: red;">Administration</span></div>
+    <img src="images/admin.png" alt="Administration" />&nbsp;<span style="color: red;"><?php __("Administration"); ?></span></div>
 <div class="menu-content" id ="menu-adm">
 <ul>
 <li><a href="adm_list.php"><span style="color: red;"><?php __("Manage the members"); ?></span></a></li>
-<li><a href="quotas_users.php?mode=4"><span style="color: red;"><?php __("Quotas utilisateurs"); ?></span></a></li>
+<li><a href="quotas_users.php?mode=4"><span style="color: red;"><?php __("User Quotas"); ?></span></a></li>
 <?php if ($cuid == 2000) { ?>
 <li><a href="adm_panel.php"><span style="color: red;"><?php __("Admin Control Panel"); ?></span></a></li>
 <li><a href="/admin/sql/?server=2"><span style="color: red;"><?php __("General SQL Admin"); ?></span></a></li>

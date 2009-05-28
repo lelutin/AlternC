@@ -89,8 +89,8 @@ $dom->unlock();
 		<td>&nbsp;</td>
 	</tr>
 	<tr>
-		<td><input type="submit" class="inb" name="submit" value="Valider les changements" /></td>
-		<td><input type="button" class="inb" name="back" value="Annuler" onclick="history.back();" /></td>
+		<td><input type="submit" class="inb" name="submit" value="<?php __("Validate this change"); ?>" /></td>
+		<td><input type="button" class="inb" name="back" value="<?php __("Cancel"); ?>" onclick="history.back();" /></td>
 	</tr>
 	</table>
 </form>

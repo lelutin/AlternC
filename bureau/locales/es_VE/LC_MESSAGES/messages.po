@@ -39,6 +39,7 @@ msgstr ""
 #: ../admin/adm_edit.php:36 ../admin/adm_edit.php:46 ../admin/adm_list.php:37
 #: ../admin/adm_list.php:49 ../admin/adm_login.php:43
 #: ../admin/adm_quotaedit.php:34 ../admin/quotas_users.php:10
+#: ../admin/adm_deactivate.php:41
 msgid "This page is restricted to authorized staff"
 msgstr "Esta página está reservada para los administradores"
 
@@ -245,6 +246,7 @@ msgstr ""
 #: ../admin/adm_tld.php:67 ../admin/mail_list.php:88 ../admin/adm_doms.php:58
 #: ../admin/adm_doms.php:55 ../admin/adm_slaveaccount.php:78
 #: ../admin/adm_slaveip.php:78 ../admin/adm_tld.php:65
+#: ../admin/adm_mxaccount.php:79
 msgid "Action"
 msgstr "Acción"
 
@@ -319,7 +321,8 @@ msgstr "Si"
 #: ../admin/ftp_add.php:55 ../admin/ftp_edit.php:62
 #: ../admin/hta_adduser.php:57 ../admin/index.php:77 ../admin/index.php:94
 #: ../admin/sql_getparam.php:52 ../admin/sql_list.php:94
-#: ../admin/sql_passchg.php:50
+#: ../admin/sql_passchg.php:50 ../admin/adm_mxaccount.php:79
+#: ../admin/adm_mxaccount.php:99
 msgid "Password"
 msgstr "Contraseña"
 
@@ -473,22 +476,22 @@ msgid "Member login"
 msgstr "Login miembro"
 
 #: ../admin/adm_mxaccount.php:40 ../admin/adm_slaveaccount.php:40
-#: ../admin/adm_slaveaccount.php:48
+#: ../admin/adm_slaveaccount.php:48 ../admin/adm_mxaccount.php:48
 #, fuzzy
 msgid "The requested account has been deleted. It is now denied."
 msgstr "El TLD ha sido borrado"
 
 #: ../admin/adm_mxaccount.php:46 ../admin/adm_slaveaccount.php:46
-#: ../admin/adm_slaveaccount.php:54
+#: ../admin/adm_slaveaccount.php:54 ../admin/adm_mxaccount.php:54
 msgid "The requested account address has been created. It is now allowed."
 msgstr ""
 
 #: ../admin/adm_mxaccount.php:55 ../admin/adm_panel.php:54
-#: ../admin/adm_panel.php:53
+#: ../admin/adm_panel.php:53 ../admin/adm_mxaccount.php:63
 msgid "Manage allowed accounts for secondary mx"
 msgstr ""
 
-#: ../admin/adm_mxaccount.php:67
+#: ../admin/adm_mxaccount.php:67 ../admin/adm_mxaccount.php:75
 msgid ""
 "Here is the list of the allowed accounts for secondary mx management. You "
 "can configure the alternc-secondarymx package on your secondary mx server "
@@ -499,6 +502,7 @@ msgstr ""
 #: ../admin/adm_mxaccount.php:71 ../admin/adm_mxaccount.php:91
 #: ../admin/adm_slaveaccount.php:71 ../admin/adm_slaveaccount.php:91
 #: ../admin/adm_slaveaccount.php:78 ../admin/adm_slaveaccount.php:98
+#: ../admin/adm_mxaccount.php:79 ../admin/adm_mxaccount.php:99
 msgid "Login"
 msgstr ""
 
@@ -507,18 +511,18 @@ msgstr ""
 #: ../admin/dom_edit.php:80 ../admin/mail_list.php:88
 #: ../admin/bro_main.php:176 ../admin/bro_main.php:234
 #: ../admin/adm_slaveaccount.php:86 ../admin/adm_slaveip.php:86
-#: ../admin/bro_main.php:229
+#: ../admin/bro_main.php:229 ../admin/adm_mxaccount.php:87
 msgid "Delete"
 msgstr "Borrar"
 
-#: ../admin/adm_mxaccount.php:88
+#: ../admin/adm_mxaccount.php:88 ../admin/adm_mxaccount.php:96
 msgid ""
 "If you want to allow a new server to access your mx-hosted domain list, give "
 "him an account."
 msgstr ""
 
 #: ../admin/adm_mxaccount.php:97 ../admin/adm_slaveaccount.php:97
-#: ../admin/adm_slaveaccount.php:104
+#: ../admin/adm_slaveaccount.php:104 ../admin/adm_mxaccount.php:105
 msgid "Add this account to the allowed list"
 msgstr ""
 
@@ -581,7 +585,8 @@ msgstr "Usado"
 
 #: ../admin/adm_quotaedit.php:69 ../class/m_quota.php:97
 #: ../class/m_quota.php:105 ../class/m_quota.php:109
-#: ../admin/adm_quotaedit.php:75
+#: ../admin/adm_quotaedit.php:75 ../class/m_quota.php:99
+#: ../class/m_quota.php:107 ../class/m_quota.php:111
 msgid "quota_"
 msgstr "quota_"
 
@@ -968,6 +973,7 @@ msgid "Select"
 msgstr "Seleccionar"
 
 #: ../admin/browseforfolder.php:136 ../admin/browseforfolder.php:138
+#: ../admin/dom_subedit.php:93
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -2308,10 +2314,12 @@ msgid "Help"
 msgstr "Ayuda"
 
 #: ../admin/adm_deactivate.php:7 ../admin/adm_deactivate.php:39
+#: ../admin/adm_deactivate.php:36
 msgid "Missing uid"
 msgstr ""
 
 #: ../admin/adm_deactivate.php:16 ../admin/adm_deactivate.php:50
+#: ../admin/adm_deactivate.php:47
 #, fuzzy
 msgid "User does not exist"
 msgstr "El miembro '%s' no existe"
@@ -2320,15 +2328,18 @@ msgstr "El miembro '%s' no existe"
 # msgstr "Nueva contraseña"
 #: ../admin/adm_deactivate.php:20 ../admin/adm_deactivate.php:28
 #: ../admin/adm_deactivate.php:55 ../admin/adm_deactivate.php:63
+#: ../admin/adm_deactivate.php:52 ../admin/adm_deactivate.php:60
 #, fuzzy
 msgid "Confirm"
 msgstr "Cambiar mi contraseña"
 
 #: ../admin/adm_deactivate.php:21 ../admin/adm_deactivate.php:56
+#: ../admin/adm_deactivate.php:53
 msgid "WARNING: experimental feature, use at your own risk"
 msgstr ""
 
 #: ../admin/adm_deactivate.php:22 ../admin/adm_deactivate.php:57
+#: ../admin/adm_deactivate.php:54
 msgid ""
 "The following domains will be deactivated and redirected to the URL entered "
 "in the following box. A backup of the domain configuration will be displayed "
@@ -2338,19 +2349,23 @@ msgid ""
 msgstr ""
 
 #: ../admin/adm_deactivate.php:27 ../admin/adm_deactivate.php:62
+#: ../admin/adm_deactivate.php:59
 #, fuzzy
 msgid "Redirection URL:"
 msgstr "Dirigir hacía un URL"
 
 #: ../admin/adm_deactivate.php:31 ../admin/adm_deactivate.php:66
+#: ../admin/adm_deactivate.php:63
 msgid "Domains of user: "
 msgstr ""
 
 #: ../admin/adm_deactivate.php:34 ../admin/adm_deactivate.php:69
+#: ../admin/adm_deactivate.php:66
 msgid "Missing redirect url."
 msgstr ""
 
 #: ../admin/adm_deactivate.php:53 ../admin/adm_deactivate.php:88
+#: ../admin/adm_deactivate.php:86
 #, php-format
 msgid "-- Redirecting all domains and subdomains of the user %s to %s\n"
 msgstr ""
@@ -2527,7 +2542,7 @@ msgstr ""
 msgid "Latest news"
 msgstr ""
 
-#: ../admin/menu_adm.php:36
+#: ../admin/menu_adm.php:36 ../admin/menu_adm.php:38
 #, fuzzy
 msgid "Administration"
 msgstr "Administración de"
@@ -2540,7 +2555,7 @@ msgstr ""
 msgid "Files and directories"
 msgstr ""
 
-#: ../admin/menu_lang.php:31
+#: ../admin/menu_lang.php:31 ../admin/menu_lang.php:33
 #, fuzzy
 msgid "Languages"
 msgstr "Idioma"
@@ -2563,16 +2578,6 @@ msgstr "Usuario"
 #, fuzzy
 msgid "Web statistics"
 msgstr "Estadísticas Web"
-
-#: ../admin/dom_subedit.php:42
-#, fuzzy
-msgid "Edition du sous-domaine"
-msgstr "Modificar dominio %s"
-
-#: ../admin/dom_subedit.php:53
-#, fuzzy
-msgid "Sous-domaine"
-msgstr "Subdominios"
 
 # Variables used in functions.php3
 #: ../admin/adm_add.php:78 ../admin/adm_edit.php:102
@@ -2644,9 +2649,27 @@ msgid ""
 "will <b>NOT</b> be able to get it back!"
 msgstr ""
 
-#: ../admin/menu_adm.php:42
-msgid "Quotas utilisateurs"
+#: ../admin/menu.php:36
+msgid "Home / Information"
 msgstr ""
+
+#: ../admin/dom_subedit.php:92
+#, fuzzy
+msgid "Validate this change"
+msgstr "Validar cambios"
+
+#: ../admin/menu_adm.php:42
+#, fuzzy
+msgid "User Quotas"
+msgstr "Cuotas"
+
+#, fuzzy
+#~ msgid "Edition du sous-domaine"
+#~ msgstr "Modificar dominio %s"
+
+#, fuzzy
+#~ msgid "Sous-domaine"
+#~ msgstr "Subdominios"
 
 #, fuzzy
 #~ msgid "Create the domain username."

@@ -36,6 +36,7 @@ msgstr ""
 #: ../admin/adm_edit.php:36 ../admin/adm_edit.php:46 ../admin/adm_list.php:37
 #: ../admin/adm_list.php:49 ../admin/adm_login.php:43
 #: ../admin/adm_quotaedit.php:34 ../admin/quotas_users.php:10
+#: ../admin/adm_deactivate.php:41
 msgid "This page is restricted to authorized staff"
 msgstr "Cette page est réservée aux administrateurs"
 
@@ -236,6 +237,7 @@ msgstr ""
 #: ../admin/adm_tld.php:67 ../admin/mail_list.php:88 ../admin/adm_doms.php:58
 #: ../admin/adm_doms.php:55 ../admin/adm_slaveaccount.php:78
 #: ../admin/adm_slaveip.php:78 ../admin/adm_tld.php:65
+#: ../admin/adm_mxaccount.php:79
 msgid "Action"
 msgstr "Action"
 
@@ -309,7 +311,8 @@ msgstr "Oui"
 #: ../admin/ftp_add.php:55 ../admin/ftp_edit.php:62
 #: ../admin/hta_adduser.php:57 ../admin/index.php:77 ../admin/index.php:94
 #: ../admin/sql_getparam.php:52 ../admin/sql_list.php:94
-#: ../admin/sql_passchg.php:50
+#: ../admin/sql_passchg.php:50 ../admin/adm_mxaccount.php:79
+#: ../admin/adm_mxaccount.php:99
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -456,21 +459,21 @@ msgid "Member login"
 msgstr "Nom d'utilisateur du membre"
 
 #: ../admin/adm_mxaccount.php:40 ../admin/adm_slaveaccount.php:40
-#: ../admin/adm_slaveaccount.php:48
+#: ../admin/adm_slaveaccount.php:48 ../admin/adm_mxaccount.php:48
 msgid "The requested account has been deleted. It is now denied."
 msgstr "Le compte esclave a été effacé. Il est maintenant interdit."
 
 #: ../admin/adm_mxaccount.php:46 ../admin/adm_slaveaccount.php:46
-#: ../admin/adm_slaveaccount.php:54
+#: ../admin/adm_slaveaccount.php:54 ../admin/adm_mxaccount.php:54
 msgid "The requested account address has been created. It is now allowed."
 msgstr "Le compte esclave a été créé. Il est maintenant autorisé."
 
 #: ../admin/adm_mxaccount.php:55 ../admin/adm_panel.php:54
-#: ../admin/adm_panel.php:53
+#: ../admin/adm_panel.php:53 ../admin/adm_mxaccount.php:63
 msgid "Manage allowed accounts for secondary mx"
 msgstr "Gérer les comptes autorisés pour les mx secondaires"
 
-#: ../admin/adm_mxaccount.php:67
+#: ../admin/adm_mxaccount.php:67 ../admin/adm_mxaccount.php:75
 msgid ""
 "Here is the list of the allowed accounts for secondary mx management. You "
 "can configure the alternc-secondarymx package on your secondary mx server "
@@ -485,6 +488,7 @@ msgstr ""
 #: ../admin/adm_mxaccount.php:71 ../admin/adm_mxaccount.php:91
 #: ../admin/adm_slaveaccount.php:71 ../admin/adm_slaveaccount.php:91
 #: ../admin/adm_slaveaccount.php:78 ../admin/adm_slaveaccount.php:98
+#: ../admin/adm_mxaccount.php:79 ../admin/adm_mxaccount.php:99
 msgid "Login"
 msgstr "Nom d'utilisateur"
 
@@ -493,11 +497,11 @@ msgstr "Nom d'utilisateur"
 #: ../admin/dom_edit.php:80 ../admin/mail_list.php:88
 #: ../admin/bro_main.php:176 ../admin/bro_main.php:234
 #: ../admin/adm_slaveaccount.php:86 ../admin/adm_slaveip.php:86
-#: ../admin/bro_main.php:229
+#: ../admin/bro_main.php:229 ../admin/adm_mxaccount.php:87
 msgid "Delete"
 msgstr "Effacer"
 
-#: ../admin/adm_mxaccount.php:88
+#: ../admin/adm_mxaccount.php:88 ../admin/adm_mxaccount.php:96
 msgid ""
 "If you want to allow a new server to access your mx-hosted domain list, give "
 "him an account."
@@ -506,7 +510,7 @@ msgstr ""
 "on héberge le mail, créez-lui un compte."
 
 #: ../admin/adm_mxaccount.php:97 ../admin/adm_slaveaccount.php:97
-#: ../admin/adm_slaveaccount.php:104
+#: ../admin/adm_slaveaccount.php:104 ../admin/adm_mxaccount.php:105
 msgid "Add this account to the allowed list"
 msgstr "Ajouter ce compte à la liste des autorisés."
 
@@ -567,7 +571,8 @@ msgstr "Utilisé"
 
 #: ../admin/adm_quotaedit.php:69 ../class/m_quota.php:97
 #: ../class/m_quota.php:105 ../class/m_quota.php:109
-#: ../admin/adm_quotaedit.php:75
+#: ../admin/adm_quotaedit.php:75 ../class/m_quota.php:99
+#: ../class/m_quota.php:107 ../class/m_quota.php:111
 msgid "quota_"
 msgstr "quota_"
 
@@ -964,6 +969,7 @@ msgid "Select"
 msgstr "Sélectionner"
 
 #: ../admin/browseforfolder.php:136 ../admin/browseforfolder.php:138
+#: ../admin/dom_subedit.php:93
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -2282,24 +2288,29 @@ msgid "Help"
 msgstr "Aide"
 
 #: ../admin/adm_deactivate.php:7 ../admin/adm_deactivate.php:39
+#: ../admin/adm_deactivate.php:36
 msgid "Missing uid"
 msgstr "Utilisateur manquant"
 
 #: ../admin/adm_deactivate.php:16 ../admin/adm_deactivate.php:50
+#: ../admin/adm_deactivate.php:47
 msgid "User does not exist"
 msgstr "L'utilisateur n'existe pas"
 
 #: ../admin/adm_deactivate.php:20 ../admin/adm_deactivate.php:28
 #: ../admin/adm_deactivate.php:55 ../admin/adm_deactivate.php:63
+#: ../admin/adm_deactivate.php:52 ../admin/adm_deactivate.php:60
 msgid "Confirm"
 msgstr "Confirmer"
 
 #: ../admin/adm_deactivate.php:21 ../admin/adm_deactivate.php:56
+#: ../admin/adm_deactivate.php:53
 msgid "WARNING: experimental feature, use at your own risk"
 msgstr ""
 "ATTENTION: fonctionalité expérimentale, utilisez à vos risques et périls"
 
 #: ../admin/adm_deactivate.php:22 ../admin/adm_deactivate.php:57
+#: ../admin/adm_deactivate.php:54
 msgid ""
 "The following domains will be deactivated and redirected to the URL entered "
 "in the following box. A backup of the domain configuration will be displayed "
@@ -2314,18 +2325,22 @@ msgstr ""
 "voulez désactiver tous les domaines de cet utilisateur."
 
 #: ../admin/adm_deactivate.php:27 ../admin/adm_deactivate.php:62
+#: ../admin/adm_deactivate.php:59
 msgid "Redirection URL:"
 msgstr "Redirection vers l'URL : "
 
 #: ../admin/adm_deactivate.php:31 ../admin/adm_deactivate.php:66
+#: ../admin/adm_deactivate.php:63
 msgid "Domains of user: "
 msgstr "Domaines de l'utilisateur: "
 
 #: ../admin/adm_deactivate.php:34 ../admin/adm_deactivate.php:69
+#: ../admin/adm_deactivate.php:66
 msgid "Missing redirect url."
 msgstr "URL de redirection manquant."
 
 #: ../admin/adm_deactivate.php:53 ../admin/adm_deactivate.php:88
+#: ../admin/adm_deactivate.php:86
 #, php-format
 msgid "-- Redirecting all domains and subdomains of the user %s to %s\n"
 msgstr ""
@@ -2463,9 +2478,8 @@ msgid "Change permissions"
 msgstr "Modifier les permissions"
 
 #: ../admin/bro_main.php:239
-#, fuzzy
 msgid "Copy to"
-msgstr "Copier Vers"
+msgstr "Copier vers"
 
 #: ../admin/bro_main.php:283 ../admin/bro_main.php:277
 msgid "Extract"
@@ -2479,7 +2493,6 @@ msgstr "Le domaine %s a été modifié avec succès."
 
 #: ../admin/dom_editdns.php:62 ../admin/dom_subdodel.php:54
 #: ../admin/dom_editdns.php:65 ../admin/dom_subdodel.php:57
-#, fuzzy
 msgid "The modifications will take effect at %time.  Server time is %now."
 msgstr ""
 "Les modifications seront prises en comptes à %time. L'heure du serveur est %"
@@ -2499,62 +2512,45 @@ msgstr ""
 msgid "Latest news"
 msgstr ""
 
-#: ../admin/menu_adm.php:36
-#, fuzzy
+#: ../admin/menu_adm.php:36 ../admin/menu_adm.php:38
 msgid "Administration"
-msgstr "Administration de"
+msgstr "Administration"
 
 #: ../admin/menu_adm.php:38
 msgid "AlternC configuration"
 msgstr ""
 
 #: ../admin/menu_brouteur.php:33
-#, fuzzy
 msgid "Files and directories"
-msgstr "Effacer des fichiers ou des répertoires"
+msgstr "Fichiers et répertoires"
 
-#: ../admin/menu_lang.php:31
+#: ../admin/menu_lang.php:31 ../admin/menu_lang.php:33
 msgid "Languages"
-msgstr ""
+msgstr "Langues"
 
 #: ../admin/menu_mem.php:31
-#, fuzzy
 msgid "Other"
-msgstr "Entrer"
+msgstr "Autre"
 
 #: ../admin/menu_mem.php:33
 msgid "Messages"
-msgstr ""
+msgstr "Messages"
 
 #: ../admin/menu_sql.php:35
-#, fuzzy
 msgid "Users"
-msgstr "Utilisateur"
+msgstr "Utilisateurs"
 
 #: ../admin/menu_sta2.php:32
-#, fuzzy
 msgid "Web statistics"
-msgstr "Statistiques web brutes"
-
-#: ../admin/dom_subedit.php:42
-#, fuzzy
-msgid "Edition du sous-domaine"
-msgstr "Edition du domaine %s"
-
-#: ../admin/dom_subedit.php:53
-#, fuzzy
-msgid "Sous-domaine"
-msgstr "Sous-domaines"
+msgstr "Statistiques web"
 
 #: ../admin/adm_add.php:78 ../admin/adm_edit.php:102
-#, fuzzy
 msgid "Notes"
-msgstr "Noms"
+msgstr "Notes"
 
 #: ../admin/adm_list.php:103
-#, fuzzy
 msgid "Created by"
-msgstr "Créer"
+msgstr "Créé par"
 
 #: ../admin/bro_editor.php:63
 msgid "ctrl+click or shift+click and drag to resize the editing zone"
@@ -2571,22 +2567,19 @@ msgstr "Copier Vers"
 
 #: ../admin/bro_main.php:495
 msgid "Show disk usage of directories (slow)"
-msgstr ""
+msgstr "Afficher la taille complète des répertoires (lent)"
 
 #: ../admin/dom_subedit.php:46
-#, fuzzy
 msgid "Editing subdomain"
-msgstr "Edition du domaine %s"
+msgstr "Edition du sous-domaine"
 
 #: ../admin/dom_subedit.php:58
-#, fuzzy
 msgid "Sub-domain"
-msgstr "Sous-domaines"
+msgstr "Sous-domaine"
 
 #: ../admin/index.php:57
-#, fuzzy
 msgid "Web Hosting Control Panel"
-msgstr "Panneau Administrateur"
+msgstr "Panneau de contrôle d'hébergement"
 
 #: ../admin/index.php:71
 msgid ""
@@ -2622,9 +2615,17 @@ msgstr ""
 "Attention: L'effacement d'une boite aux lettres détruit tout son contenu ! "
 "Vous ne pourrez <b>PLUS</b> retrouver les mails ainsi effacés !"
 
+#: ../admin/menu.php:36
+msgid "Home / Information"
+msgstr "Accueil / Information"
+
+#: ../admin/dom_subedit.php:92
+msgid "Validate this change"
+msgstr "Valider les changements"
+
 #: ../admin/menu_adm.php:42
-msgid "Quotas utilisateurs"
-msgstr ""
+msgid "User Quotas"
+msgstr "Quotas Utilisateurs"
 
 #~ msgid "Create the domain username."
 #~ msgstr "Installer le domaine login."
