@@ -1,14 +1,14 @@
-alternc (3.1~alpha003) experimental; urgency=low
+alternc (3.1~alpha006) experimental; urgency=low
 
   wheezy-specific changes:
-  * fix dependencies for WHEEZY : dovecot mainly
+  * fix dependencies for WHEEZY : dovecot 2.x configuration + dependencies of AlternC
   global changes:
   * fix (AGAGIN?) quota & acl detection in config script
   * fix /var/run/alternc creation
   * menu become dynamic thanks to a specific class
   * /var/alternc disappear to become Debian-compliant
 
- -- Benjamin Sonntag <benjamin@sonntag.fr>  Mon, 18 Feb 2013 16:09:58 +0100
+ -- Benjamin Sonntag <benjamin@sonntag.fr>  Fri, 24 May 2013 16:09:58 +0100
 
 alternc (3.0) stable; urgency=low
 
