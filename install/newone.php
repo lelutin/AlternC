@@ -45,10 +45,11 @@ $admin->enabled=1;
 // We Create the default mysql server if needed : 
 $db->query("SELECT MIN(id) AS id FROM db_servers;");
 $db->next_record();
-if(!$db->Record["id"]) {
+if(!intval($db->Record["id"])) {
+  echo "No default db_servers, creating one\n";
   // No db_servers ? We create one from the local MySQL parameters
   if ($L_MYSQL_HOST=="localhost") $client="localhost"; else $client="%";
-  $db->query("INSERT INTO DB_SERVERS SET name='Default', host='$L_MYSQL_HOST', login='$L_MYSQL_LOGIN', password='$L_MYSQL_PWD', client='$client';");
+  $db->query("INSERT INTO db_servers SET `name`='Default', `host`='$L_MYSQL_HOST', `login`='$L_MYSQL_LOGIN', `password`='$L_MYSQL_PWD', `client`='$client';");
   $db->query("SELECT MIN(id) AS id FROM db_servers;");
   $db->next_record();
 }
