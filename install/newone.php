@@ -49,9 +49,10 @@ if(!$db->Record["id"]) {
   // No db_servers ? We create one from the local MySQL parameters
   if ($L_MYSQL_HOST=="localhost") $client="localhost"; else $client="%";
   $db->query("INSERT INTO DB_SERVERS SET name='Default', host='$L_MYSQL_HOST', login='$L_MYSQL_LOGIN', password='$L_MYSQL_PWD', client='$client';");
-} else {
-  $dbs=$db->Record["id"];
+  $db->query("SELECT MIN(id) AS id FROM db_servers;");
+  $db->next_record();
 }
+$dbs=$db->Record["id"];
 
 // And create the admin account
 if (!$admin->add_mem("admin","admin","Administrateur", "Admin", "postmaster@".$L_FQDN,
