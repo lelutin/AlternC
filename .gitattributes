@@ -451,9 +451,9 @@ etc/alternc/templates/bind/templates/named.template -text
 etc/alternc/templates/bind/templates/slave.template -text
 etc/alternc/templates/bind/templates/zone.template -text
 etc/alternc/templates/default/saslauthd -text
-etc/alternc/templates/dovecot/dovecot-dict-quota.conf -text
-etc/alternc/templates/dovecot/dovecot-sql.conf -text
-etc/alternc/templates/dovecot/dovecot.conf -text
+etc/alternc/templates/dovecot/alternc-dict-quota.conf -text
+etc/alternc/templates/dovecot/alternc-sql.conf -text
+etc/alternc/templates/dovecot/conf.d/95_alternc.conf -text
 etc/alternc/templates/incron.d/alternc -text
 etc/alternc/templates/postfix/master.cf -text
 etc/alternc/templates/postfix/myalias.cf -text
