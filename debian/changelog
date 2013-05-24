@@ -1,4 +1,4 @@
-alternc (3.1~alpha006) experimental; urgency=low
+alternc (3.1~alpha008) experimental; urgency=low
 
   wheezy-specific changes:
   * fix dependencies for WHEEZY : dovecot 2.x configuration + dependencies of AlternC
