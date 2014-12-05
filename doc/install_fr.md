@@ -1,3 +1,6 @@
+
+
+
 ## Pré-installation
 
 AlternC est prévu pour fonctionner sur la dernière ou l'avant-dernière version stable de la distribution Linux Debian. Nous utiliserons donc `apt-get` pour installer les logiciels.
@@ -17,8 +20,11 @@ apt-get install acl
 
 Il faut ensuite indiquer au système la partition qui va contenir les données utilisateurs en y activant les ACLs. Pour ce faire, on peut modifier le fichier /etc/fstab en rajoutant l'option "acl" à la partition concerné:
 
+```
     nano /etc/fstab
     UUID=71822887-fedb-4d95-a9cc-0841dcc8944f /               ext3    acl,errors=remount-ro 0       1
+```
+
 
 ### Quota
 
@@ -32,7 +38,6 @@ Et encore une fois modifier le fstab pour indiquer leur activation :
 
 ```
 nano /etc/fstab
-# / was on /dev/sda1 during installation
 UUID=71822887-fedb-4d95-a9cc-0841dcc8944f /               ext3    acl,grpquota,errors=remount-ro 0       1
 ```
 
@@ -53,13 +58,12 @@ apt-get install mysql-server
 ```
 
 > IMPORTANT : Entrez un mot de passe administrateur et NOTEZ-LE car il vous sera demandé en cours d'installation.
-Configuration des dépôts alternc sur votre serveur</blockquote>
 
 ## Installation
 
 L'installation d'Alternc est connue et supportée pour le système Debian GNU/Linux, qui utilise le système de gestion de paquets ​apt.
 
-### À partir d'un dépot pour Debian
+### Configuration des dépôts alternc sur votre serveur (**Debian**)
 
 Pour installer AlternC sur un serveur vous devez utiliser un éditeur de texte pour ajouter la source de package officielle d'AlternC :
 
