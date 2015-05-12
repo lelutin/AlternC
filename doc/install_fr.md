@@ -113,13 +113,35 @@ Il ne reste qu'à lancer la commande d'installation d'alternc
 apt-get install alternc alternc-ssl 
 ```
 
+Webmail / Roundcube
+-------------------
+
+Pour installer roundcube pour alternc, il suffit d'installer le paquet `alternc-roundcube` puis de mettre à jour AlternC :
+
+```
+apt-get install alternc-roundcube
+```
+
+Mailing-list / Mailman
+----------------------
+
+Pour installer la liste de diffusion Mailman, il suffit d'installer le paquet `alternc-mailman` puis de mettre à jour AlternC :
+
+```
+apt-get install alternc-mailman
+```
+
 écrans d'installation
 ---------------------
 
 Une succession d'écrans vous permet de saisir les informations sur la configuration de votre serveur. Si certains choix par défaut sont sans souci, d'autres nécessitent toute votre attention.
 
-serveurs de nom
----------------
+
+
+
+
+DNS - serveurs de nom
+---------------------
 
 Les serveurs de noms servent à distribuer l'information sur les noms de domaine installés sur votre serveur. Si vous avez besoin de serveurs de noms, Alternc vous propose un service gratuit sur alternc.net en dans ce cas vous pouvez saisir :
 
@@ -137,13 +159,23 @@ En résumé, si votre serveur est sur l'IP 12.34.56.78 et que vous avez le nom d
 
 Pour information, Alternc prépare un service sur alternc.net qui vous permettra d'annoncer votre serveur sur un domaine en .alternc.net
 
-> Défaut OK : phpMyAdmin
+```Défaut OK : phpMyAdmin```
 
 Pas besoin de configurer pour un service, alternc s'occupe de configurer l'URL à laquelle phpMyAdmin sera accessible
 
-> Défaut OK : Postfix
+```Défaut OK : Postfix```
 
 Choisir "Site Internet", puis suivre les instructions
+
+finaliser l'installation
+------------------------
+
+Pour finaliser l'installation, il faut lancer la commande suivante, qui génère les zones, les vhosts, etc... :
+
+
+```
+alternc.install
+```
 
 Post Installation
 =================
@@ -161,26 +193,3 @@ Vous pouvez désormais accéder au panel Alternc sur le nom de domaine ou l'IP q
 
 * user: `admin`
 * pass: `admin`
-
-Plugins
-=======
-
-Webmail / Roundcube
--------------------
-
-Pour installer roundcube pour alternc, il suffit d'installer le paquet `alternc-roundcube` puis de mettre à jour AlternC :
-
-```
-apt-get install alternc-roundcube
-alternc.install
-```
-
-Mailman
--------
-
-Pour installer la liste de diffusion Mailman, il suffit d'installer le paquet `alternc-mailman` puis de mettre à jour AlternC :
-
-```
-apt-get install alternc-mailman
-alternc.install
-```
