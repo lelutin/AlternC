@@ -186,10 +186,10 @@ Une fois que l'installation est achevée, le script `alternc.install` doit être
 alternc.install
 ```
 
-Premier login
+Première connexion
 -------------
 
-Vous pouvez désormais accéder au panel Alternc sur le nom de domaine ou l'IP que vous avez donné. Vous devriez voir une page de login dont l'accès par défaut -que vous voudrez sans doute changer immédiatement- est :
+Vous pouvez désormais accéder au panel Alternc sur le nom de domaine ou l'IP que vous avez donné. Vous devriez voir une page de login dont l'accès par défaut que vous voudrez sans doute changer *immédiatement* est :
 
-* user: `admin`
-* pass: `admin`
+* identifiant : `admin`
+* mot de passe : `admin`
