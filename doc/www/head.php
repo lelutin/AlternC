@@ -5,9 +5,8 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Bootstrap, a sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.">
-<meta name="keywords" content="HTML, CSS, JS, JavaScript, framework, bootstrap, front-end, frontend, web development">
-<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+<meta name="description" content="AlternC, Web and Mail Hosting software control panel.">
+<meta name="keywords" content="AlternC Software Linux Debian Gnu Hosting Web Mail">
 
 <title>AlternC<?php if ($title) { echo " - ".$title; } ?></title>
 
@@ -15,10 +14,10 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 
-<link rel="stylesheet" href="assets/css/docs.min.css">
+<link rel="stylesheet" href="/assets/css/docs.min.css">
 
-<!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-<script src="assets/js/ie-emulation-modes-warning.js"></script>
+<!--[if lt IE 9]><script src="/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<script src="/assets/js/ie-emulation-modes-warning.js"></script>
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -38,10 +37,19 @@
     <div class="bs-docs-header" id="content">
       <div class="container">
 			 <div style="float: left; padding-right: 30px">
-			 <a href="/"><img src="logo.png" alt="AlternC" /></a>
+			 <a href="/"><img src="/logo.png" alt="AlternC" /></a>
 			 </div>
         <h1><a href="/">AlternC</a></h1>
-      <p>Suite logicielle de gestion de serveur web & mail</p>
+      <p><?php 
+   switch ($lang) {
+   case "fr":
+   echo "Suite logicielle de gestion de serveur web & mail";
+   break;
+   case "en":
+   default:
+   echo "Web and Mail server management software";
+   } 
+?></p>
 			 <?php if ($title) { echo "<p>".$title."</p>"; } ?>
       </div>
     </div>
