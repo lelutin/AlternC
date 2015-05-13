@@ -17,7 +17,7 @@ if (!$uri) {
       $lang=$l;
     }
   }
-  header("Location: /".$lang);
+  header("Location: /".$lang."/");
   exit();
 }
 
