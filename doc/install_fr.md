@@ -98,6 +98,10 @@ wget http://debian.alternc.org/key.txt -O - | apt-key add -
 
 Il s'agit d'une clé PGP possédée et maintenue par les développeurs ayant le droit d'écrire dans le dépot sur debian.AlternC.org.
 
+
+Installation
+------------
+
 Ensuite, mettez à jour la liste des packages disponibles pour apt :
 
 ```
@@ -110,7 +114,11 @@ Il ne reste qu'à lancer la commande pour installer alternc (n'oubliez pas la pa
 apt-get install alternc alternc-ssl alternc-api
 ```
 
-Vous pouvez y ajouter `alternc-mailman` pour générer des mailing-list, `alternc-roundcube` pour avoir un webmail, et `alternc-awstats` pour générer des statistiques pour vos sites web.
+Vous pouvez y ajouter 
+
+* `alternc-mailman` pour gérer des mailing-list avec [Mailman](http://www.gnu.org/software/mailman/),
+* `alternc-roundcube` pour pouvoir utiliser un webmail avec [Roundcube](https://roundcube.net/),
+* `alternc-awstats` pour générer des statistiques pour vos sites web avec [Awstats](http://www.awstats.org/),
 
 DNS - serveurs de nom
 ---------------------
@@ -120,39 +128,7 @@ Les serveurs de noms servent à distribuer l'information sur les noms de domaine
 * DNS primaire : ns1.alternc.net
 * DNS secondaire : ns2.alternc.net
 
-
-
-Mailing-list / Mailman
-----------------------
-
-Pour installer la liste de diffusion Mailman, il suffit d'installer le paquet `alternc-mailman` puis de passer à la partie *finaliser l'installation* :
-
-```
-apt-get install alternc-mailman
-```
-
-Stats / [Awstats](http://www.awstats.org/)
----------------
-
-Si vous souhaitez générer facilement des statistiques pour vos sites web, il suffit d'installer le paquet `alternc-awstats` puis de passer à la partie *finaliser l'installation* :
-
-```
-apt-get install alternc-awstats
-```
-
-Webmail / [Roundcube](https://roundcube.net/)
--------------------
-
-Si vous souhaitez avoir un webmail pour accéder à vos mails via votre navigateur, il suffit d'installer le paquet `alternc-roundcube` puis de passer à la partie *finaliser l'installation* :
-
-```
-apt-get install alternc-roundcube
-```
-
-
-
-
-nom de domaine du serveur
+Nom de domaine du serveur
 -------------------------
 
 Attention, si vous avez un nom de domaine que vous comptez utiliser pour votre compte, ne l'indiquez pas dans cet écran. En effet, ce nom de domaine sera alors la "porte d'accès" à Alternc.
@@ -171,7 +147,7 @@ Pas besoin de configurer pour un service, alternc s'occupe de configurer l'URL �
 
 Choisir "Site Internet", puis suivre les instructions
 
-finaliser l'installation
+Finaliser l'installation
 ------------------------
 
 Une fois que l'installation est achevée, le script `alternc.install` doit être exécuté. Il va générer notamment les configurations de votre serveur pour qu'Alternc fonctionne.
