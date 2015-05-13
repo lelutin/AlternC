@@ -3,13 +3,13 @@
 Pré-installation
 ================
 
-AlternC est prévu pour fonctionner sur la dernière ou l'avant-dernière version stable de la distribution Linux Debian. Nous utiliserons donc `apt-get` pour installer les logiciels.
+AlternC est prévu pour fonctionner sur la dernière ou l'avant-dernière version stable de la distribution Linux Debian. 
 
 Pour installer Alternc vous devez : 
 
 * avoir un accès SSH à ce serveur.
 * Avoir les droits d'administrateur (`sudo -s` ou `su`)
-* vérifier que `#includedir /etc/sudoers.d` est bien dans `/etc/sudoers` avec la commande visudo.
+* vérifier que `#includedir /etc/sudoers.d` est bien dans `/etc/sudoers` avec la commande `visudo`.
 
 
 ACL
@@ -27,7 +27,7 @@ Il faut ensuite indiquer au système la partition qui va contenir les données u
 /dev/md1    /    ext3    auto,noatime,acl    0    0
 ```
 
-À noter que c'est `acl` pour èxt3, et `attr2` pour xfs.
+À noter que c'est `acl` pour ext3, et `attr2` pour xfs.
 
 puis en root (remplacer acl par attr2 si c'est en xfs) :
 
@@ -113,13 +113,35 @@ Il ne reste qu'à lancer la commande d'installation d'alternc
 apt-get install alternc alternc-ssl 
 ```
 
+Webmail / Roundcube
+-------------------
+
+Pour installer roundcube pour alternc, il suffit d'installer le paquet `alternc-roundcube` puis de mettre à jour AlternC :
+
+```
+apt-get install alternc-roundcube
+```
+
+Mailing-list / Mailman
+----------------------
+
+Pour installer la liste de diffusion Mailman, il suffit d'installer le paquet `alternc-mailman` puis de mettre à jour AlternC :
+
+```
+apt-get install alternc-mailman
+```
+
 écrans d'installation
 ---------------------
 
 Une succession d'écrans vous permet de saisir les informations sur la configuration de votre serveur. Si certains choix par défaut sont sans souci, d'autres nécessitent toute votre attention.
 
-serveurs de nom
----------------
+
+
+
+
+DNS - serveurs de nom
+---------------------
 
 Les serveurs de noms servent à distribuer l'information sur les noms de domaine installés sur votre serveur. Si vous avez besoin de serveurs de noms, Alternc vous propose un service gratuit sur alternc.net en dans ce cas vous pouvez saisir :
 
@@ -145,8 +167,8 @@ Pas besoin de configurer pour un service, alternc s'occupe de configurer l'URL �
 
 Choisir "Site Internet", puis suivre les instructions
 
-Post Installation
-=================
+finaliser l'installation
+------------------------
 
 Une fois que l'installation est achevée, le script `alternc.install` doit être exécuté. Il va générer notamment les configurations de votre serveur pour qu'Alternc fonctionne.
 
@@ -154,33 +176,13 @@ Une fois que l'installation est achevée, le script `alternc.install` doit être
 alternc.install
 ```
 
-Premier login
+Post Installation
+=================
+
+Première connexion
 -------------
 
-Vous pouvez désormais accéder au panel Alternc sur le nom de domaine ou l'IP que vous avez donné. Vous devriez voir une page de login dont l'accès par défaut -que vous voudrez sans doute changer immédiatement- est :
+Vous pouvez désormais accéder au panel Alternc sur le nom de domaine ou l'IP que vous avez donné. Vous devriez voir une page de login dont l'accès par défaut que vous voudrez sans doute changer *immédiatement* est :
 
-* user: `admin`
-* pass: `admin`
-
-Plugins
-=======
-
-Webmail / Roundcube
--------------------
-
-Pour installer roundcube pour alternc, il suffit d'installer le paquet `alternc-roundcube` puis de mettre à jour AlternC :
-
-```
-apt-get install alternc-roundcube
-alternc.install
-```
-
-Mailman
--------
-
-Pour installer la liste de diffusion Mailman, il suffit d'installer le paquet `alternc-mailman` puis de mettre à jour AlternC :
-
-```
-apt-get install alternc-mailman
-alternc.install
-```
+* identifiant : `admin`
+* mot de passe : `admin`
