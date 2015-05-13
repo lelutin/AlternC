@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo $lang; ?>">
   <head>
    <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -9,15 +9,13 @@
 <meta name="keywords" content="HTML, CSS, JS, JavaScript, framework, bootstrap, front-end, frontend, web development">
 <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 
-<title>
-  
-   Components &middot; Bootstrap
-  
-</title>
+<title>AlternC<?php if ($title) { echo " - ".$title; } ?></title>
 
 <!-- Bootstrap core CSS -->
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="assets/css/docs.min.css">
 
 <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 <script src="assets/js/ie-emulation-modes-warning.js"></script>
@@ -35,62 +33,16 @@
   </head>
   <body>
 
-<style type="text/css">
-#bandeauzero {
- width:100%; height:44px;
-}
-#bandeaulautre {
-position: fixed; left: 0; width:100%; min-height:32px; background:#eee; border-bottom: 1px solid #ccc; font-family: sans-serif;
-  font-size: 14px !important; color:black; padding-top: 4px; margin-bottom: 6px; z-index: 100;
-}
-
-#bandeaulautre .home {
-  float:left; text-align:left; display:block; padding:0px 0px 0px 12px;
-}
-
-#bandeaulautre .links {
-  float:right; text-align:right; display:block; padding:0px 6px 0px 0px;
-}
-
-#bandeaulautre a,
-  #bandeaulautre a:link,    
-  #bandeaulautre a:active,  
-  #bandeaulautre a:visited {
-color: black; text-decoration:none; margin: 0 8px;
-}
-
-#bandeaulautre a:hover {
-color:#F4520A;
-}
-#bandeaulautre img {
-margin: 0;  padding: 0 8px; vertical-align: middle;
-}
-</style>
-<div id="bandeaulautre">
-  <span class="home">
-    <a href="http://www.alternc.com">    <img src="alternc.png">
-      AlternC panel d'hébergement</a> 
-    <a href="http://www.alternc.com/install">Installation & Mise à jour</a> 
-    <a href="http://www.aide-alternc.org/">Documentation</a> 
-    <a href="http://www.alternc.org/">Site des développeurs</a>
-  </span>
-  <span class="links">  
-    <a href="http://demo.alternc.org">Démonstration</multi></a>
-    <a href="http://www.alternc.net/">Service DNS</a> 
-    <a href="irc://irc.freenode.net/#alternc">Chat IRC</a>    
-    <a href="https://www.github.com/alternc">Code source</a>
-    <img src="compass.png">
-  </span>
-</div>
-<div id="bandeauzero">
-</div>
-
 
     <!-- Docs page layout -->
     <div class="bs-docs-header" id="content">
       <div class="container">
-        <h1>Components</h1>
-  <p>Over a dozen reusable components built to provide iconography, dropdowns, input groups, navigation, alerts, and much more.</p>
+			 <div style="float: left; padding-right: 30px">
+			 <a href="/"><img src="logo.png" alt="AlternC" /></a>
+			 </div>
+        <h1><a href="/">AlternC</a></h1>
+      <p>Suite logicielle de gestion de serveur web & mail</p>
+			 <?php if ($title) { echo "<p>".$title."</p>"; } ?>
       </div>
     </div>
 

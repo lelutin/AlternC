@@ -1,9 +1,19 @@
 <?php
 header("Content-Type: text/html; charset=UTF-8");
 
+switch ($lang) {
+case "fr":
+  $title="";
+  break;
+case "en":
+default:
+  $title="";
+  break;
+}
 require_once("head.php");
 
-$f=fopen("../install.php","rb");
+$f=fopen("../home_".$lang.".html","rb");
+
 $headings=array();
 $cur=array(); $id=""; $name="";
 while ($s=fgets($f,1024)) {

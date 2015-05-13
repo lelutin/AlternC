@@ -11,7 +11,12 @@
             <a class="back-to-top" href="#top">
               Back to top
             </a>
-            
+    <?php foreach($otherlang as $l) { ?>
+<a class="back-to-top" href="<?php echo str_replace("/".$lang."/","/".$l."/",$_SERVER["REQUEST_URI"]); ?>">
+   <?php echo $l; ?>
+            </a>
+   <?php } ?>
+
           </div>
         </div>
         
@@ -24,45 +29,52 @@
   <div class="container">
     <div class="bs-docs-social">
   <ul class="bs-docs-social-buttons">
-    <li>
-      <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=twbs&amp;repo=bootstrap&amp;type=watch&amp;count=true" width="100" height="20" title="Star on GitHub"></iframe>
-    </li>
-    <li>
-      <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=twbs&amp;repo=bootstrap&amp;type=fork&amp;count=true" width="102" height="20" title="Fork on GitHub"></iframe>
+    <li class="follow-btn">
+      <a href="/" class="twitter-follow-button">Site d'AlternC</a>
     </li>
     <li class="follow-btn">
-      <a href="https://twitter.com/twbootstrap" class="twitter-follow-button" data-link-color="#0069D6" data-show-count="true">Follow @twbootstrap</a>
+      <a href="http://demo.alternc.org" class="twitter-follow-button"><?php
+switch ($lang) {
+case "fr":
+ echo "Serveur de Démonstration";
+break;
+case "en":
+default:
+ echo "Demonstration Server";
+break;
+}
+?></a>
     </li>
-    <li class="tweet-btn">
-      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://getbootstrap.com/" data-count="horizontal" data-via="twbootstrap" data-related="mdo:Creator of Bootstrap">Tweet</a>
+    <li class="follow-btn">
+      <a href="https://twitter.com/AlternC_en" class="twitter-follow-button"><?php
+switch ($lang) {
+case "fr":
+ echo "@AlternC_en sur Twitter";
+break;
+case "en":
+default:
+ echo "@AlternC_en on Twitter";
+break;
+}
+?></a>
+    </li>
+    <li class="follow-btn">
+    <a href="https://github.com/alternc/" class="twitter-follow-button"><?php
+switch ($lang) {
+case "fr":
+ echo "Code source sur Github";
+break;
+case "en":
+default:
+ echo "Source code on Github";
+break;
+}
+?></a>
     </li>
   </ul>
 </div>
+</div>
 
-
-    <p>Designed and built with all the love in the world by <a href="https://twitter.com/mdo" target="_blank">@mdo</a> and <a href="https://twitter.com/fat" target="_blank">@fat</a>.</p>
-    <p>Maintained by the <a href="https://github.com/orgs/twbs/people">core team</a> with the help of <a href="https://github.com/twbs/bootstrap/graphs/contributors">our contributors</a>.</p>
-    <p>Code licensed under <a href="https://github.com/twbs/bootstrap/blob/master/LICENSE" target="_blank">MIT</a>, documentation under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
-    <ul class="bs-docs-footer-links muted">
-      <li>Currently v3.3.1</li>
-    <li>&middot;</li>
-      <li><a href="https://github.com/twbs/bootstrap">GitHub</a></li>
-    <li>&middot;</li>
-      <li><a href="../getting-started/#examples">Examples</a></li>
-    <li>&middot;</li>
-      <li><a href="../2.3.2/">v2.3.2 docs</a></li>
-    <li>&middot;</li>
-      <li><a href="../about/">About</a></li>
-    <li>&middot;</li>
-      <li><a href="http://expo.getbootstrap.com">Expo</a></li>
-    <li>&middot;</li>
-      <li><a href="http://blog.getbootstrap.com">Blog</a></li>
-    <li>&middot;</li>
-      <li><a href="https://github.com/twbs/bootstrap/issues">Issues</a></li>
-    <li>&middot;</li>
-      <li><a href="https://github.com/twbs/bootstrap/releases">Releases</a></li>
-    </ul>
-  </div>
 </footer>
 
 <!-- Bootstrap core JavaScript
