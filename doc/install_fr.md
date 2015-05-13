@@ -3,13 +3,13 @@
 Pré-installation
 ================
 
-AlternC est prévu pour fonctionner sur la dernière ou l'avant-dernière version stable de la distribution Linux Debian. Nous utiliserons donc `apt-get` pour installer les logiciels.
+AlternC est prévu pour fonctionner sur la dernière ou l'avant-dernière version stable de la distribution Linux Debian. 
 
 Pour installer Alternc vous devez : 
 
 * avoir un accès SSH à ce serveur.
 * Avoir les droits d'administrateur (`sudo -s` ou `su`)
-* vérifier que `#includedir /etc/sudoers.d` est bien dans `/etc/sudoers` avec la commande visudo.
+* vérifier que `#includedir /etc/sudoers.d` est bien dans `/etc/sudoers` avec la commande `visudo`.
 
 
 ACL
@@ -27,7 +27,7 @@ Il faut ensuite indiquer au système la partition qui va contenir les données u
 /dev/md1    /    ext3    auto,noatime,acl    0    0
 ```
 
-À noter que c'est `acl` pour èxt3, et `attr2` pour xfs.
+À noter que c'est `acl` pour ext3, et `attr2` pour xfs.
 
 puis en root (remplacer acl par attr2 si c'est en xfs) :
 
@@ -159,19 +159,18 @@ En résumé, si votre serveur est sur l'IP 12.34.56.78 et que vous avez le nom d
 
 Pour information, Alternc prépare un service sur alternc.net qui vous permettra d'annoncer votre serveur sur un domaine en .alternc.net
 
-```Défaut OK : phpMyAdmin```
+> Défaut OK : phpMyAdmin
 
 Pas besoin de configurer pour un service, alternc s'occupe de configurer l'URL à laquelle phpMyAdmin sera accessible
 
-```Défaut OK : Postfix```
+> Défaut OK : Postfix
 
 Choisir "Site Internet", puis suivre les instructions
 
 finaliser l'installation
 ------------------------
 
-Pour finaliser l'installation, il faut lancer la commande suivante, qui génère les zones, les vhosts, etc... :
-
+Une fois que l'installation est achevée, le script `alternc.install` doit être exécuté. Il va générer notamment les configurations de votre serveur pour qu'Alternc fonctionne.
 
 ```
 alternc.install
@@ -179,12 +178,6 @@ alternc.install
 
 Post Installation
 =================
-
-Une fois que l'installation est achevée, le script `alternc.install` doit être exécuté. Il va générer notamment les configurations de votre serveur pour qu'Alternc fonctionne.
-
-```
-alternc.install
-```
 
 Première connexion
 -------------
