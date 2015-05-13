@@ -3,13 +3,13 @@
 Pré-installation
 ================
 
-AlternC est prévu pour fonctionner sur la dernière ou l'avant-dernière version stable de la distribution Linux Debian. 
+AlternC est prévu pour fonctionner sur la distribution Linux Debian Wheezy.
 
 Pour installer Alternc vous devez : 
 
 * avoir un accès SSH à ce serveur.
 * Avoir les droits d'administrateur (`sudo -s` ou `su`)
-* vérifier que `#includedir /etc/sudoers.d` est bien dans `/etc/sudoers` avec la commande `visudo`.
+* vérifier que `#includedir /etc/sudoers.d` est présent dans `/etc/sudoers` avec la commande `visudo`.
 
 
 ACL
@@ -27,9 +27,7 @@ Il faut ensuite indiquer au système la partition qui va contenir les données u
 /dev/md1    /    ext3    auto,noatime,acl    0    0
 ```
 
-À noter que c'est `acl` pour ext3, et `attr2` pour xfs.
-
-puis en root (remplacer acl par attr2 si c'est en xfs) :
+> À noter que c'est `acl` pour ext3, et `attr2` pour xfs.
 
 
 Quota
@@ -41,11 +39,10 @@ AlternC peut également gérer les quotas disques des utilisateurs.Contrairement
 apt-get install quota
 ```
 
-Et encore une fois modifier le fstab pour indiquer leur activation :
+Et encore une fois modifier le `/etc/fstab` pour indiquer leur activation :
 
 ```
-nano /etc/fstab
-UUID=71822887-fedb-4d95-a9cc-0841dcc8944f /               ext3    acl,grpquota,errors=remount-ro 0       1
+/dev/md1 /               ext3    acl,grpquota,errors=remount-ro 0       1
 ```
 
 Remontage de la partition
@@ -65,7 +62,7 @@ Installation
 MySQL
 -----
 
-Si vous voulez héberger le serveur mysql sur la même machine, installez d'abord mysql-server :
+Il est nécessaire d'installer MySQL pour pouvoir utiliser AlternC. Si vous voulez l'héberger sur la même machine, vous pouvez le faire avec la commande suivante :
 
 ```
 apt-get install mysql-server
@@ -107,38 +104,13 @@ Ensuite, mettez à jour la liste des packages disponibles pour apt :
 apt-get update
 ```
 
-Il ne reste qu'à lancer la commande d'installation d'alternc
+Il ne reste qu'à lancer la commande pour installer alternc (n'oubliez pas la partie *finaliser l'installation* après cette opération) :
 
 ```
-apt-get install alternc alternc-ssl 
+apt-get install alternc alternc-ssl alternc-api
 ```
 
-Webmail / Roundcube
--------------------
-
-Pour installer roundcube pour alternc, il suffit d'installer le paquet `alternc-roundcube` puis de mettre à jour AlternC :
-
-```
-apt-get install alternc-roundcube
-```
-
-Mailing-list / Mailman
-----------------------
-
-Pour installer la liste de diffusion Mailman, il suffit d'installer le paquet `alternc-mailman` puis de mettre à jour AlternC :
-
-```
-apt-get install alternc-mailman
-```
-
-écrans d'installation
----------------------
-
-Une succession d'écrans vous permet de saisir les informations sur la configuration de votre serveur. Si certains choix par défaut sont sans souci, d'autres nécessitent toute votre attention.
-
-
-
-
+Vous pouvez y ajouter `alternc-mailman` pour générer des mailing-list, `alternc-roundcube` pour avoir un webmail, et `alternc-awstats` pour générer des statistiques pour vos sites web.
 
 DNS - serveurs de nom
 ---------------------
@@ -147,6 +119,38 @@ Les serveurs de noms servent à distribuer l'information sur les noms de domaine
 
 * DNS primaire : ns1.alternc.net
 * DNS secondaire : ns2.alternc.net
+
+
+
+Mailing-list / Mailman
+----------------------
+
+Pour installer la liste de diffusion Mailman, il suffit d'installer le paquet `alternc-mailman` puis de passer à la partie *finaliser l'installation* :
+
+```
+apt-get install alternc-mailman
+```
+
+Stats / [Awstats](http://www.awstats.org/)
+---------------
+
+Si vous souhaitez générer facilement des statistiques pour vos sites web, il suffit d'installer le paquet `alternc-awstats` puis de passer à la partie *finaliser l'installation* :
+
+```
+apt-get install alternc-awstats
+```
+
+Webmail / [Roundcube](https://roundcube.net/)
+-------------------
+
+Si vous souhaitez avoir un webmail pour accéder à vos mails via votre navigateur, il suffit d'installer le paquet `alternc-roundcube` puis de passer à la partie *finaliser l'installation* :
+
+```
+apt-get install alternc-roundcube
+```
+
+
+
 
 nom de domaine du serveur
 -------------------------
