@@ -1,7 +1,5 @@
 </div>
        </div>
-
-
         
         <div class="col-md-3">
           <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm" role="complementary">
@@ -11,9 +9,9 @@
             <a class="back-to-top" href="#top">
               Back to top
             </a>
-    <?php foreach($otherlang as $l) { ?>
-<a class="back-to-top" href="<?php echo str_replace("/".$lang."/","/".$l."/",$_SERVER["REQUEST_URI"]); ?>">
-   <?php echo $l; ?>
+    <?php foreach($otherlang as $l=>$name) { ?>
+<a class="back-to-top" href="<?php echo "/".$l."/".$uri; ?>">
+   <?php echo $name; ?>
             </a>
    <?php } ?>
 
@@ -30,7 +28,7 @@
     <div class="bs-docs-social">
   <ul class="bs-docs-social-buttons">
     <li class="follow-btn">
-      <a href="/" class="twitter-follow-button">Site d'AlternC</a>
+      <a href="/" class="twitter-follow-button">AlternC</a>
     </li>
     <li class="follow-btn">
       <a href="http://demo.alternc.org" class="twitter-follow-button"><?php
@@ -82,11 +80,11 @@ break;
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-  <script src="bootstrap.min.js"></script>
-  <script src="assets/js/docs.min.js"></script>
+  <script src="/bootstrap.min.js"></script>
+  <script src="/assets/js/docs.min.js"></script>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script>
 
 
   </body>
