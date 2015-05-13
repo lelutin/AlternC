@@ -68,14 +68,10 @@ Il est nécessaire d'installer MySQL pour pouvoir utiliser AlternC. Si vous voul
 apt-get install mysql-server
 ```
 
-> IMPORTANT : Entrez un mot de passe administrateur et NOTEZ-LE car il vous sera demandé en cours d'installation.
+> **IMPORTANT** : Entrez un mot de passe administrateur et NOTEZ-LE car il vous sera demandé en cours d'installation.
 
 Configuration des dépôts
 ------------------------
-
-
-> L'installation d'Alternc est connue et supportée pour le système Debian GNU/Linux, qui utilise le système de gestion de paquets ​apt.
-
 
 Pour installer AlternC sur un serveur vous devez utiliser un éditeur de texte pour ajouter la source des packages d'AlternC :
 
@@ -139,11 +135,11 @@ En résumé, si votre serveur est sur l'IP 12.34.56.78 et que vous avez le nom d
 
 Pour information, Alternc prépare un service sur alternc.net qui vous permettra d'annoncer votre serveur sur un domaine en .alternc.net
 
-> Défaut OK : phpMyAdmin
+* phpMyAdmin
 
 Pas besoin de configurer pour un service, alternc s'occupe de configurer l'URL à laquelle phpMyAdmin sera accessible
 
-> Défaut OK : Postfix
+* Postfix
 
 Choisir "Site Internet", puis suivre les instructions
 
@@ -162,7 +158,7 @@ Post Installation
 Première connexion
 -------------
 
-Vous pouvez désormais accéder au panel Alternc sur le nom de domaine ou l'IP que vous avez donné. Vous devriez voir une page de login dont l'accès par défaut que vous voudrez sans doute changer *immédiatement* est :
+Vous pouvez désormais accéder au panel Alternc sur le nom de domaine ou l'IP que vous avez donné. Vous devriez voir une page de login dont l'**accès par défaut que vous  devez changer immédiatement** est :
 
 * identifiant : `admin`
 * mot de passe : `admin`
