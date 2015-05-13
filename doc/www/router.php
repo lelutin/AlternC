@@ -11,8 +11,8 @@ $uri=trim($_SERVER["REQUEST_URI"],"/");
 // auto lang redirect:
 if (!$uri) {
   $lang="en";
-  if (isset($_SERVER["ACCEPT_LANGUAGE"])) {
-    $l=substr($_SERVER["ACCEPT_LANGUAGE"],0,2);
+  if (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])) {
+    $l=substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2);
     if (isset($otherlang[$l])) {
       $lang=$l;
     }
