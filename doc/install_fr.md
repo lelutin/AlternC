@@ -76,8 +76,8 @@ Configuration des dépôts
 Pour installer AlternC sur un serveur vous devez utiliser un éditeur de texte pour ajouter la source des packages d'AlternC :
 
 ```
-deb http://debian.alternc.org/ stable main
-deb-src http://debian.alternc.org/ stable main
+deb http://debian.alternc.org/ wheezy main
+deb-src http://debian.alternc.org/ wheezy main
 ```
 
 dans un des deux fichiers suivants :
