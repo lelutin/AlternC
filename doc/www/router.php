@@ -3,8 +3,11 @@
 // List here the supported languages :
 $otherlang=array( 
 		 "fr" => "Français",
-		 "en" => "English"
+		 "en" => "English",
 		  );
+$locales=array("fr" => "fr_FR.UTF-8",
+	       "en" => "en_GB.UTF-8",
+	       );
 
 $uri=trim($_SERVER["REQUEST_URI"],"/");
 
@@ -21,18 +24,23 @@ if (!$uri) {
   exit();
 }
 
-if (preg_match('^(.*)-([^-]*)$',$uri,$mat)) {
+if (preg_match('#^(.*)-([^-]*)$#',$uri,$mat)) {
   $lang=$mat[2]; 
   $uri=$mat[1];
 }
-//list($lang,$uri)=explode("/",$uri,2);
-
 
 if (!isset($otherlang[$lang])) {
   header("HTTP/1.0 404 Not Found");
   echo "<h1>Lang not supported</h1>";
   exit();
 }
+
+// set locales:
+putenv("LC_MESSAGES=".$locales[$lang]);
+putenv("LANG=".$locales[$lang]);
+putenv("LANGUAGE=".$locales[$lang]);
+// this locale MUST be selected in "dpkg-reconfigure locales"
+setlocale(LC_ALL,$locales[$lang]); 
 
 unset($otherlang[$lang]);
 
@@ -47,7 +55,7 @@ if (!file_exists("../pages/".$uri."-".$lang.".md")) {
 // automatic compilation / caching of HTML pages
 if (!file_exists("../pages/".$uri."-".$lang.".html") ||
     filemtime("../pages/".$uri."-".$lang.".html") < filemtime("../pages/".$uri."-".$lang.".md") ) {
-  exec("github-markup ".escapeshellarg("../pages/".$uri."-".$lang.".md")." >".escapeshellarg("../pages/".$uri."-".$lang.".html"));
+  passthru("github-markup ".escapeshellarg("../pages/".$uri."-".$lang.".md")." >".escapeshellarg("../pages/".$uri."-".$lang.".html")." 2>&1");
 }
 
 $f=fopen("../pages/".$uri."-".$lang.".html","rb");
