@@ -10,7 +10,7 @@
               Back to top
             </a>
     <?php foreach($otherlang as $l=>$name) { ?>
-<a class="back-to-top" href="<?php echo "/".$l."/".$uri; ?>">
+<a class="back-to-top" href="<?php echo $uri."-".$l; ?>">
    <?php echo $name; ?>
             </a>
    <?php } ?>
