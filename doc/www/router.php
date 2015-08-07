@@ -17,11 +17,15 @@ if (!$uri) {
       $lang=$l;
     }
   }
-  header("Location: /".$lang."/");
+  header("Location: /Home-".$lang."");
   exit();
 }
 
-list($lang,$uri)=explode("/",$uri,2);
+if (preg_match('^(.*)-([^-]*)$',$uri,$mat)) {
+  $lang=$mat[2]; 
+  $uri=$mat[1];
+}
+//list($lang,$uri)=explode("/",$uri,2);
 
 
 if (!isset($otherlang[$lang])) {
@@ -32,17 +36,60 @@ if (!isset($otherlang[$lang])) {
 
 unset($otherlang[$lang]);
 
-// Now we spit the proper page:
-switch ($uri) {
-case "install":
-  require_once("install.php");
-  exit();
-case "":
-  require_once("home.php");
-  exit();
-default:
+header("Content-Type: text/html; charset=UTF-8");
+
+if (!file_exists("../pages/".$uri."-".$lang.".md")) {
   header("HTTP/1.0 404 Not Found");
-  echo "<h1>Page not found</h1>";
+  echo "<h1>File not found</h1>";
   exit();
 }
+
+// automatic compilation / caching of HTML pages
+if (!file_exists("../pages/".$uri."-".$lang.".html") ||
+    filemtime("../pages/".$uri."-".$lang.".html") < filemtime("../pages/".$uri."-".$lang.".md") ) {
+  exec("github-markup ".escapeshellarg("../pages/".$uri."-".$lang.".md")." >".escapeshellarg("../pages/".$uri."-".$lang.".html"));
+}
+
+$f=fopen("../pages/".$uri."-".$lang.".html","rb");
+
+$headings=array();
+$cur=array(); $id=""; $name="";
+$first=true;
+while ($s=fgets($f,1024)) {
+  if (preg_match('#<h1 id="([^"]*)">([^<]*)</h1>#',$s,$mat)) {
+    if ($first) { $title=$mat[2]; $first=false; }
+    if ($id) $headings[]=array("id"=>$id, "name"=>$name, "cur"=>$cur);
+    $id=$mat[1]; $name=$mat[2];
+    $cur=array();
+  }
+  if (preg_match('#<h2 id="([^"]*)">([^<]*)</h2>#',$s,$mat)) {
+    $cur[]=array("id"=>$mat[1], "name"=>$mat[2]);
+  }
+}
+if ($id) $headings[]=array("id"=>$id, "name"=>$name, "cur"=>$cur);
+
+ob_start();
+foreach($headings as $v) {
+?>                
+  <li>
+    <a href="#<?php echo $v["id"]; ?>"><?php echo $v["name"]; ?></a>
+<?php if (count($v["cur"])) { ?>
+  <ul class="nav">
+    <?php foreach($v["cur"] as $vv) { ?>
+    <li><a href="#<?php echo $vv["id"]; ?>"><?php echo $vv["name"]; ?></a></li>
+    <?php } ?>
+  </ul>
+  <?php } ?>
+</li>
+<?php
+}
+    $index=ob_get_clean();
+
+// SPIT OUT THE PAGE:
+
+require_once("head.php");
+
+readfile("../pages/".$uri."-".$lang.".html");
+
+require_once("foot.php");
 

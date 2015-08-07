@@ -1,3 +1,6 @@
 [submodule "phpunit/lib/PHPUnit"]
 	path = phpunit/lib/PHPUnit
 	url = https://github.com/sebastianbergmann/phpunit.git
+[submodule "doc/pages"]
+	path = doc/pages
+	url = git@github.com:AlternC/AlternC.wiki.git
