@@ -2031,21 +2031,22 @@ class m_dom {
          *   // Suppression de comptes -> membres existe pas -> domaines a supprimer ne sont pas lister
          */
         $query  = "
-                select 
-                  sd.id as sub_id, 
-                  lower(sd.type) as type, 
-                  m.login, 
-                  m.uid as uid, 
-                  if(length(sd.sub)>0,concat_ws('.',sd.sub,sd.domaine),sd.domaine) as fqdn, 
-                  concat_ws('@',m.login,v.value) as mail, 
-                  sd.valeur  
-                from 
+                select
+                  sd.id as sub_id,
+                  lower(sd.type) as type,
+                  m.login,
+                  m.uid as uid,
+                  if(length(sd.sub)>0,concat_ws('.',sd.sub,sd.domaine),sd.domaine) as fqdn,
+                  concat_ws('@',m.login,v.value) as mail,
+                  sd.valeur
+                from
                   sub_domaines sd left join membres m on sd.compte=m.uid,
-                  variable v, 
-                  domaines_type dt 
-                where 
-                  v.name='mailname_bounce' 
-                  and lower(dt.name) = lower(sd.type)"; 
+                  variable v,
+                  domaines_type dt
+                where
+                  v.name='mailname_bounce'
+                  and (sd.enable='ENABLED' or sd.enable='ENABLE')
+                  and lower(dt.name) = lower(sd.type)";
         $query_args =   array();
 
         if (!is_null($id) && intval($id) == $id) {
